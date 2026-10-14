@@ -1,6 +1,6 @@
 // Produção (ex.: Vercel): defina VITE_API_URL com o endereço do backend.
 // Desenvolvimento: vazio usa '/api' via proxy do Vite (ver vite.config.js).
-const API_BASE =
+export const API_BASE =
   (import.meta.env.VITE_API_URL || '').replace(/\/$/, '') || '/api';
 
 let csrf = null;

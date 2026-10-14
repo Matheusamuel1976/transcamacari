@@ -5,7 +5,7 @@ import {
   useEffect,
   useCallback,
 } from 'react';
-import { api } from '../services/api';
+import { api, API_BASE } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = useCallback(async (email, password) => {
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -52,7 +52,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = useCallback(async (userData) => {
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
