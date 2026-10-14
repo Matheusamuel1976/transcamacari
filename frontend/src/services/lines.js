@@ -1,6 +1,5 @@
 import { api } from './api';
 
-// Explicitly fictional examples, never official timetables or stop coordinates.
 export const demoLines = [
   {
     id: 'demo-1',

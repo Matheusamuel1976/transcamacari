@@ -19,7 +19,7 @@ export function LoginPage() {
     setError('');
     try {
       await login(form.email, form.password);
-      // Mudança de contexto público → gerenciamento, sem atrasar o auth.
+
       if (motion)
         motion.go('/dashboard', { variant: 'context', replace: true });
       else navigate('/dashboard', { replace: true });
@@ -30,7 +30,8 @@ export function LoginPage() {
     }
   };
 
-  if (isAuthenticated && !loading && motion?.phase !== 'exit') return <Navigate to="/dashboard" replace />;
+  if (isAuthenticated && !loading && motion?.phase !== 'exit')
+    return <Navigate to="/dashboard" replace />;
   return (
     <div className="auth-wrap">
       <div className="container auth-grid">

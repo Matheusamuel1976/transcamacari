@@ -1,7 +1,5 @@
 import { useTransition } from './TransitionContext';
 
-// Link interno com transição. Respeita abrir-em-nova-aba e modificadores.
-// Para âncoras da landing, passe hash="mapa" (com ou sem '#').
 export function TransitionLink({
   to,
   variant,

@@ -61,7 +61,16 @@ export function ChapterCaminhos() {
   }, [reduced]);
   useEffect(() => {
     if (reduced) return;
-    const ctx = gsap.context(() => { gsap.from('.journey__panel > *', { x: 14, opacity: 0.35, stagger: 0.045, duration: 0.35, ease: 'power3.out', clearProps: 'transform,opacity' }); }, root);
+    const ctx = gsap.context(() => {
+      gsap.from('.journey__panel > *', {
+        x: 14,
+        opacity: 0.35,
+        stagger: 0.045,
+        duration: 0.35,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+      });
+    }, root);
     return () => ctx.revert();
   }, [active, reduced]);
   return (

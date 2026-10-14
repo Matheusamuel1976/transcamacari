@@ -1,5 +1,5 @@
--- TransCamaçari 2.0 — Schema relacional (MySQL/MariaDB, utf8mb4)
--- Sem dados reais de transporte: apenas estrutura + seed DEMO explicitamente fictício.
+
+
 
 CREATE DATABASE IF NOT EXISTS transcamacari CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE transcamacari;

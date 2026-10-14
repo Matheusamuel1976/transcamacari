@@ -10,12 +10,6 @@ function motionOK() {
   );
 }
 
-/**
- * Reveal seguro: o conteúdo é VISÍVEL por padrão no CSS.
- * A animação usa gsap.from com once:true — se o GSAP/ScrollTrigger
- * falhar, nada foi escondido e a página continua legível.
- * Ao completar, limpa props inline para nunca prender opacity/transform.
- */
 export function revealUp(targets, trigger, opts = {}) {
   const els = (Array.isArray(targets) ? targets : [targets]).filter(Boolean);
   if (!els.length || !motionOK() || !trigger) return () => {};
@@ -33,14 +27,10 @@ export function revealUp(targets, trigger, opts = {}) {
     return () => {
       try {
         tween.scrollTrigger?.kill();
-      } catch {
-        /* noop */
-      }
+      } catch {}
       try {
         tween.kill();
-      } catch {
-        /* noop */
-      }
+      } catch {}
       gsap.set(els, { clearProps: 'opacity,visibility,transform' });
     };
   } catch {
@@ -48,7 +38,6 @@ export function revealUp(targets, trigger, opts = {}) {
   }
 }
 
-/** Parallax simples sem esconder nada (só transform, com clearProps). */
 export function parallaxY(target, trigger, yPercent = 12) {
   if (!target || !motionOK() || !trigger) return () => {};
   try {
@@ -65,19 +54,13 @@ export function parallaxY(target, trigger, yPercent = 12) {
     return () => {
       try {
         tween.scrollTrigger?.kill();
-      } catch {
-        /* noop */
-      }
+      } catch {}
       try {
         tween.kill();
-      } catch {
-        /* noop */
-      }
+      } catch {}
       try {
         gsap.set(target, { clearProps: 'transform' });
-      } catch {
-        /* noop */
-      }
+      } catch {}
     };
   } catch {
     return () => {};
@@ -87,7 +70,5 @@ export function parallaxY(target, trigger, yPercent = 12) {
 export function refreshTriggers() {
   try {
     ScrollTrigger.refresh();
-  } catch {
-    /* noop */
-  }
+  } catch {}
 }

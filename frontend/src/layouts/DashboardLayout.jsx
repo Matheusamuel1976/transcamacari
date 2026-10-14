@@ -28,15 +28,15 @@ export function DashboardLayout({ children }) {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
 
-  // Trocas internas do painel: só o conteúdo anima (sidebar estável).
   const adminGo = (e, to) => {
-    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
+      return;
     e.preventDefault();
     setOpen(false);
     if (motion) motion.go(to, { variant: 'admin' });
     else navigate(to);
   };
-  // Logout: aguarda a sessão encerrar e só então transiciona ao login.
+
   const doLogout = async () => {
     try {
       await logout();

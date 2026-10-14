@@ -12,7 +12,8 @@ export function useLenis() {
     let mounted = true;
     let frame = 0;
     if (
-      reducedMotion || window.matchMedia('(pointer: coarse)').matches ||
+      reducedMotion ||
+      window.matchMedia('(pointer: coarse)').matches ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) {
       setLenis(null);

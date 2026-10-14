@@ -1,5 +1,3 @@
-// Títulos e variantes de transição por rota. Fonte única — usada pelo
-// TransitionProvider (título) e pelos links (variante padrão).
 const BASE = 'TransCamaçari';
 
 export const routeMeta = {

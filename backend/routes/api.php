@@ -29,14 +29,14 @@ function route_match(string $pattern, string $uri, array &$params = []): bool
     return false;
 }
 
-// Preflight CORS já tratado no bootstrap
+
 if ($method === 'OPTIONS') {
     http_response_code(204);
     exit;
 }
 
-// CSRF em mutações — exceto login/register (ainda sem sessão).
-// O frontend obtém o token em GET /auth/csrf e envia em X-CSRF-Token.
+
+
 if (in_array($method, ['POST', 'PUT', 'DELETE'], true)
     && $uri !== '/auth/login'
     && $uri !== '/auth/register'
@@ -46,7 +46,7 @@ if (in_array($method, ['POST', 'PUT', 'DELETE'], true)
 
 $p = [];
 
-// Auth
+
 if ($uri === '/auth/register' && $method === 'POST') {
     (new AuthController())->register();
 }
@@ -66,7 +66,7 @@ if ($uri === '/auth/csrf' && $method === 'GET') {
     Response::json(['csrf' => Session::csrfToken()]);
 }
 
-// Pontos (antes das rotas /linhas/{id} por clareza)
+
 if (route_match('/linhas/{id}/pontos', $uri, $p) && $method === 'GET') {
     (new LinhaController())->pontos($p['id']);
 }
@@ -77,7 +77,7 @@ if (route_match('/pontos/{pid}', $uri, $p) && $method === 'DELETE') {
     (new LinhaController())->destroyPonto($p['pid']);
 }
 
-// Linhas (GET público; mutações exigem auth dentro do controller)
+
 if ($uri === '/linhas' && $method === 'GET') {
     (new LinhaController())->index();
 }
@@ -94,7 +94,7 @@ if (route_match('/linhas/{id}', $uri, $p) && $method === 'DELETE') {
     (new LinhaController())->destroy($p['id']);
 }
 
-// Funcionários (tudo protegido)
+
 if ($uri === '/funcionarios' && $method === 'GET') {
     (new FuncionarioController())->index();
 }
@@ -108,12 +108,12 @@ if (route_match('/funcionarios/{id}', $uri, $p) && $method === 'DELETE') {
     (new FuncionarioController())->destroy($p['id']);
 }
 
-// Contato
+
 if ($uri === '/contato' && $method === 'POST') {
     (new ContatoController())->store();
 }
 
-// Health
+
 if ($uri === '/health' && $method === 'GET') {
     Response::json(['status' => 'ok', 'app' => 'TransCamaçari 2.0']);
 }

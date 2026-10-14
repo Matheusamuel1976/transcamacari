@@ -1,7 +1,3 @@
-/* TransCamaçari — linguagem de movimento das transições.
-   Azul-marinho #1A237E · laranja #FF6D00 · cinza #F5F5F5 · asfalto #212121. */
-
-/* ---------- Overlay de transição ---------- */
 .t-overlay {
   position: fixed;
   inset: 0;
@@ -70,7 +66,6 @@
   color: #ff6d00;
 }
 
-/* ---------- Microinterações (mesma linguagem) ---------- */
 .btn {
   transition:
     background-color var(--transition-fast),
@@ -166,7 +161,6 @@
   animation: t-rise 0.25s ease;
 }
 
-/* ---------- Responsivo: mobile simplifica ---------- */
 @media (max-width: 700px) {
   .t-route {
     width: 92vw;
@@ -182,7 +176,6 @@
   }
 }
 
-/* ---------- Conforto: sem overlay com movimento reduzido ---------- */
 @media (prefers-reduced-motion: reduce) {
   .t-overlay {
     display: none;
@@ -198,5 +191,16 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) { .map-selection, .line-result__details, .navbar__mobile, .alert { animation: none; } .btn, .dash-link, .map-lines button { transition: none; } }
-
+@media (prefers-reduced-motion: reduce) {
+  .map-selection,
+  .line-result__details,
+  .navbar__mobile,
+  .alert {
+    animation: none;
+  }
+  .btn,
+  .dash-link,
+  .map-lines button {
+    transition: none;
+  }
+}

@@ -27,7 +27,7 @@ final class LinhaController
                 $stmt->execute([':c' => $u['company_id']]);
             }
         } else {
-            // público: apenas visíveis, todas as empresas
+
             if ($q !== '') {
                 $stmt = $pdo->prepare("SELECT l.*, {$agg} AS horarios FROM linhas l LEFT JOIN horarios h ON h.linha_id = l.id WHERE l.visivel = 1 AND (l.codigo {$like} :q0 OR l.nome {$like} :q1 OR l.bairro {$like} :q2 OR l.origem {$like} :q3 OR l.destino {$like} :q4) GROUP BY l.id ORDER BY l.codigo LIMIT 100");
                 $stmt->execute([':q0' => "%{$q}%", ':q1' => "%{$q}%", ':q2' => "%{$q}%", ':q3' => "%{$q}%", ':q4' => "%{$q}%"]);
@@ -39,7 +39,7 @@ final class LinhaController
         foreach ($rows as &$r) {
             $r['horarios'] = $r['horarios'] ? explode(',', $r['horarios']) : [];
             $r['id'] = (int)$r['id'];
-            // pontos
+
             $p = $pdo->prepare('SELECT ordem, nome, latitude, longitude, tipo FROM pontos WHERE linha_id = :id ORDER BY ordem');
             $p->execute([':id' => $r['id']]);
             $r['pontos'] = $p->fetchAll();
@@ -169,7 +169,7 @@ final class LinhaController
         }
     }
 
-    /** GET /linhas/:id/pontos — público se a linha for visível; dono sempre. */
+
     public function pontos(string $id): void
     {
         $pdo = Database::pdo();
@@ -189,7 +189,7 @@ final class LinhaController
         Response::json(['data' => $p->fetchAll()]);
     }
 
-    /** POST /linhas/:id/pontos — dono. Valida coordenadas reais. */
+
     public function storePonto(string $id): void
     {
         $u = Session::requireAuth();
@@ -220,7 +220,7 @@ final class LinhaController
         Response::json(['message' => 'Ponto adicionado.', 'id' => Database::lastId($pdo, 'pontos'), 'ordem' => $ordem], 201);
     }
 
-    /** DELETE /pontos/:pid — dono da linha do ponto. */
+
     public function destroyPonto(string $pid): void
     {
         $u = Session::requireAuth();

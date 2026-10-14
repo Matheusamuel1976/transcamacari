@@ -1,5 +1,3 @@
-// Produção (ex.: Vercel): defina VITE_API_URL com o endereço do backend.
-// Desenvolvimento: vazio usa '/api' via proxy do Vite (ver vite.config.js).
 export const API_BASE =
   (import.meta.env.VITE_API_URL || '').replace(/\/$/, '') || '/api';
 
@@ -22,7 +20,7 @@ async function request(path, options = {}) {
     'Content-Type': 'application/json',
     ...(options.headers || {}),
   };
-  // CSRF do backend (419 se ausente) em mutações — exceto login/register.
+
   if (
     method !== 'GET' &&
     path !== '/auth/login' &&
@@ -32,9 +30,7 @@ async function request(path, options = {}) {
     try {
       const token = await ensureCsrf();
       if (token) headers['X-CSRF-Token'] = token;
-    } catch {
-      /* backend offline: segue e falha com erro claro */
-    }
+    } catch {}
   }
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
@@ -43,7 +39,7 @@ async function request(path, options = {}) {
     headers,
   });
   const data = await res.json().catch(() => ({}));
-  if (res.status === 419) csrf = null; // token expirado: refaz no próximo
+  if (res.status === 419) csrf = null;
   if (!res.ok) throw new Error(data.message || `Erro ${res.status}`);
   return data;
 }

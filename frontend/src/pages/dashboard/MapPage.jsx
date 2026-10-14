@@ -5,10 +5,6 @@ import { api } from '../../services/api';
 
 const CENTER = [-12.6975, -38.3242];
 
-/**
- * Editor de pontos do trajeto: seleciona a linha, clica no mapa para
- * posicionar, nomeia e salva (POST /linhas/:id/pontos). Exclui com DELETE.
- */
 export function MapPage() {
   const mapEl = useRef(null);
   const mapRef = useRef(null);

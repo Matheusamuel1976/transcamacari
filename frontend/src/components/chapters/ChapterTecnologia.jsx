@@ -1,6 +1,5 @@
 import { ArrowUpRight, MapPin, Clock, ShieldCheck } from 'lucide-react';
 
-// Somente tecnologias efetivamente em uso no projeto (ver package.json / composer.json).
 const stack = [
   ['React 18', 'Interface e rotas'],
   ['Vite 5', 'Build e desenvolvimento'],

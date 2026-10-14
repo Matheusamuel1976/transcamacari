@@ -28,23 +28,22 @@ function hashOf(to, explicit) {
   return null;
 }
 
-// Foco no título da nova página (a11y). Não rola a página.
 function focusHeading() {
   try {
-    const h = document.querySelector('main .auth-card h2') || document.querySelector('main h1');
+    const h =
+      document.querySelector('main .auth-card h2') ||
+      document.querySelector('main h1');
     if (!h) return;
     if (!h.hasAttribute('tabindex')) h.setAttribute('tabindex', '-1');
     h.focus({ preventScroll: true });
-  } catch {
-    /* noop */
-  }
+  } catch {}
 }
 
 export function TransitionProvider({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const reduced = useReducedMotion();
-  const [phase, setPhase] = useState('idle'); // idle | exit | enter
+  const [phase, setPhase] = useState('idle');
   const [variant, setVariant] = useState('route');
   const [pendingHash, setPendingHash] = useState(null);
   const busy = useRef(false);
@@ -59,7 +58,6 @@ export function TransitionProvider({ children }) {
   };
   useEffect(() => clearWatchdog, []);
 
-  // Título acompanha a rota mesmo em navegações sem transição (POP, guards).
   useEffect(() => {
     document.title = titleFor(location.pathname);
   }, [location.pathname]);
@@ -67,12 +65,10 @@ export function TransitionProvider({ children }) {
   const settle = useCallback((destPath, hash) => {
     document.title = titleFor(destPath);
     if (!hash) {
-      // Foco após a entrada, quando o conteúdo novo já está montado.
       requestAnimationFrame(() => requestAnimationFrame(focusHeading));
     }
   }, []);
 
-  // Chamado pelo overlay ao fim da saída: troca a rota e inicia a entrada.
   const proceed = useCallback(() => {
     const t = target.current;
     if (!t) {
@@ -83,7 +79,6 @@ export function TransitionProvider({ children }) {
     try {
       navigate(t.to, { replace: !!t.replace });
     } catch {
-      // Falha de navegação: nunca prender o overlay.
       target.current = null;
       busy.current = false;
       setPhase('idle');
@@ -94,7 +89,6 @@ export function TransitionProvider({ children }) {
     setPhase('enter');
   }, [navigate, settle]);
 
-  // Chamado pelo overlay ao fim da entrada.
   const finish = useCallback(() => {
     clearWatchdog();
     target.current = null;
@@ -107,7 +101,6 @@ export function TransitionProvider({ children }) {
     return () => window.removeEventListener('popstate', finish);
   }, [finish]);
 
-  // Watchdog: nenhuma transição pode exceder ~2.8s.
   const armWatchdog = useCallback(() => {
     clearWatchdog();
     watchdog.current = setTimeout(() => {
@@ -135,36 +128,36 @@ export function TransitionProvider({ children }) {
       const dest = pathOf(to);
       const hash = hashOf(to, opts.hash);
       const samePage = dest === location.pathname;
-      // Mesma página + âncora: apenas scroll suave — NUNCA overlay de rota.
+
       if (samePage && hash) {
         if (location.hash === hash) scrollToHash(hash);
         else navigate({ pathname: dest, hash }, { replace: !!opts.replace });
         return;
       }
       if (samePage && !hash) return;
-      // Qualquer navegação COM âncora: troca de rota imediata, sem overlay,
-      // e o ScrollManager rola após a montagem (elemento precisa existir).
+
       if (hash) {
         try {
           navigate({ pathname: dest, hash }, { replace: !!opts.replace });
-        } catch {
-          /* noop */
-        }
+        } catch {}
         setPendingHash(hash);
         settle(dest, hash);
         return;
       }
-      const authPair = ['/login', '/register'].includes(location.pathname) && ['/login', '/register'].includes(dest);
-      const v = authPair ? 'auth' : opts.variant === 'auth' ? 'route' : (opts.variant || metaFor(dest).variant);
+      const authPair =
+        ['/login', '/register'].includes(location.pathname) &&
+        ['/login', '/register'].includes(dest);
+      const v = authPair
+        ? 'auth'
+        : opts.variant === 'auth'
+          ? 'route'
+          : opts.variant || metaFor(dest).variant;
       const resolvedVariant = v === 'auth' && !authPair ? 'route' : v;
-      // Variantes rápidas ou movimento reduzido: navega direto, sem overlay.
-      // A entrada do conteúdo é feita pelo AnimatedPage (modo page/content).
+
       if (reduced || v === 'admin') {
         try {
           navigate(to, { replace: !!opts.replace });
-        } catch {
-          /* noop */
-        }
+        } catch {}
         setPendingHash(hash);
         settle(dest, hash);
         return;
@@ -175,7 +168,15 @@ export function TransitionProvider({ children }) {
       armWatchdog();
       setPhase('exit');
     },
-    [armWatchdog, location.pathname, location.hash, navigate, reduced, settle, scrollToHash],
+    [
+      armWatchdog,
+      location.pathname,
+      location.hash,
+      navigate,
+      reduced,
+      settle,
+      scrollToHash,
+    ],
   );
 
   const value = {

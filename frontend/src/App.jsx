@@ -24,9 +24,13 @@ function RequireAuth({ children }) {
         <div className="loading-spinner" />
       </div>
     );
-  // Keep the outgoing composition only during the confirmed logout exit.
-  if (!isAuthenticated && !(motion.phase === 'exit' && motion.variant === 'logout')) return <Navigate to="/login" replace />;
-  // Entrada rápida de conteúdo: sidebar estável, só o miolo anima.
+
+  if (
+    !isAuthenticated &&
+    !(motion.phase === 'exit' && motion.variant === 'logout')
+  )
+    return <Navigate to="/login" replace />;
+
   return (
     <DashboardLayout>
       <AnimatedPage mode="content">{children}</AnimatedPage>
@@ -126,10 +130,7 @@ function AppContent() {
       <ScrollManager />
       <TransitionOverlay />
       {!isDashboard && <Navbar />}
-      <main
-        id="main-content"
-        className="main-content"
-      >
+      <main id="main-content" className="main-content">
         <AppRoutes />
       </main>
       <style>{`

@@ -1,6 +1,6 @@
--- TransCamaçari 2.0 — SEED DEMO (dados explicitamente FICTÍCIOS para desenvolvimento)
--- NÃO são linhas oficiais. Uso: mysql -u root transcamacari < seed_demo.sql
--- Login demo: demo@transcamacari.local / demo12345
+
+
+
 USE transcamacari;
 
 INSERT INTO companies (nome) VALUES ('DEMO — Empresa Fictícia (dados de teste)');
@@ -23,7 +23,7 @@ INSERT INTO horarios (linha_id, horario) VALUES
 (@l1, '06:00:00'), (@l1, '07:00:00'), (@l1, '08:00:00'),
 (@l2, '06:30:00'), (@l2, '07:30:00'), (@l2, '08:30:00');
 
--- Coordenadas APROXIMADAS e ilustrativas (não são paradas oficiais)
+
 INSERT INTO pontos (linha_id, ordem, nome, latitude, longitude, tipo) VALUES
 (@l1, 0, 'Origem demo — Centro', -12.6975, -38.3242, 'origem'),
 (@l1, 1, 'Parada demo 1', -12.7200, -38.2800, 'parada'),

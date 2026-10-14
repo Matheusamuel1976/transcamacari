@@ -13,11 +13,31 @@ export function AnimatedPage({ children, mode = 'page' }) {
     if (reduced || pathname === '/') return;
     const context = gsap.context(() => {
       const card = root.current.querySelector('.auth-card');
-      const targets = card ? Array.from(card.children) : Array.from(root.current.children);
-      gsap.from(targets, { y: mode === 'content' ? 8 : 18, opacity: 0, duration: mode === 'content' ? 0.2 : 0.42, stagger: mode === 'content' ? 0 : 0.035, delay: motion.variant === 'auth' ? 0 : 0.12, ease: 'power3.out', clearProps: 'transform,opacity' });
-      if (card && motion.variant !== 'auth') gsap.from('.auth-visual', { y: 16, duration: 0.6, ease: 'expo.out', clearProps: 'transform' });
+      const targets = card
+        ? Array.from(card.children)
+        : Array.from(root.current.children);
+      gsap.from(targets, {
+        y: mode === 'content' ? 8 : 18,
+        opacity: 0,
+        duration: mode === 'content' ? 0.2 : 0.42,
+        stagger: mode === 'content' ? 0 : 0.035,
+        delay: motion.variant === 'auth' ? 0 : 0.12,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+      });
+      if (card && motion.variant !== 'auth')
+        gsap.from('.auth-visual', {
+          y: 16,
+          duration: 0.6,
+          ease: 'expo.out',
+          clearProps: 'transform',
+        });
     }, root);
     return () => context.revert();
   }, [pathname, mode, reduced]);
-  return <div ref={root} className={`t-page t-page--${mode}`}>{children}</div>;
+  return (
+    <div ref={root} className={`t-page t-page--${mode}`}>
+      {children}
+    </div>
+  );
 }

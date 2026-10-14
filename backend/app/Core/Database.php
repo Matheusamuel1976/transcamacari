@@ -45,7 +45,7 @@ final class Database
         return self::$pdo;
     }
 
-    /** Agregação de horários ordenada (GROUP_CONCAT no MySQL, string_agg no Postgres). */
+
     public static function horariosAgg(): string
     {
         return self::driver() === 'pgsql'
@@ -53,13 +53,13 @@ final class Database
             : "GROUP_CONCAT(h.horario ORDER BY h.horario SEPARATOR ',')";
     }
 
-    /** LIKE case-insensitive nos dois drivers (MySQL já é ci por collation; PG usa ILIKE). */
+
     public static function likeOp(): string
     {
         return self::driver() === 'pgsql' ? 'ILIKE' : 'LIKE';
     }
 
-    /** Último id inserido (no Postgres informa a tabela p/ localizar a sequence). */
+
     public static function lastId(PDO $pdo, string $table): int
     {
         if (self::driver() === 'pgsql') {

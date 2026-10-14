@@ -15,7 +15,7 @@ final class ContatoController
     public function store(): void
     {
         $b = Validator::body();
-        // honeypot anti-spam
+
         if (!empty($b['website'])) {
             Response::json(['message' => 'Mensagem recebida.']);
         }
@@ -36,7 +36,7 @@ final class ContatoController
         $stmt = $pdo->prepare('INSERT INTO contact_messages (nome, email, assunto, mensagem, ip) VALUES (:n, :e, :a, :m, :ip)');
         $stmt->execute([':n' => $nome, ':e' => $email, ':a' => $assunto, ':m' => $mensagem, ':ip' => substr($ip, 0, 45)]);
 
-        // Envio real via SMTP; sem credenciais, registra e retorna aviso honesto
+
         $host = $_ENV['SMTP_HOST'] ?? '';
         $user = $_ENV['SMTP_USER'] ?? '';
         if ($host === '' || $user === '' || str_contains($host, 'example.com')) {

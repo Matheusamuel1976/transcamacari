@@ -17,18 +17,62 @@ export function Hero() {
     if (reducedMotion || window.location.hash) return;
     const ctx = gsap.context(() => {
       const navbar = document.querySelector('.navbar');
-      const intro = gsap.timeline({ defaults: { ease: 'expo.out', clearProps: 'transform,opacity,clipPath' } });
-      intro.from('.hero__photo', { clipPath: 'inset(12% 14% 12% 14%)', duration: 1.25 }, 0)
+      const intro = gsap.timeline({
+        defaults: {
+          ease: 'expo.out',
+          clearProps: 'transform,opacity,clipPath',
+        },
+      });
+      intro
+        .from(
+          '.hero__photo',
+          { clipPath: 'inset(12% 14% 12% 14%)', duration: 1.25 },
+          0,
+        )
         .from('.hero__photo img', { scale: 1.12, duration: 1.4 }, 0)
         .from('.hero__word', { yPercent: 108, rotate: 2, duration: 1.05 }, 0.08)
-        .from('.hero__script', { clipPath: 'inset(0 100% 0 0)', x: 24, duration: 1.1 }, 0.26)
-        .from('.hero__manifesto, .hero__description', { y: 24, opacity: 0, stagger: 0.08, duration: 0.65 }, 0.34)
-        .from('.hero__map-link, .hero__explore, .hero__action', { y: 16, opacity: 0, stagger: 0.06, duration: 0.5 }, 0.48)
-        .from('.hero__masthead, .hero__colophon', { opacity: 0, duration: 0.5 }, 0.48)
-        .from('.hero__route path', { strokeDashoffset: 1200, duration: 1.15, clearProps: 'strokeDashoffset' }, 0.3);
-      if (navbar) intro.from(navbar, { y: -18, opacity: 0, duration: 0.6 }, 0.12);
+        .from(
+          '.hero__script',
+          { clipPath: 'inset(0 100% 0 0)', x: 24, duration: 1.1 },
+          0.26,
+        )
+        .from(
+          '.hero__manifesto, .hero__description',
+          { y: 24, opacity: 0, stagger: 0.08, duration: 0.65 },
+          0.34,
+        )
+        .from(
+          '.hero__map-link, .hero__explore, .hero__action',
+          { y: 16, opacity: 0, stagger: 0.06, duration: 0.5 },
+          0.48,
+        )
+        .from(
+          '.hero__masthead, .hero__colophon',
+          { opacity: 0, duration: 0.5 },
+          0.48,
+        )
+        .from(
+          '.hero__route path',
+          {
+            strokeDashoffset: 1200,
+            duration: 1.15,
+            clearProps: 'strokeDashoffset',
+          },
+          0.3,
+        );
+      if (navbar)
+        intro.from(navbar, { y: -18, opacity: 0, duration: 0.6 }, 0.12);
       if (window.matchMedia('(min-width: 900px) and (pointer: fine)').matches) {
-        gsap.to('.hero__photo img', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom top', scrub: 0.6 } });
+        gsap.to('.hero__photo img', {
+          yPercent: 8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: root.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        });
       }
     }, root);
     return () => ctx.revert();

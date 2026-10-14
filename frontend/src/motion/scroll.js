@@ -1,9 +1,19 @@
-// One scroll owner: native touch/reduced motion, Lenis on pointer desktops.
 let scroller = null;
-export const setScroller = (instance) => { scroller = instance; };
+export const setScroller = (instance) => {
+  scroller = instance;
+};
 export function scrollTo(target, immediate = false) {
-  const offset = typeof target === 'number' ? 0 : -(document.querySelector('.navbar')?.getBoundingClientRect().height || 80) - 12;
-  const top = typeof target === 'number' ? target : target.getBoundingClientRect().top + window.scrollY + offset;
+  const offset =
+    typeof target === 'number'
+      ? 0
+      : -(
+          document.querySelector('.navbar')?.getBoundingClientRect().height ||
+          80
+        ) - 12;
+  const top =
+    typeof target === 'number'
+      ? target
+      : target.getBoundingClientRect().top + window.scrollY + offset;
   if (scroller) {
     scroller.resize();
     scroller.scrollTo(top, { immediate, force: true });

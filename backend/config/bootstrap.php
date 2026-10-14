@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-// Bootstrap: env, CORS, sessão, autoload
+
 $root = dirname(__DIR__);
 
 if (file_exists($root . '/vendor/autoload.php')) {
@@ -20,7 +20,7 @@ if (file_exists($root . '/vendor/autoload.php')) {
     });
 }
 
-// .env simples (sem dependência)
+
 $envFile = $root . '/.env';
 if (file_exists($envFile)) {
     foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {

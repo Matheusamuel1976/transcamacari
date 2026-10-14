@@ -13,22 +13,17 @@ import './styles/design-system.css';
 import './styles/editorial.css';
 import './motion/motion.css';
 
-// Recalcula posições do ScrollTrigger após fontes/imagens (evita ranges errados).
 if (typeof window !== 'undefined') {
   window.addEventListener('load', () => {
     try {
       ScrollTrigger.refresh();
-    } catch {
-      /* noop */
-    }
+    } catch {}
     if (document.fonts?.ready) {
       document.fonts.ready
         .then(() => {
           try {
             ScrollTrigger.refresh();
-          } catch {
-            /* noop */
-          }
+          } catch {}
         })
         .catch(() => {});
     }

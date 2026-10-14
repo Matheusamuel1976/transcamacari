@@ -3,8 +3,6 @@ import { gsap } from 'gsap';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
-// Fotografias de arquivo já creditadas em SOURCES.md e no footer.
-// Nenhuma imagem estrangeira ou gerada é apresentada como Camaçari.
 const photos = [
   {
     src: '/assets/images/camacari-gilclei.jpg',
@@ -56,8 +54,26 @@ export function ChapterCidade() {
   useEffect(() => {
     if (reduced) return;
     const ctx = gsap.context(() => {
-      gsap.from('.territory__photo', { clipPath: 'inset(0 0 18% 0)', duration: 1, ease: 'expo.out', immediateRender: false, clearProps: 'clipPath', scrollTrigger: { trigger: '.territory__spread', start: 'top 85%', once: true } });
-      gsap.from('.territory__intro > *', { y: 24, stagger: 0.1, duration: 0.7, immediateRender: false, clearProps: 'transform', scrollTrigger: { trigger: root.current, start: 'top 85%', once: true } });
+      gsap.from('.territory__photo', {
+        clipPath: 'inset(0 0 18% 0)',
+        duration: 1,
+        ease: 'expo.out',
+        immediateRender: false,
+        clearProps: 'clipPath',
+        scrollTrigger: {
+          trigger: '.territory__spread',
+          start: 'top 85%',
+          once: true,
+        },
+      });
+      gsap.from('.territory__intro > *', {
+        y: 24,
+        stagger: 0.1,
+        duration: 0.7,
+        immediateRender: false,
+        clearProps: 'transform',
+        scrollTrigger: { trigger: root.current, start: 'top 85%', once: true },
+      });
       gsap.to('.territory__photo img', {
         yPercent: 10,
         ease: 'none',
