@@ -6,7 +6,7 @@ import { TransitionLink as Link } from '../../motion/TransitionLink';
 import { useTransition } from '../../motion/TransitionContext';
 
 export function LoginPage() {
-  const { login, isAuthenticated } = useAuth();
+  const { login, user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const motion = useTransition();
   const [form, setForm] = useState({ email: '', password: '' });
@@ -18,11 +18,12 @@ export function LoginPage() {
     setLoading(true);
     setError('');
     try {
-      await login(form.email, form.password);
+      const data = await login(form.email, form.password);
+      const dest =
+        data?.user?.role === 'funcionario' ? '/minhas-linhas' : '/dashboard';
 
-      if (motion)
-        motion.go('/dashboard', { variant: 'context', replace: true });
-      else navigate('/dashboard', { replace: true });
+      if (motion) motion.go(dest, { variant: 'context', replace: true });
+      else navigate(dest, { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -30,8 +31,11 @@ export function LoginPage() {
     }
   };
 
-  if (isAuthenticated && !loading && motion?.phase !== 'exit')
+  if (isAuthenticated && !loading && motion?.phase !== 'exit') {
+    if (user?.role === 'funcionario')
+      return <Navigate to="/minhas-linhas" replace />;
     return <Navigate to="/dashboard" replace />;
+  }
   return (
     <div className="auth-wrap">
       <div className="container auth-grid">

@@ -14,23 +14,27 @@ import { LinesManagement } from './pages/dashboard/LinesManagement';
 import { EmployeesManagement } from './pages/dashboard/EmployeesManagement';
 import { MapPage } from './pages/dashboard/MapPage';
 import { AccountSettings } from './pages/dashboard/AccountSettings';
+import { MyLinesPage } from './pages/MyLinesPage';
 
-function RequireAuth({ children }) {
-  const { isAuthenticated, loading } = useAuth();
+function LoadingScreen() {
+  return (
+    <div className="loading-fullscreen" aria-label="Carregando">
+      <div className="loading-spinner" />
+    </div>
+  );
+}
+
+function RequireStaff({ children }) {
+  const { user, isAuthenticated, loading } = useAuth();
   const motion = useTransition();
-  if (loading)
-    return (
-      <div className="loading-fullscreen" aria-label="Carregando">
-        <div className="loading-spinner" />
-      </div>
-    );
-
+  if (loading) return <LoadingScreen />;
   if (
     !isAuthenticated &&
     !(motion.phase === 'exit' && motion.variant === 'logout')
   )
     return <Navigate to="/login" replace />;
-
+  if (user?.role === 'funcionario')
+    return <Navigate to="/minhas-linhas" replace />;
   return (
     <DashboardLayout>
       <AnimatedPage mode="content">{children}</AnimatedPage>
@@ -38,15 +42,22 @@ function RequireAuth({ children }) {
   );
 }
 
+function RequireFuncionario({ children }) {
+  const { user, isAuthenticated, loading } = useAuth();
+  if (loading) return <LoadingScreen />;
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (user?.role !== 'funcionario') return <Navigate to="/dashboard" replace />;
+  return <AnimatedPage mode="content">{children}</AnimatedPage>;
+}
+
 function HomeRoute() {
-  const { isAuthenticated, loading } = useAuth();
-  if (loading)
-    return (
-      <div className="loading-fullscreen" aria-label="Carregando">
-        <div className="loading-spinner" />
-      </div>
-    );
-  if (isAuthenticated) return <Navigate to="/dashboard" replace />;
+  const { user, isAuthenticated, loading } = useAuth();
+  if (loading) return <LoadingScreen />;
+  if (isAuthenticated) {
+    if (user?.role === 'funcionario')
+      return <Navigate to="/minhas-linhas" replace />;
+    return <Navigate to="/dashboard" replace />;
+  }
   return <LandingPage />;
 }
 
@@ -80,41 +91,49 @@ function AppRoutes() {
       <Route
         path="/dashboard"
         element={
-          <RequireAuth>
+          <RequireStaff>
             <DashboardOverview />
-          </RequireAuth>
+          </RequireStaff>
         }
       />
       <Route
         path="/dashboard/linhas"
         element={
-          <RequireAuth>
+          <RequireStaff>
             <LinesManagement />
-          </RequireAuth>
+          </RequireStaff>
         }
       />
       <Route
         path="/dashboard/funcionarios"
         element={
-          <RequireAuth>
+          <RequireStaff>
             <EmployeesManagement />
-          </RequireAuth>
+          </RequireStaff>
         }
       />
       <Route
         path="/dashboard/mapa"
         element={
-          <RequireAuth>
+          <RequireStaff>
             <MapPage />
-          </RequireAuth>
+          </RequireStaff>
         }
       />
       <Route
         path="/dashboard/configuracoes"
         element={
-          <RequireAuth>
+          <RequireStaff>
             <AccountSettings />
-          </RequireAuth>
+          </RequireStaff>
+        }
+      />
+      <Route
+        path="/minhas-linhas"
+        element={
+          <RequireFuncionario>
+            <MyLinesPage />
+          </RequireFuncionario>
         }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
@@ -124,7 +143,8 @@ function AppRoutes() {
 
 function AppContent() {
   const { pathname } = useLocation();
-  const isDashboard = pathname.startsWith('/dashboard');
+  const isDashboard =
+    pathname.startsWith('/dashboard') || pathname === '/minhas-linhas';
   return (
     <>
       <ScrollManager />

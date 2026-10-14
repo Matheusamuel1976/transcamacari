@@ -18,8 +18,15 @@ final class AuthController
         $name = Validator::str($b['name'] ?? null, 2, 120);
         $email = Validator::email($b['email'] ?? null);
         $pass = $b['password'] ?? '';
+        $code = isset($b['company_code']) && is_string($b['company_code']) ? trim($b['company_code']) : '';
+        if (!$name || !$email || !is_string($pass) || strlen($pass) < 8) {
+            Response::error('Dados inválidos. Verifique nome, e-mail e senha (mín. 8).', 422);
+        }
+        if ($code !== '') {
+            $this->registerFuncionario($name, $email, $pass, $code);
+        }
         $company = Validator::str($b['company'] ?? null, 2, 150);
-        if (!$name || !$email || !$company || !is_string($pass) || strlen($pass) < 8) {
+        if (!$company) {
             Response::error('Dados inválidos. Verifique nome, empresa, e-mail e senha (mín. 8).', 422);
         }
         if (!RateLimit::check('reg:' . ($_SERVER['REMOTE_ADDR'] ?? 'x'), 10, 3600)) {
@@ -48,6 +55,29 @@ final class AuthController
         Response::json(['message' => 'Cadastro realizado com sucesso.']);
     }
 
+    private function registerFuncionario(string $name, string $email, string $pass, string $code): void
+    {
+        if (!RateLimit::check('reg:' . ($_SERVER['REMOTE_ADDR'] ?? 'x'), 10, 3600)) {
+            Response::error('Muitas tentativas. Tente mais tarde.', 429);
+        }
+        $pdo = Database::pdo();
+        $inv = $pdo->prepare('SELECT company_id FROM company_invites WHERE code = :code');
+        $inv->execute([':code' => $code]);
+        $row = $inv->fetch();
+        if (!$row) {
+            Response::error('Código da empresa inválido. Confira com o responsável.', 422);
+        }
+        $exists = $pdo->prepare('SELECT id FROM users WHERE email = :e');
+        $exists->execute([':e' => $email]);
+        if ($exists->fetch()) {
+            Response::error('E-mail já cadastrado.', 409);
+        }
+        $hash = password_hash($pass, PASSWORD_ARGON2ID);
+        $u = $pdo->prepare("INSERT INTO users (company_id, name, email, password_hash, role, status) VALUES (:c, :n, :e, :h, 'funcionario', 'pending')");
+        $u->execute([':c' => $row['company_id'], ':n' => $name, ':e' => $email, ':h' => $hash]);
+        Response::json(['message' => 'Cadastro enviado. Aguarde a aprovação da empresa para entrar.']);
+    }
+
     public function login(): void
     {
         $b = Validator::body();
@@ -65,6 +95,9 @@ final class AuthController
         $user = $stmt->fetch();
         if (!$user || !password_verify($pass, $user['password_hash'])) {
             Response::error('E-mail ou senha incorretos.', 401);
+        }
+        if (($user['status'] ?? 'active') !== 'active') {
+            Response::error('Cadastro aguardando aprovação da empresa.', 403);
         }
         Session::setUser([
             'id' => (int)$user['id'],

@@ -18,7 +18,10 @@ final class LinhaController
         $pdo = Database::pdo();
         $agg = Database::horariosAgg();
         $like = Database::likeOp();
-        if ($u) {
+        if ($u && Session::isFuncionario($u)) {
+            $stmt = $pdo->prepare("SELECT l.*, {$agg} AS horarios FROM linhas l LEFT JOIN horarios h ON h.linha_id = l.id WHERE l.id IN (SELECT linha_id FROM line_assignments WHERE user_id = :u) GROUP BY l.id ORDER BY l.codigo");
+            $stmt->execute([':u' => $u['id']]);
+        } elseif ($u) {
             if ($q !== '') {
                 $stmt = $pdo->prepare("SELECT l.*, {$agg} AS horarios FROM linhas l LEFT JOIN horarios h ON h.linha_id = l.id WHERE l.company_id = :c AND (l.codigo {$like} :q0 OR l.nome {$like} :q1 OR l.bairro {$like} :q2 OR l.origem {$like} :q3 OR l.destino {$like} :q4) GROUP BY l.id ORDER BY l.codigo");
                 $stmt->execute([':c' => $u['company_id'], ':q0' => "%{$q}%", ':q1' => "%{$q}%", ':q2' => "%{$q}%", ':q3' => "%{$q}%", ':q4' => "%{$q}%"]);
@@ -64,6 +67,9 @@ final class LinhaController
         if ($u && (int)$r['company_id'] !== (int)$u['company_id']) {
             Response::error('Sem permissão.', 403);
         }
+        if ($u && Session::isFuncionario($u) && !$this->isAssigned($pdo, (int)$u['id'], $id)) {
+            Response::error('Sem permissão.', 403);
+        }
         $r['horarios'] = $r['horarios'] ? explode(',', $r['horarios']) : [];
         $p = $pdo->prepare('SELECT * FROM pontos WHERE linha_id = :id ORDER BY ordem');
         $p->execute([':id' => $id]);
@@ -73,7 +79,7 @@ final class LinhaController
 
     public function store(): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $b = Validator::body();
         $codigo = Validator::str($b['codigo'] ?? null, 1, 20);
         $nome = Validator::str($b['nome'] ?? null, 2, 150);
@@ -100,7 +106,7 @@ final class LinhaController
 
     public function update(string $id): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $pdo = Database::pdo();
         $this->assertOwner($pdo, $u, $id);
         $b = Validator::body();
@@ -133,11 +139,18 @@ final class LinhaController
 
     public function destroy(string $id): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $pdo = Database::pdo();
         $this->assertOwner($pdo, $u, $id);
         $pdo->prepare('DELETE FROM linhas WHERE id = :id')->execute([':id' => $id]);
         Response::json(['message' => 'Linha excluída.']);
+    }
+
+    private function isAssigned(\PDO $pdo, int $userId, string $linhaId): bool
+    {
+        $stmt = $pdo->prepare('SELECT 1 FROM line_assignments WHERE user_id = :u AND linha_id = :l');
+        $stmt->execute([':u' => $userId, ':l' => $linhaId]);
+        return (bool)$stmt->fetch();
     }
 
     private function assertOwner(\PDO $pdo, array $u, string $id): array
@@ -184,6 +197,9 @@ final class LinhaController
         if (!(int)$linha['visivel'] && !$owner) {
             Response::error('Linha não encontrada.', 404);
         }
+        if ($u && Session::isFuncionario($u) && !$this->isAssigned($pdo, (int)$u['id'], $id)) {
+            Response::error('Sem permissão.', 403);
+        }
         $p = $pdo->prepare('SELECT id, ordem, nome, latitude, longitude, tipo FROM pontos WHERE linha_id = :id ORDER BY ordem, id');
         $p->execute([':id' => $id]);
         Response::json(['data' => $p->fetchAll()]);
@@ -192,7 +208,7 @@ final class LinhaController
 
     public function storePonto(string $id): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $pdo = Database::pdo();
         $this->assertOwner($pdo, $u, $id);
         $b = Validator::body();
@@ -223,7 +239,7 @@ final class LinhaController
 
     public function destroyPonto(string $pid): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $pdo = Database::pdo();
         $stmt = $pdo->prepare('SELECT p.id, l.company_id FROM pontos p JOIN linhas l ON l.id = p.linha_id WHERE p.id = :pid');
         $stmt->execute([':pid' => $pid]);

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\AccessController;
 use App\Controllers\AuthController;
 use App\Controllers\ContatoController;
 use App\Controllers\FuncionarioController;
@@ -111,6 +112,32 @@ if (route_match('/funcionarios/{id}', $uri, $p) && $method === 'DELETE') {
 
 if ($uri === '/contato' && $method === 'POST') {
     (new ContatoController())->store();
+}
+
+
+if ($uri === '/team/invite-code' && $method === 'GET') {
+    (new AccessController())->inviteCode();
+}
+if ($uri === '/team/invite-code' && $method === 'POST') {
+    (new AccessController())->regenerateCode();
+}
+if ($uri === '/team/users' && $method === 'GET') {
+    (new AccessController())->teamUsers();
+}
+if ($uri === '/team/users' && $method === 'POST') {
+    (new AccessController())->createUser();
+}
+if ($uri === '/team/pending' && $method === 'GET') {
+    (new AccessController())->pending();
+}
+if (route_match('/team/users/{id}/approve', $uri, $p) && $method === 'POST') {
+    (new AccessController())->approve($p['id']);
+}
+if (route_match('/team/users/{id}/lines', $uri, $p) && $method === 'PUT') {
+    (new AccessController())->assign($p['id']);
+}
+if (route_match('/team/users/{id}', $uri, $p) && $method === 'DELETE') {
+    (new AccessController())->remove($p['id']);
 }
 
 

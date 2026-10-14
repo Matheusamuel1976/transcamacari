@@ -6,7 +6,7 @@ import { TransitionLink as Link } from '../../motion/TransitionLink';
 import { useTransition } from '../../motion/TransitionContext';
 
 export function RegisterPage() {
-  const { register, isAuthenticated } = useAuth();
+  const { register, user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const motion = useTransition();
   const [form, setForm] = useState({
@@ -14,7 +14,9 @@ export function RegisterPage() {
     email: '',
     password: '',
     company: '',
+    company_code: '',
   });
+  const [kind, setKind] = useState('empresa');
   const [error, setError] = useState('');
   const [ok, setOk] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,12 +27,31 @@ export function RegisterPage() {
     setError('');
     setOk('');
     try {
-      await register(form);
-      setOk('Cadastro realizado. Redirecionando para o login...');
+      const payload =
+        kind === 'funcionario'
+          ? {
+              name: form.name,
+              email: form.email,
+              password: form.password,
+              company_code: form.company_code,
+            }
+          : {
+              name: form.name,
+              email: form.email,
+              password: form.password,
+              company: form.company,
+            };
+      const data = await register(payload);
+      setOk(
+        data?.message ||
+          (kind === 'funcionario'
+            ? 'Cadastro enviado. Aguarde a aprovação da empresa.'
+            : 'Cadastro realizado. Redirecionando para o login...'),
+      );
       setTimeout(() => {
         if (motion) motion.go('/login', { variant: 'auth' });
         else navigate('/login');
-      }, 1500);
+      }, 2200);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -38,7 +59,11 @@ export function RegisterPage() {
     }
   };
 
-  if (isAuthenticated) return <Navigate to="/dashboard" replace />;
+  if (isAuthenticated) {
+    if (user?.role === 'funcionario')
+      return <Navigate to="/minhas-linhas" replace />;
+    return <Navigate to="/dashboard" replace />;
+  }
   return (
     <div className="auth-wrap">
       <div className="container auth-grid">
@@ -65,6 +90,27 @@ export function RegisterPage() {
         </div>
         <form className="auth-card" onSubmit={submit}>
           <h2>Cadastro</h2>
+          <div className="auth-kind" role="tablist" aria-label="Tipo de conta">
+            {[
+              ['empresa', 'Empresa'],
+              ['funcionario', 'Funcionário'],
+            ].map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                role="tab"
+                aria-selected={kind === value}
+                className={kind === value ? 'active' : ''}
+                onClick={() => {
+                  setKind(value);
+                  setError('');
+                  setOk('');
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           {error && (
             <div className="alert alert-error" role="alert">
               <AlertCircle size={16} />
@@ -91,20 +137,40 @@ export function RegisterPage() {
               placeholder="Seu nome"
             />
           </div>
-          <div className="input-group">
-            <label className="input-label" htmlFor="company">
-              Empresa / conta responsável
-            </label>
-            <input
-              id="company"
-              required
-              minLength={2}
-              className="input-field"
-              value={form.company}
-              onChange={(e) => setForm({ ...form, company: e.target.value })}
-              placeholder="Ex.: Viação Camaçari"
-            />
-          </div>
+          {kind === 'empresa' ? (
+            <div className="input-group">
+              <label className="input-label" htmlFor="company">
+                Empresa / conta responsável
+              </label>
+              <input
+                id="company"
+                required
+                minLength={2}
+                className="input-field"
+                value={form.company}
+                onChange={(e) => setForm({ ...form, company: e.target.value })}
+                placeholder="Ex.: Viação Camaçari"
+              />
+            </div>
+          ) : (
+            <div className="input-group">
+              <label className="input-label" htmlFor="company_code">
+                Código da empresa
+              </label>
+              <input
+                id="company_code"
+                required
+                minLength={8}
+                className="input-field"
+                value={form.company_code}
+                onChange={(e) =>
+                  setForm({ ...form, company_code: e.target.value.trim() })
+                }
+                placeholder="Peça o código ao responsável"
+                autoComplete="off"
+              />
+            </div>
+          )}
           <div className="input-group">
             <label className="input-label" htmlFor="email">
               E-mail
@@ -155,6 +221,10 @@ export function RegisterPage() {
         .auth-tag{color:rgba(245,245,245,.72);max-width:36ch}
         .auth-card{background:#212121;color:#F5F5F5;border:1px solid #4E59AC;border-radius:14px;padding:var(--space-8);display:flex;flex-direction:column;gap:var(--space-4);max-width:520px;box-shadow:0 24px 60px rgba(5,8,40,.45)}
         .auth-card h2{font-family:var(--font-display);color:#F5F5F5;font-size:25px;font-weight:500;letter-spacing:-.02em}
+        .auth-kind{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:rgba(245,245,245,.06);border:1px solid #4E59AC;border-radius:10px;padding:6px}
+        .auth-kind button{padding:10px;border-radius:7px;font-size:13px;font-weight:600;color:#8A93C9;transition:background-color .18s,color .18s}
+        .auth-kind button.active{background:#FF6D00;color:#212121}
+        .auth-kind button:not(.active):hover{color:#F5F5F5}
         .auth-card .input-label{color:#C9D2E8}
         .auth-card .input-field{background:rgba(245,245,245,.06);border:1px solid #4E59AC;color:#F5F5F5;border-radius:8px}
         .auth-card .input-field::placeholder{color:#8A93C9}

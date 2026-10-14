@@ -84,4 +84,24 @@ export const api = {
   },
   contact: (d) =>
     request('/contato', { method: 'POST', body: JSON.stringify(d) }),
+  team: {
+    invite: () => request('/team/invite-code'),
+    regenerateInvite: () =>
+      request('/team/invite-code', { method: 'POST', body: '{}' }),
+    users: () => request('/team/users'),
+    pending: () => request('/team/pending'),
+    createUser: (d) =>
+      request('/team/users', { method: 'POST', body: JSON.stringify(d) }),
+    approve: (id, linhaIds = []) =>
+      request(`/team/users/${id}/approve`, {
+        method: 'POST',
+        body: JSON.stringify({ linha_ids: linhaIds }),
+      }),
+    assign: (id, linhaIds) =>
+      request(`/team/users/${id}/lines`, {
+        method: 'PUT',
+        body: JSON.stringify({ linha_ids: linhaIds }),
+      }),
+    remove: (id) => request(`/team/users/${id}`, { method: 'DELETE' }),
+  },
 };

@@ -53,6 +53,25 @@ final class Session
         return $u;
     }
 
+    public static function requireRole(string ...$roles): array
+    {
+        $u = self::requireAuth();
+        if (!in_array($u['role'] ?? '', $roles, true)) {
+            Response::error('Sem permissão.', 403);
+        }
+        return $u;
+    }
+
+    public static function requireStaff(): array
+    {
+        return self::requireRole('admin', 'operator');
+    }
+
+    public static function isFuncionario(?array $u): bool
+    {
+        return ($u['role'] ?? '') === 'funcionario';
+    }
+
     public static function csrfToken(): string
     {
         if (empty($_SESSION['csrf'])) {

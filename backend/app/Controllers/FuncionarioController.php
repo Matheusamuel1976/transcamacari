@@ -13,7 +13,7 @@ final class FuncionarioController
 {
     public function index(): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $pdo = Database::pdo();
         $stmt = $pdo->prepare('SELECT * FROM employees WHERE company_id = :c ORDER BY nome');
         $stmt->execute([':c' => $u['company_id']]);
@@ -22,7 +22,7 @@ final class FuncionarioController
 
     public function store(): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $b = Validator::body();
         $nome = Validator::str($b['nome'] ?? null, 2, 120);
         $cargo = Validator::str($b['cargo'] ?? null, 2, 120);
@@ -42,7 +42,7 @@ final class FuncionarioController
 
     public function update(string $id): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $pdo = Database::pdo();
         $this->assertOwner($pdo, $u, $id);
         $b = Validator::body();
@@ -81,7 +81,7 @@ final class FuncionarioController
 
     public function destroy(string $id): void
     {
-        $u = Session::requireAuth();
+        $u = Session::requireStaff();
         $pdo = Database::pdo();
         $this->assertOwner($pdo, $u, $id);
         $pdo->prepare('DELETE FROM employees WHERE id = :id')->execute([':id' => $id]);
