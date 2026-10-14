@@ -1,0 +1,18 @@
+# Dependências (reinstaladas no deploy)
+node_modules/
+frontend/node_modules/
+backend/vendor/
+
+# Build (a Vercel gera a cada deploy)
+frontend/dist/
+
+# Segredos locais (produção usa variáveis de ambiente)
+**/.env
+!**/.env.example
+
+# Análise local
+graphify-out/
+
+# Sistema
+.DS_Store
+Thumbs.db
