@@ -211,22 +211,22 @@ export function RegisterPage() {
       </div>
       <style>{`
         .auth-wrap{min-height:100vh;background:linear-gradient(135deg,#1A237E 0%,#12175C 70%);padding:calc(var(--header-height) + var(--space-10)) 0 var(--space-16);color:#F5F5F5}
-        .auth-grid{display:grid;gap:var(--space-10);align-items:start}
+        .auth-grid{display:grid;gap:var(--space-10);align-items:center;align-content:center;min-height:calc(100svh - 260px)}
         .auth-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#FF8A3D}
         .auth-visual h1{font-family:var(--font-display);font-size:clamp(2.6rem,6vw,4.6rem);line-height:1;letter-spacing:-.035em;color:#F5F5F5;margin:18px 0 8px}
         .auth-visual h1 em{font-style:normal;color:#FF6D00}
-        .auth-route{width:100%;max-width:460px;height:auto;margin:26px 0 6px;overflow:visible}
+        .auth-route{width:100%;max-width:520px;height:auto;margin:30px 0 10px;overflow:visible}
         .auth-route path{stroke:#FF6D00;stroke-width:2.5}
         .auth-route circle{fill:#FF6D00}
         .auth-tag{color:rgba(245,245,245,.72);max-width:36ch}
-        .auth-card{background:#212121;color:#F5F5F5;border:1px solid #4E59AC;border-radius:14px;padding:var(--space-8);display:flex;flex-direction:column;gap:var(--space-4);max-width:520px;box-shadow:0 24px 60px rgba(5,8,40,.45)}
+        .auth-card{background:#212121;color:#F5F5F5;border:1px solid #4E59AC;border-radius:16px;padding:44px;display:flex;flex-direction:column;gap:20px;width:100%;max-width:600px;justify-self:end;box-shadow:0 24px 60px rgba(5,8,40,.45)}
         .auth-card h2{font-family:var(--font-display);color:#F5F5F5;font-size:25px;font-weight:500;letter-spacing:-.02em}
         .auth-kind{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:rgba(245,245,245,.06);border:1px solid #4E59AC;border-radius:10px;padding:6px}
         .auth-kind button{padding:10px;border-radius:7px;font-size:13px;font-weight:600;color:#8A93C9;transition:background-color .18s,color .18s}
         .auth-kind button.active{background:#FF6D00;color:#212121}
         .auth-kind button:not(.active):hover{color:#F5F5F5}
         .auth-card .input-label{color:#C9D2E8}
-        .auth-card .input-field{background:rgba(245,245,245,.06);border:1px solid #4E59AC;color:#F5F5F5;border-radius:8px}
+        .auth-card .input-field{background:rgba(245,245,245,.06);border:1px solid #4E59AC;color:#F5F5F5;border-radius:10px;padding:15px 18px;font-size:15px}
         .auth-card .input-field::placeholder{color:#8A93C9}
         .auth-card .input-field:focus{border-color:#FF6D00;box-shadow:0 0 0 3px rgba(255,109,0,.25)}
         .auth-card .btn-accent{background:#FF6D00;border-color:#FF6D00;color:#212121}
@@ -234,8 +234,8 @@ export function RegisterPage() {
         .auth-alt{font-size:var(--font-size-sm);color:#8A93C9}
         .auth-alt a{color:#FF8A3D;font-weight:600}
         .auth-alt a:hover{color:#FF6D00}
-        @media(min-width:900px){.auth-grid{grid-template-columns:1.05fr 1fr}}
-        @media(max-width:899px){.auth-route{max-width:340px}.auth-card{max-width:none}}
+        @media(min-width:900px){.auth-grid{grid-template-columns:1fr 1.08fr;gap:clamp(40px,6vw,96px)}}
+        @media(max-width:899px){.auth-route{max-width:340px}.auth-card{max-width:none;justify-self:stretch;padding:32px 24px}.auth-grid{min-height:0}}
       `}</style>
     </div>
   );
