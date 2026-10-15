@@ -1,4 +1,12 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ImagePlus } from 'lucide-react';
+
+const team = [
+  { name: 'Keyla Nogueira', initials: 'KN' },
+  { name: 'Leandro', initials: 'LE' },
+  { name: 'Eduardo', initials: 'ED' },
+  { name: 'Matheus Jacinto', initials: 'MJ' },
+  { name: 'Thairan', initials: 'TH' },
+];
 
 export function ChapterEquipe() {
   return (
@@ -20,14 +28,31 @@ export function ChapterEquipe() {
       <div className="project-team__note" id="desenvolvedores" tabIndex={-1}>
         <h3>Sobre o projeto</h3>
         <p>
-          Os nomes, as funções e as fotografias dos desenvolvedores ainda não
-          foram informados. Este espaço será atualizado com os dados confirmados
-          da equipe — nenhuma informação é exibida sem autorização.
+          As fotografias da equipe entram aqui em breve — nenhuma imagem é
+          exibida sem autorização.
         </p>
         <a href="#contato">
           Fale com a equipe <ArrowUpRight size={20} />
         </a>
       </div>
+      <ul className="team-grid" aria-label="Desenvolvedores">
+        {team.map((m) => (
+          <li key={m.name} className="team-card">
+            <div
+              className="team-photo"
+              role="img"
+              aria-label={`Fotografia de ${m.name} em breve`}
+            >
+              <span aria-hidden="true">{m.initials}</span>
+              <span className="team-photo__hint">
+                <ImagePlus size={16} /> foto em breve
+              </span>
+            </div>
+            <p className="team-name">{m.name}</p>
+            <p className="team-role">Equipe TransCamaçari</p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

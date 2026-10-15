@@ -19,7 +19,7 @@ final class AccessController
 
     public function inviteCode(): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $stmt = $pdo->prepare('SELECT code, expires_at FROM company_invites WHERE company_id = :c');
         $stmt->execute([':c' => $u['company_id']]);
@@ -36,7 +36,7 @@ final class AccessController
 
     public function regenerateCode(): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $code = bin2hex(random_bytes(24));
         $exp = self::freshExpiry();
@@ -52,7 +52,7 @@ final class AccessController
 
     public function teamUsers(): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $stmt = $pdo->prepare('SELECT u.id, u.name, u.email, u.role, u.status, u.employee_id, e.nome AS employee_nome FROM users u LEFT JOIN employees e ON e.id = u.employee_id WHERE u.company_id = :c ORDER BY u.name');
         $stmt->execute([':c' => $u['company_id']]);
@@ -72,7 +72,7 @@ final class AccessController
 
     public function pending(): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $stmt = $pdo->prepare("SELECT id, name, email, created_at FROM users WHERE company_id = :c AND role = 'funcionario' AND status = 'pending' ORDER BY created_at");
         $stmt->execute([':c' => $u['company_id']]);
@@ -81,7 +81,7 @@ final class AccessController
 
     public function createUser(): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $b = Validator::body();
         $name = Validator::str($b['name'] ?? null, 2, 120);
         $email = Validator::email($b['email'] ?? null);
@@ -128,7 +128,7 @@ final class AccessController
 
     public function approve(string $id): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $target = $this->assertFuncionario($pdo, $u, $id);
         if ($target['status'] === 'active') {
@@ -150,7 +150,7 @@ final class AccessController
 
     public function remove(string $id): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $this->assertFuncionario($pdo, $u, $id);
         try {
@@ -164,7 +164,7 @@ final class AccessController
 
     public function audit(): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $stmt = $pdo->prepare('SELECT a.id, a.action, a.target_id, a.meta, a.created_at, u.name AS actor FROM access_audit a LEFT JOIN users u ON u.id = a.actor_id WHERE a.company_id = :c ORDER BY a.id DESC LIMIT 100');
         $stmt->execute([':c' => $u['company_id']]);
@@ -173,7 +173,7 @@ final class AccessController
 
     public function assign(string $id): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         $pdo = Database::pdo();
         $this->assertFuncionario($pdo, $u, $id);
         $b = Validator::body();

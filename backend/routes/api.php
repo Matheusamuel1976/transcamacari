@@ -116,6 +116,12 @@ if (route_match('/funcionarios/{id}', $uri, $p) && $method === 'DELETE') {
 if ($uri === '/contato' && $method === 'POST') {
     (new ContatoController())->store();
 }
+if ($uri === '/team/messages' && $method === 'GET') {
+    (new ContatoController())->index();
+}
+if (route_match('/team/messages/{id}', $uri, $p) && $method === 'DELETE') {
+    (new ContatoController())->destroy($p['id']);
+}
 if ($uri === '/team/smtp-test' && $method === 'POST') {
     (new ContatoController())->test();
 }

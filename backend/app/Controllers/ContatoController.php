@@ -20,9 +20,24 @@ final class ContatoController
         return $host !== '' && $user !== '' && !str_contains($host, 'example.com');
     }
 
+    public function index(): void
+    {
+        Session::requireRole('admin', 'operator');
+        $pdo = Database::pdo();
+        $stmt = $pdo->query('SELECT id, nome, email, assunto, mensagem, ip, created_at FROM contact_messages ORDER BY id DESC LIMIT 200');
+        Response::json(['data' => $stmt->fetchAll()]);
+    }
+
+    public function destroy(string $id): void
+    {
+        Session::requireRole('admin');
+        Database::pdo()->prepare('DELETE FROM contact_messages WHERE id = :id')->execute([':id' => $id]);
+        Response::json(['message' => 'Mensagem excluída.']);
+    }
+
     public function test(): void
     {
-        $u = Session::requireStaff();
+        $u = Session::requireRole('admin');
         if (!self::smtpConfigured()) {
             Response::error('SMTP não configurado. Preencha SMTP_HOST e SMTP_USER nas variáveis de ambiente.', 422);
         }
