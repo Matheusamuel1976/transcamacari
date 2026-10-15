@@ -84,6 +84,7 @@ export const api = {
   },
   contact: (d) =>
     request('/contato', { method: 'POST', body: JSON.stringify(d) }),
+  smtpTest: () => request('/team/smtp-test', { method: 'POST', body: '{}' }),
   team: {
     invite: () => request('/team/invite-code'),
     regenerateInvite: () =>
@@ -103,5 +104,6 @@ export const api = {
         body: JSON.stringify({ linha_ids: linhaIds }),
       }),
     remove: (id) => request(`/team/users/${id}`, { method: 'DELETE' }),
+    audit: () => request('/team/audit'),
   },
 };

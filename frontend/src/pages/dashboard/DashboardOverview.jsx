@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Bus, Users, MapPin, Clock, ArrowUpRight } from 'lucide-react';
+import {
+  Bus,
+  Users,
+  MapPin,
+  Clock,
+  ArrowUpRight,
+  UserPlus,
+} from 'lucide-react';
 import { api } from '../../services/api';
 
 export function DashboardOverview() {
   const [stats, setStats] = useState(null);
+  const [pendingCount, setPendingCount] = useState(0);
   const [error, setError] = useState('');
   useEffect(() => {
     let alive = true;
@@ -27,6 +35,12 @@ export function DashboardOverview() {
             'Não foi possível consultar sua operação. Verifique a conexão e tente recarregar.',
           );
       });
+    api.team
+      .pending()
+      .then((d) => {
+        if (alive) setPendingCount((d.data || []).length);
+      })
+      .catch(() => {});
     return () => {
       alive = false;
     };
@@ -44,6 +58,18 @@ export function DashboardOverview() {
       {error && (
         <p className="alert alert-error" role="alert">
           {error}
+        </p>
+      )}
+      {pendingCount > 0 && (
+        <p className="alert alert-warning" role="status">
+          <UserPlus size={16} />
+          <span>
+            {pendingCount}{' '}
+            {pendingCount === 1
+              ? 'cadastro de funcionário aguarda sua aprovação.'
+              : 'cadastros de funcionários aguardam sua aprovação.'}{' '}
+            <Link to="/dashboard/funcionarios">Revisar na aba Acessos</Link>
+          </span>
         </p>
       )}
       <div className="stat-grid">

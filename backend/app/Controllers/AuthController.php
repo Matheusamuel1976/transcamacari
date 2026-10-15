@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\Audit;
 use App\Core\Database;
 use App\Core\Response;
 use App\Core\Session;
@@ -61,11 +62,14 @@ final class AuthController
             Response::error('Muitas tentativas. Tente mais tarde.', 429);
         }
         $pdo = Database::pdo();
-        $inv = $pdo->prepare('SELECT company_id FROM company_invites WHERE code = :code');
+        $inv = $pdo->prepare('SELECT company_id, expires_at FROM company_invites WHERE code = :code');
         $inv->execute([':code' => $code]);
         $row = $inv->fetch();
         if (!$row) {
             Response::error('Código da empresa inválido. Confira com o responsável.', 422);
+        }
+        if (!empty($row['expires_at']) && strtotime($row['expires_at']) < time()) {
+            Response::error('Código expirado. Peça um novo código ao responsável.', 422);
         }
         $exists = $pdo->prepare('SELECT id FROM users WHERE email = :e');
         $exists->execute([':e' => $email]);
@@ -75,6 +79,7 @@ final class AuthController
         $hash = password_hash($pass, PASSWORD_ARGON2ID);
         $u = $pdo->prepare("INSERT INTO users (company_id, name, email, password_hash, role, status) VALUES (:c, :n, :e, :h, 'funcionario', 'pending')");
         $u->execute([':c' => $row['company_id'], ':n' => $name, ':e' => $email, ':h' => $hash]);
+        Audit::log($pdo, (int)$row['company_id'], null, 'team.register', (int)Database::lastId($pdo, 'users'), $email);
         Response::json(['message' => 'Cadastro enviado. Aguarde a aprovação da empresa para entrar.']);
     }
 
@@ -106,14 +111,44 @@ final class AuthController
             'email' => $user['email'],
             'role' => $user['role'],
             'company' => $user['company_nome'],
+            'must_change_password' => (int)($user['must_change_password'] ?? 0),
         ]);
+        Audit::log($pdo, (int)$user['company_id'], (int)$user['id'], 'auth.login');
         Response::json(['message' => 'Login OK.', 'user' => Session::user()]);
     }
 
     public function logout(): void
     {
+        $u = Session::user();
+        if ($u) {
+            Audit::log(Database::pdo(), (int)$u['company_id'], (int)$u['id'], 'auth.logout');
+        }
         Session::destroy();
         Response::json(['message' => 'Logout OK.']);
+    }
+
+    public function password(): void
+    {
+        $u = Session::requireAuth();
+        $b = Validator::body();
+        $current = $b['current'] ?? '';
+        $next = $b['password'] ?? '';
+        if (!is_string($current) || $current === '' || !is_string($next) || strlen($next) < 8) {
+            Response::error('Informe a senha atual e a nova senha (mín. 8).', 422);
+        }
+        $pdo = Database::pdo();
+        $stmt = $pdo->prepare('SELECT password_hash FROM users WHERE id = :id');
+        $stmt->execute([':id' => $u['id']]);
+        $row = $stmt->fetch();
+        if (!$row || !password_verify($current, $row['password_hash'])) {
+            Response::error('Senha atual incorreta.', 401);
+        }
+        $pdo->prepare('UPDATE users SET password_hash = :h, must_change_password = 0 WHERE id = :id')
+            ->execute([':h' => password_hash($next, PASSWORD_ARGON2ID), ':id' => $u['id']]);
+        $u['must_change_password'] = 0;
+        Session::setUser($u);
+        Audit::log($pdo, (int)$u['company_id'], (int)$u['id'], 'auth.password');
+        Response::json(['message' => 'Senha atualizada.', 'user' => $u]);
     }
 
     public function me(): void

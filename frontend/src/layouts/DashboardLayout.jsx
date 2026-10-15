@@ -9,9 +9,10 @@ import {
   Menu,
   X,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTransition } from '../motion/TransitionContext';
+import { api } from '../services/api';
 
 const links = [
   { to: '/dashboard', label: 'Visão geral', icon: LayoutDashboard, end: true },
@@ -27,6 +28,20 @@ export function DashboardLayout({ children }) {
   const motion = useTransition();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
+  const [pendingCount, setPendingCount] = useState(0);
+
+  useEffect(() => {
+    let alive = true;
+    api.team
+      .pending()
+      .then((d) => {
+        if (alive) setPendingCount((d.data || []).length);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   const adminGo = (e, to) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
@@ -65,6 +80,14 @@ export function DashboardLayout({ children }) {
               onClick={(e) => adminGo(e, l.to)}
             >
               <l.icon size={18} /> {l.label}
+              {l.to === '/dashboard/funcionarios' && pendingCount > 0 && (
+                <span
+                  className="dash-badge"
+                  aria-label={`${pendingCount} aprovações pendentes`}
+                >
+                  {pendingCount}
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -108,6 +131,8 @@ export function DashboardLayout({ children }) {
         .dash-link{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);color:rgba(245,245,245,.78);font-size:var(--font-size-sm);font-weight:500}
         .dash-link:hover{background:rgba(245,245,245,.1);color:var(--color-ivory)}
         .dash-link.active{background:#FF6D00;color:#212121}
+        .dash-badge{margin-left:auto;min-width:22px;height:22px;padding:0 6px;display:grid;place-items:center;border-radius:100px;background:#FF6D00;color:#212121;font-size:11px;font-weight:700}
+        .dash-link.active .dash-badge{background:#212121;color:#FF6D00}
         .dash-user{margin-top:auto;display:flex;align-items:center;gap:var(--space-3);padding-top:var(--space-4);border-top:1px solid #4E59AC}
         .dash-user p{font-size:var(--font-size-sm);font-weight:600}
         .dash-user span{font-size:var(--font-size-xs);opacity:.6}

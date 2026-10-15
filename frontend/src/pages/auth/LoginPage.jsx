@@ -19,8 +19,11 @@ export function LoginPage() {
     setError('');
     try {
       const data = await login(form.email, form.password);
-      const dest =
-        data?.user?.role === 'funcionario' ? '/minhas-linhas' : '/dashboard';
+      const dest = Number(data?.user?.must_change_password || 0)
+        ? '/trocar-senha'
+        : data?.user?.role === 'funcionario'
+          ? '/minhas-linhas'
+          : '/dashboard';
 
       if (motion) motion.go(dest, { variant: 'context', replace: true });
       else navigate(dest, { replace: true });

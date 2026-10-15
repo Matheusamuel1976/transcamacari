@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\Audit;
 use App\Core\Database;
 use App\Core\Response;
 use App\Core\Session;
@@ -11,20 +12,26 @@ use App\Core\Validator;
 
 final class AccessController
 {
+    private static function freshExpiry(): string
+    {
+        return date('Y-m-d H:i:s', time() + 30 * 86400);
+    }
+
     public function inviteCode(): void
     {
         $u = Session::requireStaff();
         $pdo = Database::pdo();
-        $stmt = $pdo->prepare('SELECT code FROM company_invites WHERE company_id = :c');
+        $stmt = $pdo->prepare('SELECT code, expires_at FROM company_invites WHERE company_id = :c');
         $stmt->execute([':c' => $u['company_id']]);
         $row = $stmt->fetch();
         if (!$row) {
             $code = bin2hex(random_bytes(24));
-            $ins = $pdo->prepare('INSERT INTO company_invites (company_id, code) VALUES (:c, :code)');
-            $ins->execute([':c' => $u['company_id'], ':code' => $code]);
-            $row = ['code' => $code];
+            $exp = self::freshExpiry();
+            $ins = $pdo->prepare('INSERT INTO company_invites (company_id, code, expires_at) VALUES (:c, :code, :exp)');
+            $ins->execute([':c' => $u['company_id'], ':code' => $code, ':exp' => $exp]);
+            $row = ['code' => $code, 'expires_at' => $exp];
         }
-        Response::json(['code' => $row['code']]);
+        Response::json(['code' => $row['code'], 'expires_at' => $row['expires_at']]);
     }
 
     public function regenerateCode(): void
@@ -32,13 +39,15 @@ final class AccessController
         $u = Session::requireStaff();
         $pdo = Database::pdo();
         $code = bin2hex(random_bytes(24));
-        $stmt = $pdo->prepare('UPDATE company_invites SET code = :code WHERE company_id = :c');
-        $stmt->execute([':code' => $code, ':c' => $u['company_id']]);
+        $exp = self::freshExpiry();
+        $stmt = $pdo->prepare('UPDATE company_invites SET code = :code, expires_at = :exp WHERE company_id = :c');
+        $stmt->execute([':code' => $code, ':exp' => $exp, ':c' => $u['company_id']]);
         if ($stmt->rowCount() === 0) {
-            $ins = $pdo->prepare('INSERT INTO company_invites (company_id, code) VALUES (:c, :code)');
-            $ins->execute([':c' => $u['company_id'], ':code' => $code]);
+            $ins = $pdo->prepare('INSERT INTO company_invites (company_id, code, expires_at) VALUES (:c, :code, :exp)');
+            $ins->execute([':c' => $u['company_id'], ':code' => $code, ':exp' => $exp]);
         }
-        Response::json(['code' => $code]);
+        Audit::log($pdo, (int)$u['company_id'], (int)$u['id'], 'invite.regenerated');
+        Response::json(['code' => $code, 'expires_at' => $exp]);
     }
 
     public function teamUsers(): void
@@ -104,7 +113,7 @@ final class AccessController
         $hash = password_hash($pass, PASSWORD_ARGON2ID);
         $pdo->beginTransaction();
         try {
-            $ins = $pdo->prepare("INSERT INTO users (company_id, employee_id, name, email, password_hash, role, status) VALUES (:c, :emp, :n, :e, :h, 'funcionario', 'active')");
+            $ins = $pdo->prepare("INSERT INTO users (company_id, employee_id, name, email, password_hash, role, status, must_change_password) VALUES (:c, :emp, :n, :e, :h, 'funcionario', 'active', 1)");
             $ins->execute([':c' => $u['company_id'], ':emp' => $employeeId, ':n' => $name, ':e' => $email, ':h' => $hash]);
             $id = Database::lastId($pdo, 'users');
             $this->replaceAssignments($pdo, (int)$u['company_id'], $id, $b['linha_ids'] ?? []);
@@ -113,7 +122,8 @@ final class AccessController
             $pdo->rollBack();
             Response::error('Falha ao criar acesso.', 500);
         }
-        Response::json(['message' => 'Acesso criado.', 'id' => $id], 201);
+        Audit::log($pdo, (int)$u['company_id'], (int)$u['id'], 'team.user.created', $id, $email);
+        Response::json(['message' => 'Acesso criado. A pessoa deve trocar a senha no primeiro acesso.', 'id' => $id], 201);
     }
 
     public function approve(string $id): void
@@ -134,6 +144,7 @@ final class AccessController
             $pdo->rollBack();
             Response::error('Falha ao aprovar.', 500);
         }
+        Audit::log($pdo, (int)$u['company_id'], (int)$u['id'], 'team.user.approved', (int)$id);
         Response::json(['message' => 'Acesso aprovado.']);
     }
 
@@ -147,7 +158,17 @@ final class AccessController
         } catch (\Throwable $e) {
             Response::error('Falha ao remover.', 500);
         }
+        Audit::log($pdo, (int)$u['company_id'], (int)$u['id'], 'team.user.removed', (int)$id);
         Response::json(['message' => 'Acesso removido.']);
+    }
+
+    public function audit(): void
+    {
+        $u = Session::requireStaff();
+        $pdo = Database::pdo();
+        $stmt = $pdo->prepare('SELECT a.id, a.action, a.target_id, a.meta, a.created_at, u.name AS actor FROM access_audit a LEFT JOIN users u ON u.id = a.actor_id WHERE a.company_id = :c ORDER BY a.id DESC LIMIT 100');
+        $stmt->execute([':c' => $u['company_id']]);
+        Response::json(['data' => $stmt->fetchAll()]);
     }
 
     public function assign(string $id): void
@@ -164,6 +185,7 @@ final class AccessController
             $pdo->rollBack();
             Response::error('Falha ao salvar atribuições.', 500);
         }
+        Audit::log($pdo, (int)$u['company_id'], (int)$u['id'], 'team.user.assigned', (int)$id);
         Response::json(['message' => 'Linhas atribuídas.']);
     }
 

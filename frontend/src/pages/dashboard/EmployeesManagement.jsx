@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { api } from '../../services/api';
-import { AccessManagement } from './AccessManagement';
+import { AccessManagement, AuditList } from './AccessManagement';
 
 const empty = { nome: '', cargo: '', email: '', telefone: '' };
 
@@ -53,6 +53,7 @@ export function EmployeesManagement() {
         {[
           ['equipe', 'Funcionários'],
           ['acessos', 'Acessos ao sistema'],
+          ['auditoria', 'Auditoria'],
         ].map(([value, label]) => (
           <button
             key={value}
@@ -67,6 +68,7 @@ export function EmployeesManagement() {
         ))}
       </div>
       {tab === 'acessos' && <AccessManagement />}
+      {tab === 'auditoria' && <AuditList />}
       {tab === 'equipe' && (
         <>
           {msg && (

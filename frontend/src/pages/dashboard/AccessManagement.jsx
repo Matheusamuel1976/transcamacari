@@ -7,8 +7,82 @@ import {
   Copy,
   RefreshCw,
   KeyRound,
+  History,
 } from 'lucide-react';
 import { api } from '../../services/api';
+
+const ACTION_LABELS = {
+  'auth.login': 'entrou',
+  'auth.logout': 'saiu',
+  'auth.password': 'trocou a senha',
+  'team.register': 'pediu acesso com código',
+  'team.user.created': 'teve acesso criado',
+  'team.user.approved': 'foi aprovado',
+  'team.user.removed': 'teve acesso removido',
+  'team.user.assigned': 'teve linhas atualizadas',
+  'invite.regenerated': 'gerou novo código',
+};
+
+export function AuditList() {
+  const [rows, setRows] = useState([]);
+  const [state, setState] = useState('loading');
+  useEffect(() => {
+    let alive = true;
+    api.team
+      .audit()
+      .then((d) => {
+        if (!alive) return;
+        setRows(d.data || []);
+        setState('ok');
+      })
+      .catch(() => {
+        if (alive) setState('error');
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  const fmtWhen = (iso) => {
+    const d = new Date((iso || '').replace(' ', 'T'));
+    return Number.isNaN(d.getTime())
+      ? iso || ''
+      : d.toLocaleString('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+  };
+  return (
+    <div className="card access__block">
+      <h2>
+        <History size={18} /> Auditoria de acessos
+      </h2>
+      {state === 'loading' && (
+        <p className="access__hint">Carregando eventos…</p>
+      )}
+      {state === 'error' && (
+        <p className="access__hint">Não foi possível carregar a auditoria.</p>
+      )}
+      {state === 'ok' && rows.length === 0 && (
+        <p className="access__hint">Nenhum evento registrado ainda.</p>
+      )}
+      {rows.map((r) => (
+        <div key={r.id} className="access__row">
+          <div>
+            <strong>
+              {r.actor || 'Sistema'} {ACTION_LABELS[r.action] || r.action}
+            </strong>
+            <span>
+              {fmtWhen(r.created_at)}
+              {r.meta ? ` · ${r.meta}` : ''}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 const emptyUser = {
   name: '',
@@ -24,6 +98,7 @@ export function AccessManagement() {
   const [lines, setLines] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [invite, setInvite] = useState('');
+  const [inviteExp, setInviteExp] = useState('');
   const [copied, setCopied] = useState(false);
   const [form, setForm] = useState(emptyUser);
   const [assigning, setAssigning] = useState(null);
@@ -46,6 +121,7 @@ export function AccessManagement() {
       setLines(l.data || []);
       setEmployees(e.data || []);
       setInvite(inv.code || '');
+      setInviteExp(inv.expires_at || '');
     } catch (err) {
       setMsg({ type: 'error', text: err.message });
     }
@@ -73,10 +149,23 @@ export function AccessManagement() {
     try {
       const d = await api.team.regenerateInvite();
       setInvite(d.code);
+      setInviteExp(d.expires_at || '');
       say('ok', 'Novo código gerado. Códigos antigos deixam de valer.');
     } catch (err) {
       say('error', err.message);
     }
+  };
+
+  const fmtDate = (iso) => {
+    if (!iso) return '';
+    const d = new Date(iso.replace(' ', 'T'));
+    return Number.isNaN(d.getTime())
+      ? iso
+      : d.toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        });
   };
 
   const create = async (e) => {
@@ -162,6 +251,13 @@ export function AccessManagement() {
         <p className="access__hint">
           Compartilhe com quem deve se cadastrar como funcionário. Quem se
           cadastra com o código entra na fila de aprovação abaixo.
+          {inviteExp && (
+            <span className="access__exp">
+              {' '}
+              Válido até {fmtDate(inviteExp)} — gerar um novo código cancela o
+              anterior.
+            </span>
+          )}
         </p>
         <div className="access__invite">
           <code>{invite || '…'}</code>

@@ -63,6 +63,9 @@ if ($uri === '/auth/me' && $method === 'GET') {
 if ($uri === '/auth/profile' && $method === 'PUT') {
     (new AuthController())->profile();
 }
+if ($uri === '/auth/password' && $method === 'PUT') {
+    (new AuthController())->password();
+}
 if ($uri === '/auth/csrf' && $method === 'GET') {
     Response::json(['csrf' => Session::csrfToken()]);
 }
@@ -113,6 +116,9 @@ if (route_match('/funcionarios/{id}', $uri, $p) && $method === 'DELETE') {
 if ($uri === '/contato' && $method === 'POST') {
     (new ContatoController())->store();
 }
+if ($uri === '/team/smtp-test' && $method === 'POST') {
+    (new ContatoController())->test();
+}
 
 
 if ($uri === '/team/invite-code' && $method === 'GET') {
@@ -129,6 +135,9 @@ if ($uri === '/team/users' && $method === 'POST') {
 }
 if ($uri === '/team/pending' && $method === 'GET') {
     (new AccessController())->pending();
+}
+if ($uri === '/team/audit' && $method === 'GET') {
+    (new AccessController())->audit();
 }
 if (route_match('/team/users/{id}/approve', $uri, $p) && $method === 'POST') {
     (new AccessController())->approve($p['id']);

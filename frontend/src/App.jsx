@@ -15,6 +15,11 @@ import { EmployeesManagement } from './pages/dashboard/EmployeesManagement';
 import { MapPage } from './pages/dashboard/MapPage';
 import { AccountSettings } from './pages/dashboard/AccountSettings';
 import { MyLinesPage } from './pages/MyLinesPage';
+import { ChangePasswordPage } from './pages/ChangePasswordPage';
+
+function needsPasswordChange(user) {
+  return Number(user?.must_change_password || 0) === 1;
+}
 
 function LoadingScreen() {
   return (
@@ -35,6 +40,7 @@ function RequireStaff({ children }) {
     return <Navigate to="/login" replace />;
   if (user?.role === 'funcionario')
     return <Navigate to="/minhas-linhas" replace />;
+  if (needsPasswordChange(user)) return <Navigate to="/trocar-senha" replace />;
   return (
     <DashboardLayout>
       <AnimatedPage mode="content">{children}</AnimatedPage>
@@ -47,6 +53,7 @@ function RequireFuncionario({ children }) {
   if (loading) return <LoadingScreen />;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (user?.role !== 'funcionario') return <Navigate to="/dashboard" replace />;
+  if (needsPasswordChange(user)) return <Navigate to="/trocar-senha" replace />;
   return <AnimatedPage mode="content">{children}</AnimatedPage>;
 }
 
@@ -54,6 +61,8 @@ function HomeRoute() {
   const { user, isAuthenticated, loading } = useAuth();
   if (loading) return <LoadingScreen />;
   if (isAuthenticated) {
+    if (needsPasswordChange(user))
+      return <Navigate to="/trocar-senha" replace />;
     if (user?.role === 'funcionario')
       return <Navigate to="/minhas-linhas" replace />;
     return <Navigate to="/dashboard" replace />;
@@ -134,6 +143,14 @@ function AppRoutes() {
           <RequireFuncionario>
             <MyLinesPage />
           </RequireFuncionario>
+        }
+      />
+      <Route
+        path="/trocar-senha"
+        element={
+          <AnimatedPage>
+            <ChangePasswordPage />
+          </AnimatedPage>
         }
       />
       <Route path="*" element={<Navigate to="/" replace />} />

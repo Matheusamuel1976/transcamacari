@@ -81,6 +81,13 @@ export function AuthProvider({ children }) {
     sessionStorage.setItem('transcamacari_user', JSON.stringify(data.user));
   }, []);
 
+  const updatePassword = useCallback(async (current, password) => {
+    const data = await api.put('/auth/password', { current, password });
+    setUser(data.user);
+    sessionStorage.setItem('transcamacari_user', JSON.stringify(data.user));
+    return data;
+  }, []);
+
   const value = {
     user,
     isAuthenticated: !!user,
@@ -89,6 +96,7 @@ export function AuthProvider({ children }) {
     register,
     logout,
     updateUser,
+    updatePassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
