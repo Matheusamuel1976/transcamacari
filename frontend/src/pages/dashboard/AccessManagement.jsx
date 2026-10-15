@@ -43,15 +43,25 @@ export function AuditList() {
     };
   }, []);
   const fmtWhen = (iso) => {
-    const d = new Date((iso || '').replace(' ', 'T'));
+    const clean = String(iso || '')
+      .replace(' ', 'T')
+      .replace(/(\.\d{3})\d+/, '$1')
+      .replace(/([+-]\d{2})$/, '$1:00');
+    const d = new Date(clean);
     return Number.isNaN(d.getTime())
-      ? iso || ''
+      ? String(iso || '')
       : d.toLocaleString('pt-BR', {
           day: '2-digit',
           month: '2-digit',
           hour: '2-digit',
           minute: '2-digit',
         });
+  };
+  const actorLabel = (r) => {
+    if (r.actor) return r.actor;
+    if ((r.action || '').startsWith('auth.')) return 'Conta excluída';
+    if (r.action === 'team.register') return 'Novo cadastro';
+    return 'Sistema';
   };
   return (
     <div className="card access__block">
@@ -68,10 +78,10 @@ export function AuditList() {
         <p className="access__hint">Nenhum evento registrado ainda.</p>
       )}
       {rows.map((r) => (
-        <div key={r.id} className="access__row">
+        <div key={r.id} className="access__row access__row--audit">
           <div>
             <strong>
-              {r.actor || 'Sistema'} {ACTION_LABELS[r.action] || r.action}
+              {actorLabel(r)} {ACTION_LABELS[r.action] || r.action}
             </strong>
             <span>
               {fmtWhen(r.created_at)}
@@ -80,6 +90,11 @@ export function AuditList() {
           </div>
         </div>
       ))}
+      <style>{`
+        .access__row--audit{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--color-gray-200);padding:14px 0}
+        .access__row--audit strong{display:block;font-size:15px}
+        .access__row--audit span{display:block;font-size:12px;color:var(--color-gray-600);margin-top:4px}
+      `}</style>
     </div>
   );
 }
