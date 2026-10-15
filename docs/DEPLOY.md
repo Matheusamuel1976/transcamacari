@@ -68,6 +68,46 @@ Login demo: `demo@transcamacari.local` / `demo12345` (troque após subir).
 - [ ] Contato registra (SMTP só com credenciais reais).
 - [ ] Sem erros no console; sem overlay preso; mobile OK.
 
+## 5. Matriz de papéis
+
+| Papel | Ver linhas | CRUD linhas/pontos/funcionários | Equipe e aprovações | Auditoria e SMTP | Mensagens |
+|---|---|---|---|---|---|
+| admin | todas | sim | sim | sim | ver + excluir |
+| operator | todas | sim | não (403) | não (403) | ver |
+| funcionario | só designadas | não (403) | não (403) | não (403) | não |
+| anônimo | só visíveis | não | não | não | só enviar contato |
+
+Funcionário com senha inicial deve trocá-la em `/trocar-senha` antes de
+navegar. Convites de empresa valem 30 dias.
+
+## 6. Credenciais SMTP (onde obter)
+
+Gmail (recomendado): ative a verificação em 2 etapas na Conta Google,
+depois myaccount.google.com → Segurança → **Senhas de app** → gere uma
+para "TransCamaçari" (16 letras). Variáveis:
+
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=seu@gmail.com
+SMTP_PASS=<senha de app, sem espaços>
+SMTP_FROM=seu@gmail.com
+SMTP_TO=email-que-recebe@exemplo.com
+SMTP_ENCRYPTION=tls
+```
+
+Outlook: `smtp.office365.com:587` com a senha normal. Valide pelo botão
+**Enviar e-mail de teste** na Conta do painel; o contato passa a entregar
+de verdade em vez de só registrar.
+
+## 7. Backup do banco
+
+Local (XAMPP): `C:\xampp\mysql\bin\mysqldump.exe -u root
+--default-character-set=utf8mb4 transcamacari > backup.sql`.
+Supabase: Database → Backups (plano gratuito tem retenção limitada) ou
+`pg_dump` com a connection string. Guarde um dump antes de qualquer
+migração.
+
 ## Limites conhecidos
 
 - Sessões PHP são por servidor: no Railway/Render use 1 réplica (ou

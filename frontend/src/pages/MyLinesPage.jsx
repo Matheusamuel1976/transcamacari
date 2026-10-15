@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import L from 'leaflet';
 import { Bus, LogOut, Clock, MapPin, X, ArrowUpRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
+
+const CENTER = [-12.6975, -38.3242];
 
 export function MyLinesPage() {
   const { user, logout } = useAuth();
@@ -10,6 +13,8 @@ export function MyLinesPage() {
   const [lines, setLines] = useState([]);
   const [state, setState] = useState('loading');
   const [open, setOpen] = useState(null);
+  const mapEl = useRef(null);
+  const mapRef = useRef(null);
 
   useEffect(() => {
     let alive = true;
@@ -34,6 +39,49 @@ export function MyLinesPage() {
       navigate('/login');
     } catch {}
   };
+
+  useEffect(() => {
+    if (!mapEl.current || mapRef.current || lines.length === 0) return;
+    const map = L.map(mapEl.current, {
+      center: CENTER,
+      zoom: 12,
+      scrollWheelZoom: false,
+    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
+    const layer = L.layerGroup().addTo(map);
+    const bounds = [];
+    lines.forEach((line) => {
+      const pts = (line.pontos || [])
+        .map((p) => [Number(p.latitude), Number(p.longitude)])
+        .filter((p) => p.every(Number.isFinite));
+      if (pts.length > 1)
+        L.polyline(pts, { color: '#FF6D00', weight: 3 }).addTo(layer);
+      pts.forEach((pt) => {
+        bounds.push(pt);
+        L.circleMarker(pt, {
+          radius: 6,
+          fillColor: '#1A237E',
+          color: '#fff',
+          weight: 2,
+          fillOpacity: 1,
+        })
+          .addTo(layer)
+          .bindTooltip(`${line.codigo} · ${line.nome}`);
+      });
+    });
+    if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
+    mapRef.current = map;
+    const resize = new ResizeObserver(() => map.invalidateSize());
+    resize.observe(mapEl.current);
+    return () => {
+      resize.disconnect();
+      map.remove();
+      mapRef.current = null;
+    };
+  }, [lines]);
 
   return (
     <div className="mylines">
@@ -65,6 +113,20 @@ export function MyLinesPage() {
           Nenhuma linha atribuída a você ainda. Fale com o responsável da sua
           empresa.
         </p>
+      )}
+      {state === 'ok' && lines.length > 0 && (
+        <div className="mylines__map-wrap">
+          <h2 className="mylines__map-title">Seu território</h2>
+          <div
+            ref={mapEl}
+            className="mylines__map"
+            role="application"
+            aria-label="Mapa das suas linhas"
+          />
+          <p className="mylines__map-legend">
+            Pontos e conexões das linhas atribuídas a você. Somente leitura.
+          </p>
+        </div>
       )}
       <div className="mylines__list">
         {lines.map((line) => (
@@ -115,6 +177,10 @@ export function MyLinesPage() {
         .mylines__logout{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#1A237E;border:1px solid #C9CFDD;border-radius:100px;padding:10px 18px;white-space:nowrap}
         .mylines__logout:hover{background:#1A237E;color:#F5F5F5}
         .mylines__status{max-width:900px;margin:0 auto;font-size:14px;color:#5A5A5A}
+        .mylines__map-wrap{max-width:900px;margin:0 auto 8px}
+        .mylines__map-title{font-size:20px;color:#1A237E;margin-bottom:12px}
+        .mylines__map{height:360px;border-radius:12px;border:1px solid #E4E7EF;z-index:0}
+        .mylines__map-legend{font-size:11px;color:#5A5A5A;margin-top:8px}
         .mylines__list{max-width:900px;margin:26px auto 0;display:flex;flex-direction:column}
         .mylines__card{background:#fff;border:1px solid #E4E7EF;border-radius:12px;margin-bottom:14px;overflow:hidden}
         .mylines__summary{width:100%;display:flex;align-items:center;gap:18px;text-align:left;padding:20px 22px;color:#212121}

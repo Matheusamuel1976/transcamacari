@@ -8,6 +8,7 @@ import {
   LogOut,
   Menu,
   X,
+  Mail,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,6 +20,7 @@ const links = [
   { to: '/dashboard/linhas', label: 'Linhas', icon: Bus },
   { to: '/dashboard/funcionarios', label: 'Funcionários', icon: Users },
   { to: '/dashboard/mapa', label: 'Mapa', icon: Map },
+  { to: '/dashboard/mensagens', label: 'Mensagens', icon: Mail },
   { to: '/dashboard/configuracoes', label: 'Conta', icon: Settings },
 ];
 

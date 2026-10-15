@@ -13,6 +13,7 @@ import { DashboardOverview } from './pages/dashboard/DashboardOverview';
 import { LinesManagement } from './pages/dashboard/LinesManagement';
 import { EmployeesManagement } from './pages/dashboard/EmployeesManagement';
 import { MapPage } from './pages/dashboard/MapPage';
+import { MensagensPage } from './pages/dashboard/MensagensPage';
 import { AccountSettings } from './pages/dashboard/AccountSettings';
 import { MyLinesPage } from './pages/MyLinesPage';
 import { ChangePasswordPage } from './pages/ChangePasswordPage';
@@ -126,6 +127,14 @@ function AppRoutes() {
         element={
           <RequireStaff>
             <MapPage />
+          </RequireStaff>
+        }
+      />
+      <Route
+        path="/dashboard/mensagens"
+        element={
+          <RequireStaff>
+            <MensagensPage />
           </RequireStaff>
         }
       />

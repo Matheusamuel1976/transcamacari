@@ -85,6 +85,10 @@ export const api = {
   contact: (d) =>
     request('/contato', { method: 'POST', body: JSON.stringify(d) }),
   smtpTest: () => request('/team/smtp-test', { method: 'POST', body: '{}' }),
+  messages: {
+    list: () => request('/team/messages'),
+    remove: (id) => request(`/team/messages/${id}`, { method: 'DELETE' }),
+  },
   team: {
     invite: () => request('/team/invite-code'),
     regenerateInvite: () =>

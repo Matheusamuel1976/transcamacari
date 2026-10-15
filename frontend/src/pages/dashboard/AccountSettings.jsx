@@ -4,11 +4,14 @@ import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 
 export function AccountSettings() {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, updatePassword } = useAuth();
   const [name, setName] = useState(user?.name || '');
   const [status, setStatus] = useState({ error: false, text: '' });
   const [saving, setSaving] = useState(false);
   const [smtp, setSmtp] = useState({ sending: false, text: '', error: false });
+  const [pw, setPw] = useState({ current: '', password: '', confirm: '' });
+  const [pwStatus, setPwStatus] = useState({ error: false, text: '' });
+  const [pwSaving, setPwSaving] = useState(false);
   const save = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -29,6 +32,27 @@ export function AccountSettings() {
       setSmtp({ sending: false, text: d.message, error: false });
     } catch (error) {
       setSmtp({ sending: false, text: error.message, error: true });
+    }
+  };
+  const changePw = async (e) => {
+    e.preventDefault();
+    setPwStatus({ error: false, text: '' });
+    if (pw.password !== pw.confirm) {
+      setPwStatus({
+        error: true,
+        text: 'A nova senha e a confirmação não coincidem.',
+      });
+      return;
+    }
+    setPwSaving(true);
+    try {
+      await updatePassword(pw.current, pw.password);
+      setPw({ current: '', password: '', confirm: '' });
+      setPwStatus({ error: false, text: 'Senha atualizada.' });
+    } catch (error) {
+      setPwStatus({ error: true, text: error.message });
+    } finally {
+      setPwSaving(false);
     }
   };
   return (
@@ -72,6 +96,65 @@ export function AccountSettings() {
         </div>
         <button className="btn btn-primary" disabled={saving}>
           {saving ? 'Salvando…' : 'Salvar nome'}
+        </button>
+      </form>
+      <h2 className="dash-h2">Trocar senha</h2>
+      <p className="dash-sub">Altere sua senha de acesso quando quiser.</p>
+      {pwStatus.text && (
+        <p
+          className={`alert ${pwStatus.error ? 'alert-error' : 'alert-success'}`}
+          role="status"
+        >
+          {pwStatus.text}
+        </p>
+      )}
+      <form className="card account-form" onSubmit={changePw}>
+        <div className="input-group">
+          <label htmlFor="pw-current" className="input-label">
+            Senha atual
+          </label>
+          <input
+            id="pw-current"
+            type="password"
+            className="input-field"
+            value={pw.current}
+            onChange={(e) => setPw({ ...pw, current: e.target.value })}
+            required
+            autoComplete="current-password"
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="pw-new" className="input-label">
+            Nova senha (mín. 8)
+          </label>
+          <input
+            id="pw-new"
+            type="password"
+            className="input-field"
+            value={pw.password}
+            onChange={(e) => setPw({ ...pw, password: e.target.value })}
+            required
+            minLength={8}
+            autoComplete="new-password"
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="pw-confirm" className="input-label">
+            Confirmar nova senha
+          </label>
+          <input
+            id="pw-confirm"
+            type="password"
+            className="input-field"
+            value={pw.confirm}
+            onChange={(e) => setPw({ ...pw, confirm: e.target.value })}
+            required
+            minLength={8}
+            autoComplete="new-password"
+          />
+        </div>
+        <button className="btn btn-primary" disabled={pwSaving}>
+          {pwSaving ? 'Salvando…' : 'Trocar senha'}
         </button>
       </form>
       <h2 className="dash-h2">E-mail da plataforma</h2>
