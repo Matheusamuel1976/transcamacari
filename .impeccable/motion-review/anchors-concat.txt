@@ -1,0 +1,110 @@
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0000.jpg'
+duration 0.046
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0001.jpg'
+duration 0.038
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0002.jpg'
+duration 0.05
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0003.jpg'
+duration 0.052
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0004.jpg'
+duration 0.046
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0005.jpg'
+duration 0.048
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0006.jpg'
+duration 0.057
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0007.jpg'
+duration 0.051
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0008.jpg'
+duration 0.047
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0009.jpg'
+duration 0.054
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0010.jpg'
+duration 0.049
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0011.jpg'
+duration 0.051
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0012.jpg'
+duration 0.043
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0013.jpg'
+duration 0.056
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0014.jpg'
+duration 0.052
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0015.jpg'
+duration 0.055
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0016.jpg'
+duration 0.067
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0017.jpg'
+duration 0.043
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0018.jpg'
+duration 0.05
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0019.jpg'
+duration 0.045
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0020.jpg'
+duration 0.049
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0021.jpg'
+duration 0.048
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0022.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0023.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0024.jpg'
+duration 0.045
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0025.jpg'
+duration 0.05
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0026.jpg'
+duration 0.05
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0027.jpg'
+duration 0.045
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0028.jpg'
+duration 0.049
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0029.jpg'
+duration 0.04
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0030.jpg'
+duration 0.034
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0031.jpg'
+duration 0.032
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0032.jpg'
+duration 0.048
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0033.jpg'
+duration 0.05
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0034.jpg'
+duration 0.029
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0035.jpg'
+duration 0.032
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0036.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0037.jpg'
+duration 0.045
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0038.jpg'
+duration 0.032
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0039.jpg'
+duration 0.032
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0040.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0041.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0042.jpg'
+duration 0.032
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0043.jpg'
+duration 0.044
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0044.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0045.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0046.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0047.jpg'
+duration 0.034
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0048.jpg'
+duration 0.034
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0049.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0050.jpg'
+duration 0.034
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0051.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0052.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0053.jpg'
+duration 0.031
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/anchors/0054.jpg'
+duration 0.3

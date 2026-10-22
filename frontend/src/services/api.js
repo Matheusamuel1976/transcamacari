@@ -1,113 +1,175 @@
-export const API_BASE =
-  (import.meta.env.VITE_API_URL || '').replace(/\/$/, '') || '/api';
-
-let csrf = null;
-
-async function ensureCsrf() {
-  if (csrf) return csrf;
-  const res = await fetch(`${API_BASE}/auth/csrf`, {
-    credentials: 'include',
-    signal: AbortSignal.timeout(8000),
-  });
-  const data = await res.json().catch(() => ({}));
-  csrf = data.csrf || null;
-  return csrf;
-}
-
-async function request(path, options = {}) {
-  const method = (options.method || 'GET').toUpperCase();
-  const headers = {
-    'Content-Type': 'application/json',
-    ...(options.headers || {}),
-  };
-
-  if (
-    method !== 'GET' &&
-    path !== '/auth/login' &&
-    path !== '/auth/register' &&
-    path !== '/auth/csrf'
-  ) {
-    try {
-      const token = await ensureCsrf();
-      if (token) headers['X-CSRF-Token'] = token;
-    } catch {}
-  }
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    signal: options.signal || AbortSignal.timeout(8000),
-    credentials: 'include',
-    headers,
-  });
-  const data = await res.json().catch(() => ({}));
-  if (res.status === 419) csrf = null;
-  if (!res.ok) throw new Error(data.message || `Erro ${res.status}`);
-  return data;
-}
+import { supabase } from './supabase';
 
 export const api = {
-  get: (path) => request(path),
-  post: (path, body) =>
-    request(path, { method: 'POST', body: JSON.stringify(body) }),
-  put: (path, body) =>
-    request(path, { method: 'PUT', body: JSON.stringify(body) }),
-  del: (path) => request(path, { method: 'DELETE' }),
-  resetCsrf: () => {
-    csrf = null;
-  },
+  // --- Linhas ---
   lines: {
-    list: (q = '') =>
-      request(`/linhas${q ? `?q=${encodeURIComponent(q)}` : ''}`),
-    get: (id) => request(`/linhas/${id}`),
-    create: (d) =>
-      request('/linhas', { method: 'POST', body: JSON.stringify(d) }),
-    update: (id, d) =>
-      request(`/linhas/${id}`, { method: 'PUT', body: JSON.stringify(d) }),
-    remove: (id) => request(`/linhas/${id}`, { method: 'DELETE' }),
-    pontos: (id) => request(`/linhas/${id}/pontos`),
-    addPonto: (id, d) =>
-      request(`/linhas/${id}/pontos`, {
-        method: 'POST',
-        body: JSON.stringify(d),
-      }),
-    removePonto: (pid) => request(`/pontos/${pid}`, { method: 'DELETE' }),
+    list: async () => {
+      const { data, error } = await supabase
+        .from('linhas')
+        .select('*')
+        .eq('publicado', true)
+        .order('codigo');
+      if (error) throw error;
+      return { data };
+    },
+    get: async (id) => {
+      const { data, error } = await supabase
+        .from('linhas')
+        .select('*')
+        .eq('id', id)
+        .single();
+      if (error) throw error;
+      return { data };
+    },
+    listAll: async () => {
+      const { data, error } = await supabase
+        .from('linhas')
+        .select('*')
+        .order('codigo');
+      if (error) throw error;
+      return { data };
+    },
+    create: async (d) => {
+      const { data, error } = await supabase.from('linhas').insert(d).select().single();
+      if (error) throw error;
+      return { data };
+    },
+    update: async (id, d) => {
+      const { data, error } = await supabase.from('linhas').update(d).eq('id', id).select().single();
+      if (error) throw error;
+      return { data };
+    },
+    remove: async (id) => {
+      const { error } = await supabase.from('linhas').delete().eq('id', id);
+      if (error) throw error;
+      return { success: true };
+    },
+    pontos: async (id) => {
+      const { data, error } = await supabase
+        .from('itinerary_locais')
+        .select('*')
+        .eq('linha_id', id)
+        .order('sentido')
+        .order('ordem');
+      if (error) throw error;
+      return { data };
+    },
+    addPonto: async (id, d) => {
+      const { data, error } = await supabase
+        .from('itinerary_locais')
+        .insert({ linha_id: id, ...d })
+        .select().single();
+      if (error) throw error;
+      return { data };
+    },
+    removePonto: async (pid) => {
+      const { error } = await supabase.from('itinerary_locais').delete().eq('id', pid);
+      if (error) throw error;
+      return { success: true };
+    },
+    route: async (id, sentido = 'ida') => {
+      const { data, error } = await supabase
+        .from('route_geometries')
+        .select('*')
+        .eq('linha_id', id)
+        .eq('sentido', sentido)
+        .single();
+      if (error) throw error;
+      return { data };
+    },
   },
+
+  // --- Horarios ---
+  horarios: {
+    list: async (linhaId) => {
+      const { data, error } = await supabase
+        .from('horarios')
+        .select('*')
+        .eq('linha_id', linhaId)
+        .order('categoria')
+        .order('ordem');
+      if (error) throw error;
+      return { data };
+    },
+    create: async (d) => {
+      const { data, error } = await supabase.from('horarios').insert(d).select().single();
+      if (error) throw error;
+      return { data };
+    },
+    update: async (id, d) => {
+      const { data, error } = await supabase.from('horarios').update(d).eq('id', id).select().single();
+      if (error) throw error;
+      return { data };
+    },
+    remove: async (id) => {
+      const { error } = await supabase.from('horarios').delete().eq('id', id);
+      if (error) throw error;
+      return { success: true };
+    },
+  },
+
+  // --- Perfis / Funcionarios ---
   employees: {
-    list: () => request('/funcionarios'),
-    create: (d) =>
-      request('/funcionarios', { method: 'POST', body: JSON.stringify(d) }),
-    update: (id, d) =>
-      request(`/funcionarios/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(d),
-      }),
-    remove: (id) => request(`/funcionarios/${id}`, { method: 'DELETE' }),
+    list: async () => {
+      const { data, error } = await supabase.from('profiles').select('*').order('name');
+      if (error) throw error;
+      return { data };
+    },
+    create: async (d) => {
+      const { data, error } = await supabase.from('profiles').insert(d).select().single();
+      if (error) throw error;
+      return { data };
+    },
+    update: async (id, d) => {
+      const { data, error } = await supabase.from('profiles').update(d).eq('id', id).select().single();
+      if (error) throw error;
+      return { data };
+    },
+    remove: async (id) => {
+      const { error } = await supabase.from('profiles').delete().eq('id', id);
+      if (error) throw error;
+      return { success: true };
+    },
   },
-  contact: (d) =>
-    request('/contato', { method: 'POST', body: JSON.stringify(d) }),
-  smtpTest: () => request('/team/smtp-test', { method: 'POST', body: '{}' }),
+
+  // --- Contato ---
+  contact: async (d) => {
+    const { data, error } = await supabase.from('contact_messages').insert(d).select().single();
+    if (error) throw error;
+    return { data };
+  },
+
   messages: {
-    list: () => request('/team/messages'),
-    remove: (id) => request(`/team/messages/${id}`, { method: 'DELETE' }),
+    list: async () => {
+      const { data, error } = await supabase.from('contact_messages').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      return { data };
+    },
+    remove: async (id) => {
+      const { error } = await supabase.from('contact_messages').delete().eq('id', id);
+      if (error) throw error;
+      return { success: true };
+    },
   },
-  team: {
-    invite: () => request('/team/invite-code'),
-    regenerateInvite: () =>
-      request('/team/invite-code', { method: 'POST', body: '{}' }),
-    users: () => request('/team/users'),
-    pending: () => request('/team/pending'),
-    createUser: (d) =>
-      request('/team/users', { method: 'POST', body: JSON.stringify(d) }),
-    approve: (id, linhaIds = []) =>
-      request(`/team/users/${id}/approve`, {
-        method: 'POST',
-        body: JSON.stringify({ linha_ids: linhaIds }),
-      }),
-    assign: (id, linhaIds) =>
-      request(`/team/users/${id}/lines`, {
-        method: 'PUT',
-        body: JSON.stringify({ linha_ids: linhaIds }),
-      }),
-    remove: (id) => request(`/team/users/${id}`, { method: 'DELETE' }),
-    audit: () => request('/team/audit'),
+
+  // --- Route geometries ---
+  routes: {
+    list: async () => {
+      const { data, error } = await supabase.from('route_geometries').select('*').order('linha_id');
+      if (error) throw error;
+      return { data };
+    },
+    create: async (d) => {
+      const { data, error } = await supabase.from('route_geometries').insert(d).select().single();
+      if (error) throw error;
+      return { data };
+    },
+    update: async (id, d) => {
+      const { data, error } = await supabase.from('route_geometries').update(d).eq('id', id).select().single();
+      if (error) throw error;
+      return { data };
+    },
   },
 };
+
+export default api;

@@ -5,11 +5,7 @@
   --color-midnight: #12175c;
   --color-ivory: #f5f5f5;
   --color-ivory-dark: #e4e7ef;
-  --color-solar: #ff6d00;
-  --color-solar-light: #ff8a3d;
-  --color-solar-dark: #c65300;
-  --color-terracotta: #ff6d00;
-  --color-terracotta-light: #ff8a3d;
+  
   --color-asphalt: #212121;
   --color-mist: #e7eaf2;
   --header-height: 86px;
@@ -29,11 +25,11 @@ button,
 input,
 textarea,
 select {
-  accent-color: #ff6d00;
+  accent-color: #1a237e;
 }
 input,
 textarea {
-  caret-color: #ff6d00;
+  caret-color: #1a237e;
 }
 a {
   text-underline-offset: 5px;
@@ -50,10 +46,10 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #ff6d00;
+  outline: 2px solid #1a237e;
 }
 ::selection {
-  background: #ff6d00;
+  background: #1a237e;
   color: #ffffff;
 }
 .btn {
@@ -195,11 +191,11 @@ section[id] {
   overflow: visible;
 }
 .journey__path {
-  stroke: #ff6d00;
+  stroke: #1a237e;
   stroke-width: 2;
 }
 .journey__graphic circle {
-  stroke: #ff6d00;
+  stroke: #1a237e;
   stroke-width: 2;
   fill: #1a237e;
 }
@@ -207,7 +203,7 @@ section[id] {
   position: absolute;
   width: 110px;
   height: 110px;
-  background: #ff6d00;
+  background: #1a237e;
   border-radius: 50%;
   left: 42%;
   top: 3px;
@@ -229,8 +225,8 @@ section[id] {
   font-size: 15px;
 }
 .journey__tabs button[aria-selected='true'] {
-  color: #ffc79a;
-  border-bottom: 2px solid #ff6d00;
+  color: #4e59ac;
+  border-bottom: 2px solid #1a237e;
 }
 .journey__panel {
   display: grid;
@@ -251,7 +247,7 @@ section[id] {
   max-width: 50ch;
 }
 .journey__panel a {
-  color: #ffc79a;
+  color: #4e59ac;
   font-size: 13px;
   display: flex;
   justify-content: space-between;
@@ -313,7 +309,7 @@ section[id] {
   gap: 30px;
   padding: 18px 0;
   font-size: 12px;
-  color: #7a3e00;
+  color: #12175c;
   border-bottom: 1px solid #e4e7ef;
 }
 .data-notice strong {
@@ -323,7 +319,7 @@ section[id] {
   font-size: 11px;
   text-decoration: underline;
   white-space: nowrap;
-  color: #7a3e00;
+  color: #12175c;
 }
 .line-finder__count {
   display: flex;
@@ -352,7 +348,7 @@ section[id] {
 .line-result__code {
   font-size: 28px;
   letter-spacing: -0.03em;
-  color: #ff6d00;
+  color: #1a237e;
 }
 .line-result__name {
   font-size: 22px;
@@ -388,7 +384,7 @@ section[id] {
 }
 .line-finder__empty button {
   margin-top: 20px;
-  color: #ff6d00;
+  color: #1a237e;
   text-decoration: underline;
 }
 .territory-map {
@@ -443,7 +439,7 @@ section[id] {
 }
 .map-source {
   font-size: 11px;
-  color: #7a3e00;
+  color: #12175c;
 }
 .map-lines {
   display: flex;
@@ -487,7 +483,7 @@ section[id] {
 .map-legend > span {
   display: block;
   width: 25px;
-  border-bottom: 2px dashed #ff6d00;
+  border-bottom: 2px dashed #1a237e;
   margin-bottom: 7px;
 }
 .territory-map__canvas-wrap {
@@ -537,10 +533,10 @@ section[id] {
   background: #ffffff;
   padding: 12px;
   font-size: 11px;
-  color: #7a3e00;
+  color: #12175c;
 }
 .mobility-info {
-  background: #ff6d00;
+  background: #1a237e;
   color: #ffffff;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -640,8 +636,8 @@ section[id] {
   color: #5a5a5a;
 }
 .ch-contact .btn-accent {
-  background: #ff6d00;
-  border-color: #ff6d00;
+  background: #1a237e;
+  border-color: #1a237e;
   color: #ffffff;
   align-self: start;
 }
@@ -1119,7 +1115,7 @@ section[id] {
 .tech-stack li span {
   display: block;
   font-size: 10px;
-  color: #ffc79a;
+  color: #4e59ac;
   opacity: 0.7;
 }
 .tech-stack li strong {
@@ -1223,7 +1219,7 @@ section[id] {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffc79a;
+  color: #4e59ac;
 }
 .team-name {
   font-size: 17px;

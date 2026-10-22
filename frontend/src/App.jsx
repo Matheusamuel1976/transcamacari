@@ -17,6 +17,8 @@ import { MensagensPage } from './pages/dashboard/MensagensPage';
 import { AccountSettings } from './pages/dashboard/AccountSettings';
 import { MyLinesPage } from './pages/MyLinesPage';
 import { ChangePasswordPage } from './pages/ChangePasswordPage';
+import { LinesPage } from './pages/LinesPage';
+import { LineDetailPage } from './pages/LineDetailPage';
 
 function needsPasswordChange(user) {
   return Number(user?.must_change_password || 0) === 1;
@@ -95,6 +97,22 @@ function AppRoutes() {
         element={
           <AnimatedPage>
             <RegisterPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path="/linhas"
+        element={
+          <AnimatedPage>
+            <LinesPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path="/linhas/:id"
+        element={
+          <AnimatedPage>
+            <LineDetailPage />
           </AnimatedPage>
         }
       />
@@ -181,7 +199,7 @@ function AppContent() {
       </main>
       <style>{`
         .loading-fullscreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--color-petroleum);z-index:9999}
-        .loading-spinner{width:48px;height:48px;border:3px solid rgba(234,191,85,.3);border-top-color:var(--color-solar);border-radius:50%;animation:spin 1s linear infinite}
+        .loading-spinner{width:48px;height:48px;border:3px solid rgba(26,35,126,.3);border-top-color:var(--color-petroleum-light);border-radius:50%;animation:spin 1s linear infinite}
         @keyframes spin{to{transform:rotate(360deg)}}
         .main-content{min-height:100vh}
       `}</style>

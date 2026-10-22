@@ -17,7 +17,7 @@
   position: absolute;
   inset: 0;
   background: #f5f5f5;
-  border-right: 6px solid #ff6d00;
+  border-right: 6px solid #1a237e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,18 +40,18 @@
   height: 14px;
   margin: -7px;
   border-radius: 50%;
-  background: #ff6d00;
-  box-shadow: 0 0 0 5px rgba(255, 109, 0, 0.25);
+  background: #1a237e;
+  box-shadow: 0 0 0 5px rgba(26, 35, 126, 0.25);
 }
 
 .t-route path {
-  stroke: #ff6d00;
+  stroke: #1a237e;
   stroke-width: 3;
   fill: none;
 }
 
 .t-route circle {
-  fill: #ff6d00;
+  fill: #1a237e;
 }
 
 .t-brand {
@@ -63,7 +63,7 @@
 }
 
 .t-brand > span {
-  color: #ff6d00;
+  color: #4e59ac;
 }
 
 .btn {

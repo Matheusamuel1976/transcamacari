@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { Trash2, Plus, MousePointerClick } from 'lucide-react';
+import { Trash2, Plus, MousePointerClick, RefreshCw } from 'lucide-react';
 import { api } from '../../services/api';
 
 const CENTER = [-12.6975, -38.3242];
@@ -11,7 +11,9 @@ export function MapPage() {
   const layerRef = useRef(null);
   const [lines, setLines] = useState([]);
   const [lineId, setLineId] = useState('');
+  const [sentido, setSentido] = useState('ida');
   const [pontos, setPontos] = useState([]);
+  const [route, setRoute] = useState(null);
   const [staged, setStaged] = useState(null);
   const [nome, setNome] = useState('');
   const [tipo, setTipo] = useState('parada');
@@ -23,10 +25,10 @@ export function MapPage() {
 
   useEffect(() => {
     api.lines
-      .list()
+      .listAll()
       .then((d) => setLines(d.data || []))
       .catch(() =>
-        setMsg('Backend offline — conecte o MySQL para editar pontos.'),
+        setMsg('Não foi possível carregar as linhas.')
       );
   }, []);
 
@@ -60,6 +62,7 @@ export function MapPage() {
   const loadPontos = async (id) => {
     const currentRequest = ++requestId.current;
     setStaged(null);
+    setRoute(null);
     if (!id) {
       setPontos([]);
       return;
@@ -68,46 +71,60 @@ export function MapPage() {
       const d = await api.lines.pontos(id);
       if (currentRequest !== requestId.current) return;
       setPontos(d.data || []);
+      // Load route geometry for ida by default
+      const r = await api.lines.route(id, 'ida');
+      if (currentRequest !== requestId.current) return;
+      setRoute(r.data || null);
     } catch (e) {
       setMsg(e.message);
     }
   };
 
-  const draw = (list, stage) => {
+  const draw = (list, stage, routeGeom, activeSentido) => {
     const layer = layerRef.current;
     const map = mapRef.current;
     if (!layer || !map) return;
     layer.clearLayers();
-    const latlngs = list.map((p) => [Number(p.latitude), Number(p.longitude)]);
+
+    const markers = [];
     list.forEach((p) => {
-      const label = document.createElement('span');
-      label.textContent = `${p.ordem} · ${p.nome} (${p.tipo})`;
-      L.circleMarker([Number(p.latitude), Number(p.longitude)], {
+      if (p.sentido !== activeSentido) return;
+      const latlng = [Number(p.latitude), Number(p.longitude)];
+      markers.push(latlng);
+      const color =
+        p.tipo === 'origem' ? '#1a237e' : p.tipo === 'destino' ? '#12175c' : '#4e59ac';
+      L.circleMarker(latlng, {
         radius: 7,
-        fillColor: '#FF6D00',
+        fillColor: color,
         color: '#fff',
         weight: 2,
         fillOpacity: 1,
       })
         .addTo(layer)
-        .bindTooltip(label);
+        .bindTooltip(`${p.ordem} · ${p.nome} (${p.tipo})`);
     });
-    if (latlngs.length) {
-      L.polyline(latlngs, {
-        color: '#FF6D00',
-        weight: 3,
-        dashArray: '8 8',
+
+    if (routeGeom && routeGeom.geometry) {
+      const coords = routeGeom.geometry.coordinates.map((c) => [c[1], c[0]]);
+      const polyline = L.polyline(coords, {
+        color: '#1a237e',
+        weight: 4,
+        opacity: 0.9,
       }).addTo(layer);
-      map.fitBounds(L.latLngBounds(latlngs), {
-        padding: [40, 40],
-        maxZoom: 14,
-      });
+
+      if (coords.length) {
+        map.fitBounds(L.latLngBounds(coords), { padding: [40, 40], maxZoom: 14 });
+      }
+    } else if (markers.length) {
+      const bounds = L.latLngBounds(markers);
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
     }
+
     if (stage) {
       L.circleMarker([stage.lat, stage.lng], {
         radius: 10,
-        color: '#FF6D00',
-        fillColor: '#FFFFFF',
+        color: '#1a237e',
+        fillColor: '#ffffff',
         fillOpacity: 1,
       })
         .addTo(layer)
@@ -117,8 +134,8 @@ export function MapPage() {
   };
 
   useEffect(() => {
-    draw(pontos, staged);
-  }, [pontos, staged]);
+    draw(pontos, staged, route, sentido);
+  }, [pontos, staged, route, sentido]);
 
   const save = async (e) => {
     e.preventDefault();
@@ -132,6 +149,7 @@ export function MapPage() {
         latitude: staged.lat,
         longitude: staged.lng,
         tipo,
+        sentido,
       });
       setMsg('Ponto salvo.');
       setStaged(null);
@@ -153,12 +171,16 @@ export function MapPage() {
     }
   };
 
+  const handleSentidoChange = (s) => {
+    setSentido(s);
+  };
+
   return (
     <div>
-      <h1 className="dash-h1">Mapa — editor de pontos</h1>
+      <h1 className="dash-h1">Mapa — rotas e pontos</h1>
       <p className="dash-sub">
-        Selecione a linha, clique no mapa para posicionar o ponto e salve. Os
-        pontos alimentam o mapa público.
+        Visualize as trajetórias estimadas pelas ruas. As polilinhas roxas
+        seguem a malha viária; os círculos marcam locais do itinerário.
       </p>
       {msg && (
         <div className="alert alert-info" role="status">
@@ -171,12 +193,45 @@ export function MapPage() {
             ref={mapEl}
             className="map-ed-canvas"
             role="application"
-            aria-label="Editor de pontos"
+            aria-label="Editor de rotas"
           />
-          <p className="map-ed-hint">
-            <MousePointerClick size={14} /> Clique no mapa posiciona o novo
-            ponto (requer linha selecionada).
-          </p>
+          <div className="map-ed-controls">
+            <label>
+              <input
+                type="radio"
+                name="sentido"
+                value="ida"
+                checked={sentido === 'ida'}
+                onChange={() => handleSentidoChange('ida')}
+              />{' '}
+              Ida
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="sentido"
+                value="volta"
+                checked={sentido === 'volta'}
+                onChange={() => handleSentidoChange('volta')}
+              />{' '}
+              Volta
+            </label>
+            {route && (
+              <span className="route-badge">
+                {route.estado_validacao === 'estimated'
+                  ? 'Estimado'
+                  : route.estado_validacao === 'needs_review'
+                    ? 'Revisão'
+                    : route.estado_validacao === 'reviewed'
+                      ? 'Revisado'
+                      : 'Oficial'}
+              </span>
+            )}
+            <p className="map-ed-hint">
+              <MousePointerClick size={14} /> Clique no mapa para posicionar um
+              novo ponto (requer linha selecionada e sentido escolhido).
+            </p>
+          </div>
         </div>
         <div className="map-ed-side">
           <div className="input-group">
@@ -190,6 +245,7 @@ export function MapPage() {
               onChange={(e) => {
                 setLineId(e.target.value);
                 setStaged(null);
+                setRoute(null);
                 loadPontos(e.target.value);
               }}
             >
@@ -236,29 +292,31 @@ export function MapPage() {
                 ? `Posição: ${staged.lat}, ${staged.lng}`
                 : 'Nenhuma posição marcada.'}
             </p>
-            <button className="btn btn-primary" disabled={!lineId || !staged}>
+            <button className="btn btn-primary" disabled={!lineId || !staged || !sentido}>
               <Plus size={16} /> Salvar ponto
             </button>
           </form>
-          <h2 className="map-ed-list-title">Pontos ({pontos.length})</h2>
+          <h2 className="map-ed-list-title">Pontos ({pontos.filter((p) => p.sentido === sentido).length})</h2>
           <ul className="map-ed-list">
-            {pontos.map((p) => (
-              <li key={p.id}>
-                <span>
-                  <strong>{p.ordem}</strong> · {p.nome} <em>({p.tipo})</em>
-                </span>
-                <button
-                  className="btn btn-icon btn-ghost"
-                  aria-label={`Excluir ${p.nome}`}
-                  onClick={() => remove(p.id)}
-                >
-                  <Trash2 size={15} />
-                </button>
-              </li>
-            ))}
-            {pontos.length === 0 && (
+            {pontos
+              .filter((p) => p.sentido === sentido)
+              .map((p) => (
+                <li key={p.id}>
+                  <span>
+                    <strong>{p.ordem}</strong> · {p.nome} <em>({p.tipo})</em>
+                  </span>
+                  <button
+                    className="btn btn-icon btn-ghost"
+                    aria-label={`Excluir ${p.nome}`}
+                    onClick={() => remove(p.id)}
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                </li>
+              ))}
+            {pontos.filter((p) => p.sentido === sentido).length === 0 && (
               <li className="map-ed-empty">
-                Sem pontos. Marque o primeiro clicando no mapa.
+                Sem pontos para este sentido. Marque o primeiro clicando no mapa.
               </li>
             )}
           </ul>
@@ -269,6 +327,9 @@ export function MapPage() {
         .dash-sub{color:var(--color-gray-600);margin-bottom:var(--space-4)}
         .map-ed-grid{display:grid;gap:var(--space-4)}
         .map-ed-canvas{height:420px;border-radius:var(--radius-xl);border:1px solid var(--color-gray-200);z-index:0}
+        .map-ed-controls{display:flex;align-items:center;gap:var(--space-3);margin-top:var(--space-2);flex-wrap:wrap}
+        .map-ed-controls label{display:flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-sm);color:var(--color-gray-700)}
+        .route-badge{font-size:var(--font-size-xs);padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);background:rgb(26 35 126 / 0.1);color:var(--color-petroleum);font-weight:600;margin-left:var(--space-2)}
         .map-ed-hint{display:flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-xs);color:var(--color-gray-500);margin-top:var(--space-2)}
         .map-ed-side{display:flex;flex-direction:column;gap:var(--space-4)}
         .map-ed-form{display:flex;flex-direction:column;gap:var(--space-3);background:var(--color-white);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);padding:var(--space-4)}

@@ -492,7 +492,7 @@ export function AccessManagement() {
         .access__row{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--color-gray-200);padding:16px 0;flex-wrap:wrap}
         .access__row strong{display:block;font-size:15px}
         .access__row span{display:block;font-size:12px;color:var(--color-gray-600)}
-        .access__assigned{color:var(--color-terracotta)!important;font-weight:600}
+        .access__assigned{color:var(--color-petroleum-dark)!important;font-weight:600}
         .access__lines{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px}
         .access__lines label{display:flex;align-items:center;gap:6px;cursor:pointer}
         .access__lines--full{grid-column:1/-1;border:1px solid var(--color-gray-200);border-radius:8px;padding:12px 14px}

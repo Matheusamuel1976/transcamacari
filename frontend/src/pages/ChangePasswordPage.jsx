@@ -115,13 +115,13 @@ export function ChangePasswordPage() {
         .auth-grid--single{max-width:560px}
         .auth-card{background:#212121;color:#F5F5F5;border:1px solid #4E59AC;border-radius:16px;padding:44px;display:flex;flex-direction:column;gap:20px;box-shadow:0 24px 60px rgba(5,8,40,.45)}
         .auth-card h2{font-family:var(--font-display);color:#F5F5F5;font-size:25px;font-weight:500;display:flex;align-items:center;gap:10px}
-        .auth-card h2 svg{color:#FF6D00}
+        .auth-card h2 svg{color:#4E59AC}
         .auth-tag{color:rgba(245,245,245,.72);font-size:14px}
         .auth-card .input-label{color:#C9D2E8}
         .auth-card .input-field{background:rgba(245,245,245,.06);border:1px solid #4E59AC;color:#F5F5F5;border-radius:10px;padding:15px 18px;font-size:15px}
-        .auth-card .input-field:focus{border-color:#FF6D00;box-shadow:0 0 0 3px rgba(255,109,0,.25)}
-        .auth-card .btn-accent{background:#FF6D00;border-color:#FF6D00;color:#212121}
-        .auth-card .btn-accent:hover:not(:disabled){background:#FF8A3D;border-color:#FF8A3D}
+        .auth-card .input-field:focus{border-color:#4E59AC;box-shadow:0 0 0 3px rgba(26,35,126,.25)}
+        .auth-card .btn-accent{background:#1A237E;border-color:#1A237E;color:#F5F5F5}
+        .auth-card .btn-accent:hover:not(:disabled){background:#12175C;border-color:#12175C}
         @media(max-width:899px){.auth-card{padding:32px 24px}}
       `}</style>
     </div>

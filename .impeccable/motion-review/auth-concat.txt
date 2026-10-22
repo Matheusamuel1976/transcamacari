@@ -1,0 +1,76 @@
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0000.jpg'
+duration 0.047
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0001.jpg'
+duration 0.046
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0002.jpg'
+duration 0.049
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0003.jpg'
+duration 0.048
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0004.jpg'
+duration 0.032
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0005.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0006.jpg'
+duration 0.031
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0007.jpg'
+duration 0.044
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0008.jpg'
+duration 0.046
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0009.jpg'
+duration 0.031
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0010.jpg'
+duration 0.031
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0011.jpg'
+duration 0.042
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0012.jpg'
+duration 0.051
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0013.jpg'
+duration 0.047
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0014.jpg'
+duration 0.037
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0015.jpg'
+duration 0.039
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0016.jpg'
+duration 0.044
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0017.jpg'
+duration 0.05
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0018.jpg'
+duration 0.046
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0019.jpg'
+duration 0.065
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0020.jpg'
+duration 0.043
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0021.jpg'
+duration 0.046
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0022.jpg'
+duration 0.047
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0023.jpg'
+duration 0.047
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0024.jpg'
+duration 0.031
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0025.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0026.jpg'
+duration 0.029
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0027.jpg'
+duration 0.049
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0028.jpg'
+duration 0.045
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0029.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0030.jpg'
+duration 0.032
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0031.jpg'
+duration 0.043
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0032.jpg'
+duration 0.05
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0033.jpg'
+duration 0.045
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0034.jpg'
+duration 0.033
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0035.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0036.jpg'
+duration 0.03
+file 'C:/Users/freeb/Documents/TCC 1 - Jacinto/.impeccable/motion-review/auth/0037.jpg'
+duration 0.3

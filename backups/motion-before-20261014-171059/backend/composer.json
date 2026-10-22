@@ -1,0 +1,18 @@
+{
+  "name": "transcamacari/backend",
+  "description": "TransCamaçari 2.0 — Backend PHP MVC",
+  "type": "project",
+  "require": {
+    "php": ">=8.3",
+    "phpmailer/phpmailer": "^6.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0"
+  },
+  "autoload": {
+    "psr-4": { "App\\": "app/" }
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}
