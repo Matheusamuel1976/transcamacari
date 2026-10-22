@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { Search, Crosshair, Expand, X, ArrowUpRight } from 'lucide-react';
+import { Search, Crosshair, Expand, X, ArrowUpRight, AlertTriangle } from 'lucide-react';
 import { loadPublicLines, searchText } from '../../services/lines';
+import { api } from '../../services/api';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const colors = ['#1A237E', '#12175C', '#4E59AC', '#1A237E'];
@@ -19,6 +20,8 @@ export function ChapterMapa() {
   const [locating, setLocating] = useState(false);
   const [error, setError] = useState('');
   const [tileError, setTileError] = useState(false);
+  const [routeGeometry, setRouteGeometry] = useState(null);
+  const [routeError, setRouteError] = useState(null);
   const reduced = useReducedMotion();
   const selected = lines.find((line) => String(line.id) === String(selectedId));
   const filtered = lines.filter((line) =>
@@ -83,20 +86,65 @@ export function ChapterMapa() {
     const choose = (e) => {
       setSelectedId(e.detail.id);
       setQ('');
+      setRouteGeometry(null);
+      setRouteError(null);
     };
     window.addEventListener('transcamacari:line', choose);
     return () => window.removeEventListener('transcamacari:line', choose);
   }, []);
+  useEffect(() => {
+    let alive = true;
+    const fetchRoute = async (id, sentido) => {
+      try {
+        const res = await api.lines.route(id, sentido);
+        if (alive && res.data) {
+          setRouteGeometry(res.data);
+          setRouteError(null);
+        } else if (alive) {
+          setRouteGeometry(null);
+          setRouteError('Sem rota viária cadastrada para este sentido.');
+        }
+      } catch {
+        if (alive) {
+          setRouteGeometry(null);
+          setRouteError('Não foi possível carregar o traçado viário.');
+        }
+      }
+    };
+    if (selectedId) {
+      fetchRoute(selectedId, 'ida');
+    } else {
+      setRouteGeometry(null);
+      setRouteError(null);
+    }
+    return () => {
+      alive = false;
+    };
+  }, [selectedId]);
   useEffect(() => {
     if (!layer.current) return;
     layer.current.clearLayers();
     const shown = selected ? [selected] : filtered;
     shown.forEach((line) => {
       const color = '#1A237E';
-      if (line.points.length > 1)
-        L.polyline(line.points, { color, weight: 3 })
+      // Desenhar rota viária (geometria OSRM) ou linha reta entre pontos
+      const routeCoords =
+        routeGeometry &&
+        routeGeometry.geometry &&
+        routeGeometry.geometry.coordinates
+          ? routeGeometry.geometry.coordinates.map((c) => [c[1], c[0]])
+          : null;
+      const useRealRoute =
+        routeCoords && routeCoords.length > 1 && String(selectedId) === String(line.id);
+      if (useRealRoute) {
+        L.polyline(routeCoords, { color, weight: 4, opacity: 0.9 })
           .addTo(layer.current)
           .on('click', () => setSelectedId(line.id));
+      } else if (line.points.length > 1) {
+        L.polyline(line.points, { color, weight: 3, dashArray: '7 8' })
+          .addTo(layer.current)
+          .on('click', () => setSelectedId(line.id));
+      }
       line.points.forEach((point, index) => {
         const label = document.createElement('span');
         label.textContent = `${line.code} · ${index === 0 ? 'Origem' : index === line.points.length - 1 ? 'Destino' : `Ponto ${index}`}`;
@@ -118,7 +166,7 @@ export function ChapterMapa() {
         maxZoom: 14,
         animate: !reduced,
       });
-  }, [lines, q, selectedId, reduced, source]);
+  }, [lines, q, selectedId, reduced, source, routeGeometry, routeError]);
   const fit = () => {
     const bounds = layer.current?.getBounds();
     if (bounds?.isValid())
@@ -214,6 +262,11 @@ export function ChapterMapa() {
               {error}
             </p>
           )}
+          {routeError && (
+            <p className="map-message" role="alert">
+              <AlertTriangle size={14} /> {routeError}
+            </p>
+          )}
           <p className="map-source">
             {source === 'loading'
               ? 'Consultando linhas…'
@@ -254,9 +307,19 @@ export function ChapterMapa() {
           )}
           <p className="map-legend">
             <span />
-            Conexões entre pontos cadastrados.
-            <br />
-            Sem rastreamento em tempo real.
+            {routeGeometry ? (
+              <div>
+                Traçado viário calculado (estimado).{' '}
+                <br />
+                Sem rastreamento em tempo real.
+              </div>
+            ) : (
+              <div>
+                Conexões entre pontos cadastrados.{' '}
+                <br />
+                Sem rastreamento em tempo real.
+              </div>
+            )}
           </p>
         </aside>
         <div className="territory-map__canvas-wrap">
@@ -276,9 +339,17 @@ export function ChapterMapa() {
               <div>
                 <strong>{selected.name}</strong>
                 <p>
-                  {selected.points.length
-                    ? `${selected.points.length} pontos · conexões visuais, não rota viária`
-                    : 'Esta linha ainda não tem pontos cadastrados.'}
+                  {routeGeometry ? (
+                    <div>
+                      Trajeto estimado pelas vias disponíveis; percurso sujeito a validação.
+                    </div>
+                  ) : line.points.length ? (
+                    <div>
+                      {line.points.length} pontos · conexões visuais, não rota viária.
+                    </div>
+                  ) : (
+                    'Esta linha ainda não tem pontos cadastrados.'
+                  )}
                 </p>
               </div>
               <button

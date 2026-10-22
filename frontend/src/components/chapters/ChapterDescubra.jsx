@@ -151,7 +151,9 @@ export function ChapterDescubra() {
                 <small>{line.bairro}</small>
               </span>
               <span className="line-result__schedule">
-                {line.horarios[0]?.slice(0, 5) || 'Sem horário'}
+                {line.horarios[0]?.horario?.slice(0, 5) ||
+                  line.horarios[0]?.slice(0, 5) ||
+                  'Sem horário'}
                 <small>Primeiro horário cadastrado</small>
               </span>
               {selected === line.id ? (
