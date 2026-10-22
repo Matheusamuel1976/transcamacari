@@ -33,7 +33,7 @@ export function Preloader({ onComplete }) {
       <span>
         TransCamaçari<span className="preloader__dot">.</span>
       </span>
-      <style>{`.preloader{position:fixed;inset:0;background:#1A237E;color:#F5F5F5;z-index:9999;display:grid;place-items:center;font-family:var(--font-display);font-size:clamp(1.5rem,6vw,4rem);pointer-events:none}.preloader__dot{color:#FF6D00}`}</style>
+      <style>{`.preloader{position:fixed;inset:0;background:#1A237E;color:#F5F5F5;z-index:9999;display:grid;place-items:center;font-family:var(--font-display);font-size:clamp(1.5rem,6vw,4rem);pointer-events:none}.preloader__dot{color:#4E59AC}`}</style>
     </div>
   );
 }

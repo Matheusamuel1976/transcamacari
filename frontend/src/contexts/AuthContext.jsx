@@ -5,7 +5,7 @@ import {
   useEffect,
   useCallback,
 } from 'react';
-import { api, API_BASE } from '../services/api';
+import { supabase } from '../services/supabase';
 
 const AuthContext = createContext(null);
 
@@ -15,76 +15,80 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     let alive = true;
-    api
-      .get('/auth/me')
-      .then((data) => {
-        if (alive) setUser(data.user);
-      })
-      .catch(() => {
-        sessionStorage.removeItem('transcamacari_user');
-      })
-      .finally(() => {
-        if (alive) setLoading(false);
-      });
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data, error }) => {
+      if (!alive) return;
+      if (error) {
+        setUser(null);
+      } else {
+        setUser(data.session?.user ?? null);
+      }
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const { data: subscription } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!alive) return;
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
     return () => {
       alive = false;
+      subscription.subscription.unsubscribe();
     };
   }, []);
 
   const login = useCallback(async (email, password) => {
-    const response = await fetch(`${API_BASE}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ email, password }),
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Erro ao fazer login');
-    }
-
+    if (error) throw error;
     setUser(data.user);
-    api.resetCsrf();
-    sessionStorage.setItem('transcamacari_user', JSON.stringify(data.user));
-    return data;
+    return { user: data.user };
   }, []);
 
   const register = useCallback(async (userData) => {
-    const response = await fetch(`${API_BASE}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(userData),
+    const { data, error } = await supabase.auth.signUp({
+      email: userData.email,
+      password: userData.password,
+      options: {
+        data: {
+          name: userData.name || userData.email,
+          role: userData.role || 'operator',
+        },
+      },
     });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Erro ao cadastrar');
-    }
-
+    if (error) throw error;
     return data;
   }, []);
 
   const logout = useCallback(async () => {
-    await api.post('/auth/logout', {});
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
     setUser(null);
-    api.resetCsrf();
-    sessionStorage.removeItem('transcamacari_user');
   }, []);
 
   const updateUser = useCallback(async (userData) => {
-    const data = await api.put('/auth/profile', userData);
+    const { data, error } = await supabase.auth.updateUser({
+      data: { name: userData.name },
+    });
+    if (error) throw error;
     setUser(data.user);
-    sessionStorage.setItem('transcamacari_user', JSON.stringify(data.user));
+    return { user: data.user };
   }, []);
 
-  const updatePassword = useCallback(async (current, password) => {
-    const data = await api.put('/auth/password', { current, password });
-    setUser(data.user);
-    sessionStorage.setItem('transcamacari_user', JSON.stringify(data.user));
+  const updatePassword = useCallback(async (password) => {
+    const { data, error } = await supabase.auth.updateUser({ password });
+    if (error) throw error;
+    return { user: data.user };
+  }, []);
+
+  const resetPassword = useCallback(async (email) => {
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email);
+    if (error) throw error;
     return data;
   }, []);
 
@@ -97,6 +101,7 @@ export function AuthProvider({ children }) {
     logout,
     updateUser,
     updatePassword,
+    resetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

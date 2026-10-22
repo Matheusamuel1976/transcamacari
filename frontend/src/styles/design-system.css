@@ -51,27 +51,27 @@
 }
 
 .btn-accent {
-  background-color: var(--color-solar);
-  color: var(--color-petroleum);
-  border: 2px solid var(--color-solar);
+  background-color: var(--color-petroleum-light);
+  color: var(--color-white);
+  border: 2px solid var(--color-petroleum-light);
 }
 
 .btn-accent:hover:not(:disabled) {
-  background-color: var(--color-solar-light);
-  border-color: var(--color-solar-light);
+  background-color: var(--color-petroleum);
+  border-color: var(--color-petroleum);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
 
 .btn-terracotta {
-  background-color: var(--color-terracotta);
-  color: var(--color-ivory);
-  border: 2px solid var(--color-terracotta);
+  background-color: var(--color-petroleum-dark);
+  color: var(--color-white);
+  border: 2px solid var(--color-petroleum-dark);
 }
 
 .btn-terracotta:hover:not(:disabled) {
-  background-color: var(--color-terracotta-light);
-  border-color: var(--color-terracotta-light);
+  background-color: var(--color-petroleum);
+  border-color: var(--color-petroleum);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
@@ -304,13 +304,13 @@
 }
 
 .badge-accent {
-  background-color: rgb(234 191 85 / 0.2);
-  color: var(--color-solar-dark);
+  background-color: rgb(78 89 172 / 0.2);
+  color: var(--color-petroleum-light);
 }
 
 .badge-terracotta {
-  background-color: rgb(199 84 52 / 0.1);
-  color: var(--color-terracotta);
+  background-color: rgb(18 23 92 / 0.1);
+  color: var(--color-petroleum-dark);
 }
 
 .badge-success {

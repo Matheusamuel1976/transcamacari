@@ -58,7 +58,7 @@ export function MyLinesPage() {
         .map((p) => [Number(p.latitude), Number(p.longitude)])
         .filter((p) => p.every(Number.isFinite));
       if (pts.length > 1)
-        L.polyline(pts, { color: '#FF6D00', weight: 3 }).addTo(layer);
+        L.polyline(pts, { color: '#1A237E', weight: 3 }).addTo(layer);
       pts.forEach((pt) => {
         bounds.push(pt);
         L.circleMarker(pt, {
@@ -171,7 +171,7 @@ export function MyLinesPage() {
       <style>{`
         .mylines{min-height:100vh;background:#F5F5F5;color:#212121;padding:110px 5vw 70px}
         .mylines__top{display:flex;justify-content:space-between;align-items:start;gap:24px;max-width:900px;margin:0 auto 40px}
-        .mylines__eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#FF6D00;font-weight:700}
+        .mylines__eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#4E59AC;font-weight:700}
         .mylines__top h1{font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.03em;color:#1A237E;line-height:1.05;margin-top:12px}
         .mylines__top h1 span{display:block;font-size:.5em;color:#212121;font-weight:400;margin-top:8px}
         .mylines__logout{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#1A237E;border:1px solid #C9CFDD;border-radius:100px;padding:10px 18px;white-space:nowrap}
@@ -184,12 +184,12 @@ export function MyLinesPage() {
         .mylines__list{max-width:900px;margin:26px auto 0;display:flex;flex-direction:column}
         .mylines__card{background:#fff;border:1px solid #E4E7EF;border-radius:12px;margin-bottom:14px;overflow:hidden}
         .mylines__summary{width:100%;display:flex;align-items:center;gap:18px;text-align:left;padding:20px 22px;color:#212121}
-        .mylines__code{display:flex;align-items:center;gap:8px;font-weight:700;color:#FF6D00;font-size:18px;min-width:90px}
+        .mylines__code{display:flex;align-items:center;gap:8px;font-weight:700;color:#1A237E;font-size:18px;min-width:90px}
         .mylines__name{font-size:18px;font-weight:600;flex:1}
         .mylines__summary>svg:last-child{color:#8A93C9}
         .mylines__details{border-top:1px solid #E4E7EF;padding:18px 22px 22px;display:flex;flex-direction:column;gap:10px;font-size:14px}
         .mylines__details p{display:flex;align-items:center;gap:8px}
-        .mylines__details svg{color:#FF6D00;flex-shrink:0}
+        .mylines__details svg{color:#1A237E;flex-shrink:0}
         .mylines__points{margin-top:6px;display:flex;flex-direction:column;gap:6px;font-size:13px;color:#5A5A5A}
         .mylines__points em{font-style:normal;color:#8A93C9}
         @media(max-width:600px){.mylines{padding:100px 20px 50px}.mylines__top{flex-direction:column}.mylines__code{min-width:0}.mylines__name{font-size:16px}}

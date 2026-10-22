@@ -97,7 +97,7 @@ export function MensagensPage() {
       <style>{`
         .msg-card{margin-bottom:12px;overflow:hidden}
         .msg-summary{width:100%;display:flex;align-items:center;gap:14px;text-align:left;padding:18px 20px;color:var(--color-petroleum)}
-        .msg-summary>svg{color:var(--color-terracotta);flex-shrink:0}
+        .msg-summary>svg{color:var(--color-petroleum-dark);flex-shrink:0}
         .msg-summary strong{display:block;font-size:15px}
         .msg-summary small{display:block;font-size:12px;color:var(--color-gray-600)}
         .msg-body{border-top:1px solid var(--color-gray-200);padding:16px 20px;font-size:14px;display:flex;flex-direction:column;gap:14px;white-space:pre-wrap}

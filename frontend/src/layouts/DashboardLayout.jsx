@@ -129,12 +129,12 @@ export function DashboardLayout({ children }) {
         .dash-side{position:fixed;top:0;bottom:0;left:0;width:260px;background:var(--color-petroleum);color:var(--color-ivory);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6);transform:translateX(-100%);transition:transform .3s ease;z-index:900}
         .dash-side.open{transform:none}
         .dash-brand{font-family:var(--font-display);font-weight:700;font-size:var(--font-size-lg)}
-        .dash-brand span{color:var(--color-solar);font-weight:400;font-size:var(--font-size-sm)}
+        .dash-brand span{color:#4E59AC;font-weight:400;font-size:var(--font-size-sm)}
         .dash-link{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);color:rgba(245,245,245,.78);font-size:var(--font-size-sm);font-weight:500}
         .dash-link:hover{background:rgba(245,245,245,.1);color:var(--color-ivory)}
-        .dash-link.active{background:#FF6D00;color:#212121}
-        .dash-badge{margin-left:auto;min-width:22px;height:22px;padding:0 6px;display:grid;place-items:center;border-radius:100px;background:#FF6D00;color:#212121;font-size:11px;font-weight:700}
-        .dash-link.active .dash-badge{background:#212121;color:#FF6D00}
+        .dash-link.active{background:#1A237E;color:#F5F5F5}
+        .dash-badge{margin-left:auto;min-width:22px;height:22px;padding:0 6px;display:grid;place-items:center;border-radius:100px;background:#1A237E;color:#F5F5F5;font-size:11px;font-weight:700}
+        .dash-link.active .dash-badge{background:#212121;color:#1A237E}
         .dash-user{margin-top:auto;display:flex;align-items:center;gap:var(--space-3);padding-top:var(--space-4);border-top:1px solid #4E59AC}
         .dash-user p{font-size:var(--font-size-sm);font-weight:600}
         .dash-user span{font-size:var(--font-size-xs);opacity:.6}

@@ -2,17 +2,11 @@
 
 :root {
   --color-petroleum: #1a237e;
-  --color-petroleum-light: #2e36a0;
+  --color-petroleum-light: #4e59ac;
   --color-petroleum-dark: #12175c;
   --color-ivory: #f5f5f5;
   --color-ivory-dark: #e4e7ef;
   --color-midnight: #12175c;
-  --color-solar: #ff6d00;
-  --color-solar-light: #ff8a3d;
-  --color-solar-dark: #c65300;
-  --color-terracotta: #ff6d00;
-  --color-terracotta-light: #ff8a3d;
-  --color-terracotta-dark: #c65300;
   --color-asphalt: #212121;
   --color-mist: #e7eaf2;
 
@@ -185,8 +179,8 @@ h6 {
 }
 
 ::selection {
-  background-color: var(--color-solar);
-  color: var(--color-petroleum);
+  background-color: var(--color-petroleum);
+  color: var(--color-white);
 }
 
 ::-webkit-scrollbar {
@@ -227,6 +221,6 @@ h6 {
 }
 
 .focus-visible:focus-visible {
-  outline: 2px solid var(--color-solar);
+  outline: 2px solid var(--color-petroleum-light);
   outline-offset: 2px;
 }

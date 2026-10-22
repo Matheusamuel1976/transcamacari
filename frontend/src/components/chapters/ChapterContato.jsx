@@ -165,7 +165,7 @@ export function ChapterContato() {
       <style>{`
         .ch-contact{background:var(--color-petroleum);color:var(--color-ivory);padding:var(--space-24) 0}
         .contact-grid{display:grid;grid-template-columns:1fr;gap:var(--space-10)}
-        .ch-num{font-family:var(--font-display);font-size:clamp(3rem,6vw,5rem);font-weight:700;color:var(--color-solar);opacity:.35;line-height:1}
+        .ch-num{font-family:var(--font-display);font-size:clamp(3rem,6vw,5rem);font-weight:700;color:var(--color-petroleum-light);opacity:.35;line-height:1}
         .ch-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);color:var(--color-ivory)}
         .ch-sub{color:rgba(243,240,232,.7);font-size:var(--font-size-lg);margin:var(--space-3) 0 var(--space-6)}
         .contact-info{display:flex;flex-direction:column;gap:var(--space-2);color:rgba(243,240,232,.7)}

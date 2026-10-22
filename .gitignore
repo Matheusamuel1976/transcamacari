@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-.tools/
-**/node_modules/
-**/vendor/
-**/.env
-**/dist/
-=======
 # Dependências (reinstaladas no deploy)
+.tools/
 node_modules/
 frontend/node_modules/
 backend/vendor/
@@ -23,6 +17,6 @@ graphify-out/
 # Sistema
 .DS_Store
 Thumbs.db
->>>>>>> 60ee13d4d07a24a7c593307c4f5125b068948527
+
 .vercel
 .env*

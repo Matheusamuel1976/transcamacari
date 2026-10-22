@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Search, ArrowDown, X } from 'lucide-react';
-import { demoLines, loadPublicLines, searchText } from '../../services/lines';
+import { loadPublicLines, searchText } from '../../services/lines';
 
 export function ChapterDescubra() {
   const [lines, setLines] = useState([]);
@@ -14,8 +14,8 @@ export function ChapterDescubra() {
       setLines(await loadPublicLines());
       setSource('live');
     } catch {
-      setLines(demoLines);
-      setSource('demo');
+      setLines([]);
+      setSource('live');
     }
   };
   useEffect(() => {
@@ -29,8 +29,8 @@ export function ChapterDescubra() {
       })
       .catch(() => {
         if (alive) {
-          setLines(demoLines);
-          setSource('demo');
+          setLines([]);
+          setSource('live');
         }
       });
     return () => {
@@ -115,13 +115,12 @@ export function ChapterDescubra() {
           <ArrowDown size={18} />
         </label>
       </div>
-      {source === 'demo' && (
+      {source === 'loading' && (
         <div className="data-notice" role="status">
           <p>
-            <strong>Você está vendo exemplos fictícios.</strong> Linhas,
-            horários e pontos abaixo servem apenas para demonstrar a consulta.
+            <strong>Consultando linhas cadastradas.</strong> Aguarde enquanto
+            carregamos os dados do transporte público.
           </p>
-          <button onClick={load}>Tentar conexão novamente</button>
         </div>
       )}
       <div className="line-finder__count" aria-live="polite">
@@ -130,8 +129,8 @@ export function ChapterDescubra() {
           : `${filtered.length} ${filtered.length === 1 ? 'conexão encontrada' : 'conexões encontradas'}`}
         <span>
           {source === 'live'
-            ? 'Informações cadastradas pelas empresas'
-            : 'Demonstração · sem dados oficiais'}
+            ? 'Informações cadastradas'
+            : 'Carregando...'}
         </span>
       </div>
       <div className="line-finder__results">

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { Search, Crosshair, Expand, X, ArrowUpRight } from 'lucide-react';
-import { demoLines, loadPublicLines, searchText } from '../../services/lines';
+import { loadPublicLines, searchText } from '../../services/lines';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
-const colors = ['#FF6D00', '#1A237E', '#3F51B5', '#C66900'];
+const colors = ['#1A237E', '#12175C', '#4E59AC', '#1A237E'];
 const center = [-12.6975, -38.3242];
 
 export function ChapterMapa() {
@@ -71,8 +71,8 @@ export function ChapterMapa() {
       })
       .catch(() => {
         if (alive) {
-          setLines(demoLines);
-          setSource('demo');
+          setLines([]);
+          setSource('live');
         }
       });
     return () => {
@@ -92,19 +92,19 @@ export function ChapterMapa() {
     layer.current.clearLayers();
     const shown = selected ? [selected] : filtered;
     shown.forEach((line) => {
-      const color = colors[lines.indexOf(line) % colors.length];
+      const color = '#1A237E';
       if (line.points.length > 1)
-        L.polyline(line.points, { color, weight: 3, dashArray: '7 8' })
+        L.polyline(line.points, { color, weight: 3 })
           .addTo(layer.current)
           .on('click', () => setSelectedId(line.id));
       line.points.forEach((point, index) => {
         const label = document.createElement('span');
-        label.textContent = `${line.code} · ${index === 0 ? 'Origem' : index === line.points.length - 1 ? 'Destino' : `Ponto ${index}`}${source === 'demo' ? ' (fictício)' : ''}`;
+        label.textContent = `${line.code} · ${index === 0 ? 'Origem' : index === line.points.length - 1 ? 'Destino' : `Ponto ${index}`}`;
         L.circleMarker(point, {
           radius: index === 0 ? 8 : 5,
           color: '#FFFFFF',
           weight: 2,
-          fillColor: color,
+          fillColor: '#1A237E',
           fillOpacity: 1,
         })
           .addTo(layer.current)
@@ -215,11 +215,9 @@ export function ChapterMapa() {
             </p>
           )}
           <p className="map-source">
-            {source === 'demo'
-              ? 'Exemplos fictícios · não use para viajar'
-              : source === 'loading'
-                ? 'Consultando linhas…'
-                : 'Linhas cadastradas'}
+            {source === 'loading'
+              ? 'Consultando linhas…'
+              : 'Linhas cadastradas'}
           </p>
           <ul className="map-lines">
             {filtered.map((line) => (
@@ -231,7 +229,7 @@ export function ChapterMapa() {
                   <span
                     className="map-line-code"
                     style={{
-                      color: colors[lines.indexOf(line) % colors.length],
+                      color: '#1A237E',
                     }}
                   >
                     {line.code}
@@ -239,8 +237,7 @@ export function ChapterMapa() {
                   <span>
                     {line.name}
                     <small>
-                      {line.points.length} pontos{' '}
-                      {source === 'demo' ? 'ilustrativos' : 'cadastrados'}
+                      {line.points.length} pontos cadastrados
                     </small>
                   </span>
                   <ArrowUpRight size={15} />
@@ -248,7 +245,7 @@ export function ChapterMapa() {
               </li>
             ))}
           </ul>
-          {source !== 'loading' && !filtered.length && (
+          {!filtered.length && (
             <p className="map-message">
               {lines.length
                 ? 'Nenhuma linha corresponde à busca.'
@@ -257,7 +254,7 @@ export function ChapterMapa() {
           )}
           <p className="map-legend">
             <span />
-            Conexões entre pontos.
+            Conexões entre pontos cadastrados.
             <br />
             Sem rastreamento em tempo real.
           </p>
