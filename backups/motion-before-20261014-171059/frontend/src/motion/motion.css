@@ -1,0 +1,210 @@
+/* TransCamaçari — linguagem de movimento das transições.
+   Azul-marinho #1A237E · laranja #FF6D00 · cinza #F5F5F5 · asfalto #212121. */
+
+/* ---------- Overlay de transição ---------- */
+.t-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.t-veil {
+  position: absolute;
+  inset: 0;
+  background: #1a237e;
+  opacity: 0;
+}
+
+.t-band {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, #1a237e 60%, #232b8f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  clip-path: inset(0% 100% 0% 0%);
+}
+
+.t-route {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(1100px, 88vw);
+  height: auto;
+  overflow: visible;
+}
+
+.t-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px;
+  border-radius: 50%;
+  background: #ff6d00;
+  box-shadow: 0 0 0 5px rgba(255, 109, 0, 0.25);
+}
+
+.t-route path {
+  stroke: #ff6d00;
+  stroke-width: 3;
+  fill: none;
+}
+
+.t-route circle {
+  fill: #ff6d00;
+}
+
+.t-brand {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  letter-spacing: -0.03em;
+  color: #f5f5f5;
+}
+
+.t-brand > span {
+  color: #ff6d00;
+}
+
+/* Saída: o conteúdo atual recua com suavidade (classe aplicada no main). */
+.t-leaving .t-page {
+  opacity: 0.35;
+  transform: translateY(-8px);
+}
+
+.t-page {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* ---------- Microinterações (mesma linguagem) ---------- */
+.btn {
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn:not(:disabled):hover {
+  box-shadow: var(--shadow-md);
+}
+
+.input-field {
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.input-field:focus {
+  box-shadow: 0 0 0 3px rgba(179, 59, 40, 0.18);
+}
+
+.dash-link {
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.dash-link:hover {
+  transform: translateX(2px);
+}
+
+.line-result__summary {
+  transition:
+    background-color 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.map-selection {
+  animation: t-rise 0.3s ease;
+}
+
+.map-lines button {
+  transition:
+    background-color 0.18s ease,
+    padding-left 0.18s ease;
+}
+
+.map-lines button:hover {
+  padding-left: 6px;
+}
+
+@keyframes t-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.line-result__details {
+  animation: t-rise 0.25s ease;
+}
+
+.navbar__mobile {
+  animation: t-menu 0.25s ease;
+}
+
+@keyframes t-menu {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.alert {
+  animation: t-rise 0.25s ease;
+}
+
+/* ---------- Responsivo: mobile simplifica ---------- */
+@media (max-width: 700px) {
+  .t-route {
+    width: 92vw;
+  }
+
+  .t-brand {
+    font-size: 1.3rem;
+  }
+
+  .t-leaving .t-page {
+    opacity: 0.6;
+    transform: none;
+  }
+}
+
+/* ---------- Conforto: sem overlay com movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .t-overlay {
+    display: none;
+  }
+
+  .t-leaving .t-page {
+    opacity: 1;
+    transform: none;
+  }
+
+  .t-page {
+    transition: none;
+  }
+}
