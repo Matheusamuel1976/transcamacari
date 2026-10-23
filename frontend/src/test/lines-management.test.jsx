@@ -42,6 +42,9 @@ vi.mock('../services/api', () => ({
     },
   },
 }));
+vi.mock('../contexts/AuthContext', () => ({
+  useAuth: () => ({ user: { role: 'admin', company_id: null } }),
+}));
 
 let root;
 let container;

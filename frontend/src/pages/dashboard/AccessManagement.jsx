@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  Plus,
   Trash2,
   Check,
   X,
@@ -111,42 +110,29 @@ export function AuditList() {
   );
 }
 
-const emptyUser = {
-  name: '',
-  email: '',
-  password: '',
-  employee_id: '',
-  linha_ids: [],
-};
-
 export function AccessManagement() {
   const [users, setUsers] = useState([]);
   const [pending, setPending] = useState([]);
   const [lines, setLines] = useState([]);
-  const [employees, setEmployees] = useState([]);
   const [invite, setInvite] = useState('');
   const [inviteExp, setInviteExp] = useState('');
   const [copied, setCopied] = useState(false);
-  const [form, setForm] = useState(emptyUser);
   const [assigning, setAssigning] = useState(null);
   const [assignSel, setAssignSel] = useState([]);
   const [approveSel, setApproveSel] = useState({});
   const [msg, setMsg] = useState({ type: '', text: '' });
-  const [saving, setSaving] = useState(false);
 
   const load = async () => {
     try {
-      const [u, p, l, e, inv] = await Promise.all([
+      const [u, p, l, inv] = await Promise.all([
         api.team.users(),
         api.team.pending(),
-        api.lines.list(),
-        api.employees.list(),
+        api.lines.listPrivate(),
         api.team.invite(),
       ]);
       setUsers(u.data || []);
       setPending(p.data || []);
       setLines(l.data || []);
-      setEmployees(e.data || []);
       setInvite(inv.code || '');
       setInviteExp(inv.expires_at || '');
     } catch (err) {
@@ -194,40 +180,6 @@ export function AccessManagement() {
     }
   };
 
-  const fmtDate = (iso) => {
-    if (!iso) return '';
-    const d = new Date(iso.replace(' ', 'T'));
-    return Number.isNaN(d.getTime())
-      ? iso
-      : d.toLocaleDateString('pt-BR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        });
-  };
-
-  const create = async (e) => {
-    e.preventDefault();
-    if (saving) return;
-    setSaving(true);
-    try {
-      await api.team.createUser({
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        employee_id: form.employee_id === '' ? null : Number(form.employee_id),
-        linha_ids: form.linha_ids,
-      });
-      setForm(emptyUser);
-      say('ok', 'Acesso criado e ativo.');
-      load();
-    } catch (err) {
-      say('error', err.message);
-    } finally {
-      setSaving(false);
-    }
-  };
-
   const approve = async (id) => {
     try {
       await api.team.approve(id, approveSel[id] || []);
@@ -239,9 +191,9 @@ export function AccessManagement() {
   };
 
   const reject = async (id) => {
-    if (!confirm('Recusar e excluir este cadastro?')) return;
+    if (!confirm('Recusar este cadastro?')) return;
     try {
-      await api.team.remove(id);
+      await api.team.reject(id);
       say('ok', 'Cadastro recusado.');
       load();
     } catch (err) {
@@ -249,11 +201,11 @@ export function AccessManagement() {
     }
   };
 
-  const removeUser = async (id) => {
-    if (!confirm('Remover este acesso? A pessoa perde o login.')) return;
+  const suspendUser = async (id) => {
+    if (!confirm('Suspender este acesso ao painel privado?')) return;
     try {
-      await api.team.remove(id);
-      say('ok', 'Acesso removido.');
+      await api.team.suspend(id);
+      say('ok', 'Acesso suspenso.');
       load();
     } catch (err) {
       say('error', err.message);
@@ -289,20 +241,15 @@ export function AccessManagement() {
         <p className="access__hint">
           Compartilhe com quem deve se cadastrar como funcionário. Quem se
           cadastra com o código entra na fila de aprovação abaixo.
-          {inviteExp && (
-            <span className="access__exp">
-              {' '}
-              Válido até {fmtDate(inviteExp)} — gerar um novo código cancela o
-              anterior.
-            </span>
-          )}
+          {inviteExp && <span className="access__exp"> Código temporário ativo.</span>}
         </p>
         <div className="access__invite">
-          <code>{invite || '…'}</code>
+          <code>{invite || 'Gere um novo código para compartilhar'}</code>
           <button
             type="button"
             className="btn btn-ghost"
             onClick={copyInvite}
+            disabled={!invite}
             aria-label="Copiar código"
           >
             {copied ? <Check size={16} /> : <Copy size={16} />}
@@ -364,77 +311,6 @@ export function AccessManagement() {
       </section>
 
       <section className="card access__block">
-        <h2>Criar acesso</h2>
-        <form onSubmit={create} className="form-grid">
-          <input
-            className="input-field"
-            placeholder="Nome"
-            aria-label="Nome"
-            required
-            minLength={2}
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-          />
-          <input
-            className="input-field"
-            type="email"
-            placeholder="E-mail (login)"
-            aria-label="E-mail (login)"
-            required
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
-          <input
-            className="input-field"
-            type="password"
-            placeholder="Senha inicial (mín. 8)"
-            aria-label="Senha inicial"
-            required
-            minLength={8}
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-          <select
-            className="input-field"
-            aria-label="Vincular a funcionário (opcional)"
-            value={form.employee_id}
-            onChange={(e) => setForm({ ...form, employee_id: e.target.value })}
-          >
-            <option value="">Sem vínculo (só acesso)</option>
-            {employees.map((f) => (
-              <option key={f.id} value={f.id}>
-                {f.nome} — {f.cargo}
-              </option>
-            ))}
-          </select>
-          <fieldset className="access__lines access__lines--full">
-            <legend>Linhas que poderá ver</legend>
-            {lines.map((l) => (
-              <label key={l.id}>
-                <input
-                  type="checkbox"
-                  checked={form.linha_ids.includes(l.id)}
-                  onChange={() =>
-                    setForm({
-                      ...form,
-                      linha_ids: toggle(form.linha_ids, l.id),
-                    })
-                  }
-                />
-                {l.codigo} — {l.nome}
-              </label>
-            ))}
-            {lines.length === 0 && <span>Nenhuma linha cadastrada.</span>}
-          </fieldset>
-          <div className="form-actions">
-            <button className="btn btn-primary" disabled={saving}>
-              <Plus size={16} /> {saving ? 'Criando…' : 'Criar acesso'}
-            </button>
-          </div>
-        </form>
-      </section>
-
-      <section className="card access__block">
         <h2>Usuários da empresa ({users.length})</h2>
         {users.map((u) => (
           <div key={u.id} className="access__row">
@@ -480,8 +356,8 @@ export function AccessManagement() {
                 )}
                 <button
                   className="btn btn-icon btn-ghost"
-                  aria-label={`Remover acesso de ${u.name}`}
-                  onClick={() => removeUser(u.id)}
+                  aria-label={`Suspender acesso de ${u.name}`}
+                  onClick={() => suspendUser(u.id)}
                 >
                   <Trash2 size={16} />
                 </button>

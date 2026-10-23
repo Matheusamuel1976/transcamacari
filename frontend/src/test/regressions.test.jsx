@@ -55,8 +55,8 @@ test('navegação login para cadastro conclui e mantém formulário visível', a
   for (let index = 0; index < 4; index++) {
     await act(async () => { gsap.globalTimeline.getChildren().forEach(animation => animation.progress(1)); });
   }
-  expect(container.querySelector('#company')).toBeNull();
-  expect(container.textContent).toContain('conta padrão');
+  expect(container.querySelector('#company_name')).not.toBeNull();
+  expect(container.textContent).toContain('Empresas organizam sua operação privada');
   expect(container.querySelector('.auth-card').style.opacity).not.toBe('0.3');
 });
 

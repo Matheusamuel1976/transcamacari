@@ -4,6 +4,7 @@ import L from 'leaflet';
 import { Bus, LogOut, Clock, MapPin, X, ArrowUpRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
+import { leafletRoute, normalizeSchedules } from '../services/transport';
 
 const CENTER = [-12.6975, -38.3242];
 
@@ -19,10 +20,24 @@ export function MyLinesPage() {
   useEffect(() => {
     let alive = true;
     api.lines
-      .list()
-      .then((d) => {
+      .assigned(user?.id)
+      .then(async (d) => {
         if (!alive) return;
-        setLines(d.data || []);
+        const enriched = await Promise.all((d.data || []).map(async (line) => {
+          const [schedules, points, routes] = await Promise.all([
+            api.horarios.list(line.id), api.lines.pontos(line.id), api.routes.forLine(line.id),
+          ]);
+          const locais = points.data || [];
+          const geometrias = routes.data || [];
+          return {
+            ...line,
+            horarios: normalizeSchedules(schedules.data || []),
+            pontos: locais,
+            routePoints: leafletRoute(geometrias.find((route) => route.sentido === 'ida'), locais.filter((point) => point.sentido === 'ida')),
+          };
+        }));
+        if (!alive) return;
+        setLines(enriched);
         setState('ok');
       })
       .catch(() => {
@@ -31,7 +46,7 @@ export function MyLinesPage() {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [user?.id]);
 
   const doLogout = async () => {
     try {
@@ -56,13 +71,12 @@ export function MyLinesPage() {
     const layer = L.layerGroup().addTo(map);
     const bounds = [];
     lines.forEach((line) => {
-      const pts = (line.pontos || [])
-        .map((p) => [Number(p.latitude), Number(p.longitude)])
-        .filter((p) => p.every(Number.isFinite));
+      const pts = line.routePoints || [];
       if (pts.length > 1)
         L.polyline(pts, { color: '#1A237E', weight: 3 }).addTo(layer);
-      pts.forEach((pt) => {
-        bounds.push(pt);
+      pts.forEach((pt) => bounds.push(pt));
+      (line.pontos || []).filter((point) => Number.isFinite(Number(point.latitude)) && Number.isFinite(Number(point.longitude))).forEach((point) => {
+        const pt = [Number(point.latitude), Number(point.longitude)];
         L.circleMarker(pt, {
           radius: 6,
           fillColor: '#1A237E',
@@ -71,7 +85,7 @@ export function MyLinesPage() {
           fillOpacity: 1,
         })
           .addTo(layer)
-          .bindTooltip(`${line.codigo} · ${line.nome}`);
+          .bindTooltip(`${line.codigo} · ${point.nome}`);
       });
     });
     if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
@@ -126,7 +140,7 @@ export function MyLinesPage() {
             aria-label="Mapa das suas linhas"
           />
           <p className="mylines__map-legend">
-            Pontos e conexões das linhas atribuídas a você. Somente leitura.
+            Trajetos persistidos das linhas atribuídas a você. Somente leitura.
           </p>
         </div>
       )}
@@ -153,7 +167,7 @@ export function MyLinesPage() {
                 <p>
                   <Clock size={15} />{' '}
                   {(line.horarios || []).length
-                    ? line.horarios.map((h) => h.slice(0, 5)).join(' · ')
+                    ? line.horarios.map((h) => h.horario).join(' · ')
                     : 'Sem horários informados.'}
                 </p>
                 {(line.pontos || []).length > 0 && (

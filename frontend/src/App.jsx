@@ -36,6 +36,18 @@ function LoadingScreen() {
   );
 }
 
+function MembershipState({ status }) {
+  const { logout } = useAuth();
+  const pending = status === 'pending';
+  return <section className="container" style={{ paddingBlock: '8rem' }} role="status">
+    <h1>{pending ? 'Cadastro aguardando aprovação' : 'Acesso suspenso'}</h1>
+    <p>{pending ? 'O responsável da empresa ainda precisa aprovar seu vínculo e atribuir suas linhas.' : 'Seu acesso ao painel privado foi suspenso pela empresa.'}</p>
+    <button className="btn btn-primary" onClick={() => logout().catch(() => window.location.reload())}>Sair</button>
+  </section>;
+}
+
+MembershipState.propTypes = { status: PropTypes.string.isRequired };
+
 function RequireStaff({ children }) {
   const { user, isAuthenticated, loading, profileError, logout } = useAuth();
   const motion = useTransition();
@@ -45,9 +57,10 @@ function RequireStaff({ children }) {
     !(motion.phase === 'exit' && motion.variant === 'logout')
   )
     return <Navigate to="/login" replace />;
+  if (user?.role === 'funcionario' && user?.status !== 'active') return <MembershipState status={user.status} />;
   if (user?.role === 'funcionario')
     return <Navigate to="/minhas-linhas" replace />;
-  if (user?.role !== 'admin') return <section className="container" style={{ paddingBlock: '8rem' }}><h1>Acesso administrativo restrito</h1><p>{profileError || 'Sua conta não possui permissão para administrar o transporte.'}</p><a href="/linhas">Consultar linhas</a>{' '}<button className="btn btn-primary" onClick={() => logout().catch(() => window.location.reload())}>Sair</button></section>;
+  if (!['admin', 'company_admin'].includes(user?.role)) return <section className="container" style={{ paddingBlock: '8rem' }}><h1>Acesso administrativo restrito</h1><p>{profileError || 'Sua conta não possui permissão para administrar o transporte.'}</p><a href="/linhas">Consultar linhas</a>{' '}<button className="btn btn-primary" onClick={() => logout().catch(() => window.location.reload())}>Sair</button></section>;
   if (needsPasswordChange(user)) return <Navigate to="/trocar-senha" replace />;
   return (
     <DashboardLayout>
@@ -61,12 +74,22 @@ function RequireFuncionario({ children }) {
   if (loading) return <LoadingScreen />;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (user?.role !== 'funcionario') return <Navigate to="/dashboard" replace />;
+  if (user?.status !== 'active') return <MembershipState status={user.status} />;
   if (needsPasswordChange(user)) return <Navigate to="/trocar-senha" replace />;
   return <AnimatedPage mode="content">{children}</AnimatedPage>;
 }
 
+function RequirePlatformAdmin({ children }) {
+  const { user, isAuthenticated, loading } = useAuth();
+  if (loading) return <LoadingScreen />;
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (user?.role !== 'admin') return <Navigate to="/dashboard" replace />;
+  return <DashboardLayout><AnimatedPage mode="content">{children}</AnimatedPage></DashboardLayout>;
+}
+
 RequireStaff.propTypes = { children: PropTypes.node.isRequired };
 RequireFuncionario.propTypes = { children: PropTypes.node.isRequired };
+RequirePlatformAdmin.propTypes = { children: PropTypes.node.isRequired };
 
 function HomeRoute() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -74,6 +97,7 @@ function HomeRoute() {
   if (isAuthenticated) {
     if (needsPasswordChange(user))
       return <Navigate to="/trocar-senha" replace />;
+    if (user?.role === 'funcionario' && user?.status !== 'active') return <MembershipState status={user.status} />;
     if (user?.role === 'funcionario')
       return <Navigate to="/minhas-linhas" replace />;
     return <Navigate to="/dashboard" replace />;
@@ -167,9 +191,9 @@ function AppRoutes() {
       <Route
         path="/dashboard/mensagens"
         element={
-          <RequireStaff>
+          <RequirePlatformAdmin>
             <MensagensPage />
-          </RequireStaff>
+          </RequirePlatformAdmin>
         }
       />
       <Route

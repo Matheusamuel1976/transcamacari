@@ -73,9 +73,12 @@ export function EmployeesManagement() {
                     <td>{profile.name || 'Sem nome'}</td>
                     <td>{profile.email || '—'}</td>
                     <td>
-                      {profile.role === 'admin'
-                        ? 'Administrador'
-                        : 'Operador'}
+                      {{
+                        admin: 'Administrador da plataforma',
+                        company_admin: 'Administrador da empresa',
+                        funcionario: 'Funcionário',
+                        operator: 'Operador',
+                      }[profile.role] || profile.role}
                     </td>
                   </tr>
                 ))}

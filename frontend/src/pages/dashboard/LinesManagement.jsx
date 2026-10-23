@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Plus, Pencil, Trash2, Search } from 'lucide-react';
 import { api } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 const empty = {
   codigo: '',
@@ -17,6 +18,8 @@ const empty = {
 };
 
 export function LinesManagement() {
+  const { user } = useAuth();
+  const isCompany = user?.role === 'company_admin';
   const [lines, setLines] = useState([]);
   const [q, setQ] = useState('');
   const [form, setForm] = useState(empty);
@@ -79,6 +82,7 @@ export function LinesManagement() {
         categoria: form.categoria,
         visivel: form.visivel,
         publicado: form.publicado,
+        ...(isCompany ? { company_id: user.company_id, escopo_acesso: 'empresa_privada' } : {}),
       };
 
       let lineId = editing;
@@ -140,8 +144,9 @@ export function LinesManagement() {
     <div>
       <h1 className="dash-h1">Linhas</h1>
       <p className="dash-sub">
-        Cadastre linhas, atualize horários por categoria e escolha quais linhas
-        aparecem no site.
+        {isCompany
+          ? 'Cadastre rotas privadas, horários e pontos visíveis apenas para sua equipe.'
+          : 'Gerencie o catálogo municipal consultado pela população.'}
       </p>
       {msg && (
         <div className="alert alert-info" role="status">
@@ -236,7 +241,7 @@ export function LinesManagement() {
               checked={form.visivel}
               onChange={(e) => setForm({ ...form, visivel: e.target.checked })}
             />{' '}
-            Visível no site
+            {isCompany ? 'Disponível para a equipe' : 'Visível no site'}
           </label>
           <label>
             <input
@@ -244,7 +249,7 @@ export function LinesManagement() {
               checked={form.publicado}
               onChange={(e) => setForm({ ...form, publicado: e.target.checked })}
             />{' '}
-            Publicado (público)
+            {isCompany ? 'Ativa no painel privado' : 'Publicado no catálogo municipal'}
           </label>
           {editing && (
             <button

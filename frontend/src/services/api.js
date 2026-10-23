@@ -1,15 +1,13 @@
 import { supabase } from './supabase';
 
-const privilegedFeatureUnavailable = () =>
-  Promise.reject(
-    new Error(
-      'A gestão de acessos exige uma função administrativa segura que ainda não foi publicada.',
-    ),
-  );
+const unwrap = ({ data, error }) => {
+  if (error) throw error;
+  return data;
+};
 
 export const api = {
   capabilities: {
-    teamManagement: false,
+    teamManagement: true,
     smtpTest: false,
   },
   // --- Linhas ---
@@ -18,6 +16,7 @@ export const api = {
       const { data, error } = await supabase
         .from('linhas')
         .select('*')
+        .eq('escopo_acesso', 'catalogo_publico')
         .eq('publicado', true)
         .eq('situacao_rede', 'vigente')
         .order('codigo');
@@ -28,6 +27,7 @@ export const api = {
       const { data, error } = await supabase
         .from('linhas')
         .select('*')
+        .eq('escopo_acesso', 'catalogo_publico')
         .eq('publicado', true)
         .eq('situacao_rede', 'historica')
         .order('codigo');
@@ -50,6 +50,23 @@ export const api = {
         .order('codigo');
       if (error) throw error;
       return { data };
+    },
+    listPrivate: async () => {
+      const { data, error } = await supabase.from('linhas').select('*').eq('escopo_acesso', 'empresa_privada').order('codigo');
+      if (error) throw error;
+      return { data };
+    },
+    assigned: async (profileId) => {
+      const { data: assignments, error } = await supabase
+        .from('profile_line_assignments')
+        .select('linha_id')
+        .eq('profile_id', profileId);
+      if (error) throw error;
+      const ids = (assignments || []).map((item) => item.linha_id);
+      if (!ids.length) return { data: [] };
+      const result = await supabase.from('linhas').select('*').in('id', ids).eq('escopo_acesso', 'empresa_privada').order('codigo');
+      if (result.error) throw result.error;
+      return { data: result.data };
     },
     create: async (d) => {
       const { data, error } = await supabase.from('linhas').insert(d).select().single();
@@ -130,29 +147,65 @@ export const api = {
     },
   },
 
-  // Perfis existentes são somente leitura no navegador. Criar ou remover uma
-  // identidade exige a Admin API em uma função server-side.
   employees: {
     list: async () => {
-      const { data, error } = await supabase.from('profiles').select('*').order('name');
+      const { data, error } = await supabase.from('profiles').select('*').eq('role', 'funcionario').order('name');
       if (error) throw error;
       return { data };
     },
   },
 
   team: {
-    users: privilegedFeatureUnavailable,
-    pending: privilegedFeatureUnavailable,
-    invite: privilegedFeatureUnavailable,
-    regenerateInvite: privilegedFeatureUnavailable,
-    createUser: privilegedFeatureUnavailable,
-    approve: privilegedFeatureUnavailable,
-    remove: privilegedFeatureUnavailable,
-    assign: privilegedFeatureUnavailable,
-    audit: privilegedFeatureUnavailable,
+    users: async () => {
+      const { data, error } = await supabase.from('profiles').select('*').eq('role', 'funcionario').order('name');
+      if (error) throw error;
+      const assignments = await Promise.all((data || []).map(async (profile) => {
+        const result = await supabase.from('profile_line_assignments').select('linha:linhas(id,codigo,nome)').eq('profile_id', profile.id);
+        if (result.error) throw result.error;
+        return { ...profile, linhas: (result.data || []).map((row) => row.linha).filter(Boolean) };
+      }));
+      return { data: assignments };
+    },
+    pending: async () => {
+      const { data, error } = await supabase.from('profiles').select('*').eq('role', 'funcionario').eq('status', 'pending').order('created_at');
+      if (error) throw error;
+      return { data };
+    },
+    invite: async () => ({ code: sessionStorage.getItem('transcamacari-company-code') || '' }),
+    regenerateInvite: async () => {
+      const data = unwrap(await supabase.rpc('rotate_company_invite'));
+      if (data?.code) sessionStorage.setItem('transcamacari-company-code', data.code);
+      return data;
+    },
+    approve: async (id, lineIds) => {
+      unwrap(await supabase.rpc('approve_employee', { p_profile_id: id, p_line_ids: lineIds }));
+      return { success: true };
+    },
+    reject: async (id) => {
+      unwrap(await supabase.rpc('reject_employee', { p_profile_id: id }));
+      return { success: true };
+    },
+    suspend: async (id) => {
+      unwrap(await supabase.rpc('suspend_employee', { p_profile_id: id }));
+      return { success: true };
+    },
+    assign: async (id, lineIds) => {
+      unwrap(await supabase.rpc('set_employee_assignments', { p_profile_id: id, p_line_ids: lineIds }));
+      return { success: true };
+    },
+    audit: async () => {
+      const { data, error } = await supabase.from('profile_access_audit').select('*').order('created_at', { ascending: false }).limit(100);
+      if (error) throw error;
+      return { data };
+    },
   },
 
-  smtpTest: privilegedFeatureUnavailable,
+  onboarding: {
+    completeCompany: async (companyName) => unwrap(await supabase.rpc('complete_company_registration', { company_name: companyName })),
+    requestMembership: async (companyCode) => unwrap(await supabase.rpc('request_employee_membership', { company_code: companyCode })),
+  },
+
+  smtpTest: () => Promise.reject(new Error('O teste SMTP ainda não está configurado.')),
 
   // --- Contato ---
   contact: async (d) => {

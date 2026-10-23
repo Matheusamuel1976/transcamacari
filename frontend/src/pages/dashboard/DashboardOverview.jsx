@@ -9,14 +9,16 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { api } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 export function DashboardOverview() {
+  const { user } = useAuth();
   const [stats, setStats] = useState(null);
   const [pendingCount, setPendingCount] = useState(0);
   const [error, setError] = useState('');
   useEffect(() => {
     let alive = true;
-    Promise.all([api.lines.list(), api.employees.list()])
+    Promise.all([user?.role === 'company_admin' ? api.lines.listPrivate() : api.lines.list(), api.employees.list()])
       .then(([lines, employees]) => {
         if (!alive) return;
         setStats({
@@ -46,7 +48,7 @@ export function DashboardOverview() {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [user?.role]);
   const cards = [
     [Bus, 'Linhas cadastradas', 'linhas'],
     [Users, 'Funcionários', 'funcionarios'],

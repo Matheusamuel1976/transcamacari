@@ -10,7 +10,10 @@ export function RegisterPage() {
     name: '',
     email: '',
     password: '',
+    company_name: '',
+    company_code: '',
   });
+  const [kind, setKind] = useState('company');
   const [error, setError] = useState('');
   const [ok, setOk] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,8 +24,11 @@ export function RegisterPage() {
     setError('');
     setOk('');
     try {
-      const data = await register(form);
-      setOk(data?.session ? 'Conta criada. O acesso administrativo depende de autorização da equipe responsável.' : 'Solicitação recebida. Verifique seu e-mail para confirmar a conta antes de entrar.');
+      const data = await register({ ...form, kind });
+      const ready = kind === 'company'
+        ? 'Conta empresarial criada. Entre para concluir a configuração da empresa.'
+        : 'Cadastro recebido. Após confirmar o e-mail, aguarde a aprovação da empresa.';
+      setOk(data?.session ? ready : `${ready} Verifique seu e-mail para confirmar a conta.`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -56,12 +62,16 @@ export function RegisterPage() {
             <circle cx="508" cy="140" r="7" />
           </svg>
           <p className="auth-tag">
-            Crie uma conta padrão. O acesso administrativo é concedido somente
-            pela equipe responsável.
+            Empresas organizam sua operação privada. Funcionários acessam
+            somente as linhas atribuídas após aprovação.
           </p>
         </div>
         <form className="auth-card" onSubmit={submit}>
           <h2>Cadastro</h2>
+          <div className="auth-kind" role="tablist" aria-label="Tipo de cadastro">
+            <button type="button" role="tab" aria-selected={kind === 'company'} className={kind === 'company' ? 'active' : ''} onClick={() => setKind('company')}>Empresa</button>
+            <button type="button" role="tab" aria-selected={kind === 'employee'} className={kind === 'employee' ? 'active' : ''} onClick={() => setKind('employee')}>Funcionário</button>
+          </div>
           {error && (
             <div className="alert alert-error" role="alert">
               <AlertCircle size={16} />
@@ -80,6 +90,7 @@ export function RegisterPage() {
             </label>
             <input
               id="name"
+              name="name"
               required
               minLength={2}
               className="input-field"
@@ -88,12 +99,24 @@ export function RegisterPage() {
               placeholder="Seu nome"
             />
           </div>
+          {kind === 'company' ? (
+            <div className="input-group">
+              <label className="input-label" htmlFor="company_name">Empresa</label>
+              <input id="company_name" name="company_name" required minLength={2} className="input-field" value={form.company_name} onChange={(e) => setForm({ ...form, company_name: e.target.value })} placeholder="Nome da empresa" />
+            </div>
+          ) : (
+            <div className="input-group">
+              <label className="input-label" htmlFor="company_code">Código da empresa</label>
+              <input id="company_code" name="company_code" required minLength={6} className="input-field" value={form.company_code} onChange={(e) => setForm({ ...form, company_code: e.target.value.toUpperCase() })} placeholder="Código fornecido pela empresa" autoComplete="off" />
+            </div>
+          )}
           <div className="input-group">
             <label className="input-label" htmlFor="email">
               E-mail
             </label>
             <input
               id="email"
+              name="email"
               type="email"
               required
               className="input-field"
@@ -108,6 +131,7 @@ export function RegisterPage() {
             </label>
             <input
               id="password"
+              name="password"
               type="password"
               required
               minLength={8}
@@ -138,6 +162,9 @@ export function RegisterPage() {
         .auth-tag{color:rgba(245,245,245,.72);max-width:36ch}
         .auth-card{background:#212121;color:#F5F5F5;border:1px solid #4E59AC;border-radius:16px;padding:44px;display:flex;flex-direction:column;gap:20px;width:100%;max-width:600px;justify-self:end;box-shadow:0 24px 60px rgba(5,8,40,.45)}
         .auth-card h2{font-family:var(--font-display);color:#F5F5F5;font-size:25px;font-weight:500;letter-spacing:-.02em}
+        .auth-kind{display:grid;grid-template-columns:1fr 1fr;border:1px solid #4E59AC;border-radius:10px;padding:4px}
+        .auth-kind button{padding:10px;border-radius:7px;color:#C9D2E8;font-weight:600}
+        .auth-kind button.active{background:#1A237E;color:#F5F5F5}
         .auth-card .input-label{color:#C9D2E8}
         .auth-card .input-field{background:rgba(245,245,245,.06);border:1px solid #4E59AC;color:#F5F5F5;border-radius:10px;padding:15px 18px;font-size:15px}
         .auth-card .input-field::placeholder{color:#8A93C9}

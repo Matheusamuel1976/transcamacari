@@ -14,6 +14,14 @@ Base: master, commit `8e5b03545313a299d4e02792cd93271c601fe49a`. Checkout começ
 ## Dados e identidade
 `services/supabase.js` cria cliente com variáveis Vite e sessão persistente. `AuthContext.jsx` usa Supabase Auth (getSession, onAuthStateChange, login, cadastro e atualização). `services/api.js` consulta tabelas diretamente; `services/lines.js` adapta para capítulos públicos. Guards ainda consultam propriedades herdadas de papéis: o contrato entre Auth, profiles e guards precisa de investigação própria.
 
+### Cadastro empresarial preparado em 23/10/2026
+
+A migração `20261023_restore_company_employee_access.sql` prepara dois fluxos de cadastro sobre o Supabase Auth: `company_admin`, que administra somente a própria empresa, e `funcionario`, que aguarda aprovação e consulta somente linhas atribuídas. O papel global `admin` permanece separado. Papéis e estados vêm de `profiles`, nunca de metadados editáveis do Auth.
+
+`linhas.escopo_acesso` separa definitivamente `catalogo_publico` de `empresa_privada`. A landing page exige catálogo público; rotas criadas por empresas são forçadas por trigger ao escopo privado e não podem ser promovidas pela empresa. Atribuições novas usam UUID em `profile_line_assignments`; tabelas PHP numéricas permanecem preservadas e sem conversão automática.
+
+Códigos empresariais são armazenados somente como hash e retornados ao responsável quando gerados ou rotacionados. Aprovação, suspensão e atribuição são RPCs autenticadas com validação de papel, empresa e linha. Esta migração está preparada localmente e não deve ser aplicada em produção sem autorização específica e backup.
+
 Migração 001 contém companies, profiles, linhas, horarios, itinerary_locais, route_geometries e import_metadata, com políticas RLS; 002 contém seed de dez linhas. Código também referencia contact_messages: não assumir schema completo. Banco remoto não consultado nem alterado. `MIGRACAO_SUPABASE.md` contém instruções anteriores; alegações de segurança e idempotência exigem revisão antes de executar SQL.
 
 ## Mapas

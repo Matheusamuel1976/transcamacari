@@ -53,13 +53,31 @@ export function AuthProvider({ children }) {
     if (!identity) { setUser(null); return; }
     setLoading(true);
     setProfileError('');
-    supabase.from('profiles').select('id,name,role,company_id').eq('id', identity.id).maybeSingle().then(({ data, error }) => {
+    const loadProfile = async () => {
+      let result = await supabase.from('profiles').select('id,name,role,status,company_id').eq('id', identity.id).maybeSingle();
+      if (!result.error && result.data?.role === 'operator' && !result.data.company_id) {
+        const metadata = identity.user_metadata || {};
+        if (metadata.registration_kind === 'company' && metadata.company_name) {
+          const onboarding = await supabase.rpc('complete_company_registration', { company_name: metadata.company_name });
+          if (!onboarding.error) {
+            if (onboarding.data?.code) sessionStorage.setItem('transcamacari-company-code', onboarding.data.code);
+            result = await supabase.from('profiles').select('id,name,role,status,company_id').eq('id', identity.id).maybeSingle();
+          }
+          else setProfileError(onboarding.error.message || 'Não foi possível concluir o cadastro da empresa.');
+        } else if (metadata.registration_kind === 'employee' && metadata.company_code) {
+          const onboarding = await supabase.rpc('request_employee_membership', { company_code: metadata.company_code });
+          if (!onboarding.error) result = await supabase.from('profiles').select('id,name,role,status,company_id').eq('id', identity.id).maybeSingle();
+          else setProfileError(onboarding.error.message || 'Não foi possível validar o código da empresa.');
+        }
+      }
       if (!alive) return;
-      // Roles come from protected profiles, never editable Auth metadata.
-      setUser({ ...identity, name: data?.name || identity.user_metadata?.name || '', role: error ? 'operator' : data?.role || 'operator', company_id: data?.company_id ?? null });
-      setProfileError(error ? 'Não foi possível consultar seu perfil. O acesso administrativo permanece bloqueado.' : !data ? 'Seu acesso administrativo depende de autorização da equipe responsável.' : '');
+      const { data, error } = result;
+      setUser({ ...identity, name: data?.name || identity.user_metadata?.name || '', role: error ? 'operator' : data?.role || 'operator', status: data?.status || 'active', company_id: data?.company_id ?? null });
+      if (error) setProfileError('Não foi possível consultar seu perfil. O acesso administrativo permanece bloqueado.');
+      else if (!data) setProfileError('Seu acesso administrativo depende de autorização da equipe responsável.');
       setLoading(false);
-    }).catch(() => {
+    };
+    loadProfile().catch(() => {
       if (alive) { setUser({ ...identity, role: 'operator' }); setProfileError('Perfil indisponível. Tente entrar novamente.'); setLoading(false); }
     });
     return () => { alive = false; };
@@ -82,10 +100,18 @@ export function AuthProvider({ children }) {
       options: {
         data: {
           name: userData.name || userData.email,
+          registration_kind: userData.kind,
+          company_name: userData.kind === 'company' ? userData.company_name : undefined,
+          company_code: userData.kind === 'employee' ? userData.company_code.trim().toUpperCase() : undefined,
         },
       },
     });
-    if (error) throw error;
+    if (error) {
+      if (userData.kind === 'employee' && /database|saving new user/i.test(error.message || '')) {
+        throw new Error('Não foi possível validar o código da empresa. Confira o código com o responsável.');
+      }
+      throw error;
+    }
     return data;
   }, []);
 

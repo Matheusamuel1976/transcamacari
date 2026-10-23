@@ -27,9 +27,10 @@ afterEach(async () => {
   container?.remove();
 });
 
-test('gestão privilegiada ausente produz estado explícito em vez de exceção', async () => {
+test('gestão de equipe exibe convite e aprovações sem exceção', async () => {
   await mount(<AccessManagement />);
-  expect(container.textContent).toContain('função server-side autenticada');
+  expect(container.textContent).toContain('Código da empresa');
+  expect(container.textContent).toContain('Aguardando aprovação');
 });
 
 test('teste SMTP fica indisponível sem contrato seguro publicado', async () => {

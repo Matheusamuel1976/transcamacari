@@ -73,3 +73,11 @@ Smoke observado nesta sessão: instrução master aplicada após checar branch r
 Skill de verificação do Superpowers aplicada: distinguir build aprovado, lint reprovado, teste inexistente e integração registrada de consulta funcional. Autodescoberta em nova sessão ainda precisa ser observada.
 
 Navegador: inventário CUA respondeu; acesso a localhost foi negado pelo controle de autorização. Sem tentativa alternativa; console, rede e validação visual permanecem pendentes. Assim, não se afirma ausência de regressão em execução: a evidência é build aprovado e nenhuma alteração nas fontes funcionais.
+# Restauração de empresas e funcionários — 23/10/2026
+
+- Migração Supabase preparada, ainda não aplicada: separação entre catálogo municipal e operação privada, papéis empresariais, códigos com hash, aprovações e atribuições UUID.
+- Frontend preparado com cadastros Empresa/Funcionário, estados pendente/suspenso e gestão de equipe por RPC.
+- `MyLinesPage` consulta somente atribuições privadas e desenha apenas geometrias persistidas.
+- Validação local: 42 testes Vitest aprovados, lint sem erros e build aprovado. E2E real dos novos fluxos depende de banco com a migração e contas de teste autorizadas.
+- Aviso conhecido: `public.spatial_ref_sys` é reportada pelo Supabase sem RLS. Por ser tabela da extensão PostGIS, não foi alterada nesta migração funcional.
+- Backup anterior preparado em `C:\Users\freeb\.codex\backups\transcamacari-company-access-20261023\before.json`, SHA-256 `AA63D98C538F84A8BBDB3B50912DF7F31E845D119300548A6991AECCF2888CC9`.

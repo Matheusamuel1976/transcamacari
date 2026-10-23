@@ -32,6 +32,9 @@ export function DashboardLayout({ children }) {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
   const [pendingCount, setPendingCount] = useState(0);
+  const visibleLinks = user?.role === 'company_admin'
+    ? links.filter((link) => link.to !== '/dashboard/mensagens')
+    : links;
 
   useEffect(() => {
     if (!api.capabilities.teamManagement) return undefined;
@@ -73,7 +76,7 @@ export function DashboardLayout({ children }) {
           TransCamaçari <span>painel</span>
         </div>
         <nav aria-label="Painel">
-          {links.map((l) => (
+          {visibleLinks.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
