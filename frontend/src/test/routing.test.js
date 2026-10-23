@@ -1,6 +1,8 @@
 import { expect, test, vi } from 'vitest';
 vi.mock('../services/supabase', () => ({ supabase: {} }));
 import { generateRouteForLine } from '../services/routing';
+import routeIda from '../../../data/geography/0302-ida-candidate.geojson.json';
+import routeVolta from '../../../data/geography/0302-volta-candidate.geojson.json';
 
 test('não gera rotas usando coordenadas provisórias do seed como se fossem locais confirmados', async () => {
   const fetchMock = vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network must not be used'));
@@ -20,4 +22,13 @@ test('roteamento preserva todos os pontos ordenados e valida a resposta viária'
   expect(fetchMock.mock.lastCall[0]).toContain(points.map(point => `${point.longitude},${point.latitude}`).join(';'));
   expect(fetchMock.mock.lastCall[0]).toContain('radiuses=150;150;150');
   fetchMock.mockRestore();
+});
+
+test.each([routeIda, routeVolta])('candidato 0302/$direction segue vias e permanece estimado', route => {
+  expect(route.status).toBe('estimado_com_evidencias');
+  expect(route.notice).toBe('Trajeto estimado — percurso sujeito a validação.');
+  expect(route.geometry.type).toBe('LineString');
+  expect(route.geometry.coordinates.length).toBeGreaterThan(100);
+  expect(route.routing.maxWaypointToGeometryMeters).toBeLessThanOrEqual(150);
+  expect(route.waypoints.every(point => point.distanceToGeometryMeters <= 150)).toBe(true);
 });

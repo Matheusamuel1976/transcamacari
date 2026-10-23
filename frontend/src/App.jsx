@@ -20,6 +20,7 @@ import { MyLinesPage } from './pages/MyLinesPage';
 import { ChangePasswordPage } from './pages/ChangePasswordPage';
 import { LinesPage } from './pages/LinesPage';
 import { LineDetailPage } from './pages/LineDetailPage';
+import { HistoricalLinesPage } from './pages/HistoricalLinesPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { configurationError } from './services/supabase';
 
@@ -112,6 +113,14 @@ function AppRoutes() {
         element={
           <AnimatedPage>
             <LinesPage />
+          </AnimatedPage>
+        }
+      />
+      <Route
+        path="/linhas/historico"
+        element={
+          <AnimatedPage>
+            <HistoricalLinesPage />
           </AnimatedPage>
         }
       />

@@ -3,13 +3,14 @@ import { Search, Bus, MapPin, ChevronRight } from 'lucide-react';
 import { api } from '../services/api';
 import { Link } from 'react-router-dom';
 import { searchText } from '../services/lines';
+import PropTypes from 'prop-types';
 
 const CATEGORY_LABELS = {
   sede: 'Sede',
   orla: 'Orla',
 };
 
-export function LinesPage() {
+export function LinesPage({ historical = false }) {
   const [lines, setLines] = useState([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState('');
@@ -20,13 +21,12 @@ export function LinesPage() {
   useEffect(() => {
     let active = true;
     setLoading(true); setError('');
-    api.lines
-      .list()
+    api.lines[historical ? 'listHistorical' : 'list']()
       .then((d) => { if (active) setLines(Array.isArray(d.data) ? d.data : []); })
       .catch(() => { if (active) { setLines([]); setError('Não foi possível consultar as linhas. Verifique a conexão e tente novamente.'); } })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [attempt]);
+  }, [attempt, historical]);
 
   const filtered = lines.filter((l) => {
     const matchQ =
@@ -38,12 +38,14 @@ export function LinesPage() {
 
   return (
     <div>
-      <h1 className="lines-h1">Linhas de ônibus</h1>
+      <h1 className="lines-h1">{historical ? 'Acervo histórico' : 'Linhas de ônibus'}</h1>
       {error && <p role="alert">{error} <button onClick={() => setAttempt(value => value + 1)}>Tentar novamente</button></p>}
       <p className="lines-sub">
-        Consulte as linhas, horários e trajetos do transporte coletivo de
-        Camaçari.
+        {historical
+          ? 'Este acervo foi preservado para consulta e não representa necessariamente a operação atual.'
+          : 'Consulte as linhas, horários e trajetos da rede oficial publicada pela STT.'}
       </p>
+      <p><Link to={historical ? '/linhas' : '/linhas/historico'}>{historical ? 'Ver rede vigente' : 'Consultar acervo histórico'}</Link></p>
 
       <div className="lines-toolbar">
         <div className="lines-search">
@@ -128,3 +130,5 @@ export function LinesPage() {
     </div>
   );
 }
+
+LinesPage.propTypes = { historical: PropTypes.bool };

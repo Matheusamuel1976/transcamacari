@@ -47,7 +47,12 @@ const [activeTab, setActiveTab] = useState('uteis');
         if (!active) return;
         setLine(lineRes.data);
         if (!lineRes.data) throw new Error('Linha não encontrada ou indisponível para consulta pública.');
-        setHorarios(normalizeSchedules(horRes.data));
+        const normalizedSchedules = normalizeSchedules(horRes.data);
+        setHorarios(normalizedSchedules);
+        const firstCategory = Object.keys(DAY_LABELS).find(category =>
+          normalizedSchedules.some(schedule => schedule.categoria === category)
+        );
+        if (firstCategory) setActiveTab(firstCategory);
         setRoutes(Array.isArray(routeRes.data) ? routeRes.data : []);
         setPoints(Array.isArray(pointRes.data) ? pointRes.data : []);
         setMapError(routeRes.failed || pointRes.failed ? 'Parte dos dados do mapa não carregou. Tente novamente.' : '');
@@ -132,6 +137,15 @@ const [activeTab, setActiveTab] = useState('uteis');
   const horariosByCat = horarios.filter(
     (h) => h.categoria === activeTab || h.categoria === 'todos'
   );
+  const availableCategories = Object.keys(DAY_LABELS).filter(category =>
+    category !== 'todos' && horarios.some(schedule => schedule.categoria === category)
+  );
+  const scheduleGroups = horariosByCat.reduce((groups, schedule) => {
+    const departure = schedule.partida_de || '';
+    if (!groups[departure]) groups[departure] = [];
+    groups[departure].push(schedule);
+    return groups;
+  }, {});
 
   return (
     <div>
@@ -162,6 +176,8 @@ const [activeTab, setActiveTab] = useState('uteis');
                 <span>{line.origem} → {line.destino}</span>
               </div>
               <p className="line-detail-bairro">{line.bairro}</p>
+              {line.situacao_rede === 'historica' && <p className="alert alert-info">Registro histórico: os horários e itinerários podem não representar a operação atual.</p>}
+              {line.fonte?.url && <p className="line-detail-source">Fonte: <a href={line.fonte.url} target="_blank" rel="noreferrer">{line.fonte.autoridade || 'documento oficial'}</a></p>}
             </div>
           </div>
 
@@ -171,13 +187,13 @@ const [activeTab, setActiveTab] = useState('uteis');
               <div ref={mapEl} className="line-detail-map-canvas" />
               <p role="status">{mapError || (leafletRoute(route, points.filter(point => point.sentido === direction)).length ? ROUTE_NOTICE : 'Trajeto indisponível: coordenadas provisórias ou geometria aguardando validação.')}</p>
               <h2>Itinerário — {direction}</h2>
-              <ol>{points.filter(point => point.sentido === direction).sort((a, b) => a.ordem - b.ordem).map(point => <li key={point.id}>{point.nome}{point.geocoding_source === 'estimated' ? ' (localização estimada)' : ''}</li>)}</ol>
+              <ol>{points.filter(point => point.sentido === direction).sort((a, b) => a.ordem - b.ordem).map(point => <li key={point.id}>{point.nome}{point.geocoding_source === 'estimated' || point.grau_confirmacao === 'estimado_com_evidencias' ? ' (localização estimada com evidências)' : ''}</li>)}</ol>
               {!points.some(point => point.sentido === direction) && <p>Itinerário não disponível para este sentido.</p>}
             </div>
             <div className="line-detail-schedules">
               <h2 className="line-detail-section-title">Horários</h2>
               <div className="line-detail-tabs">
-                {['uteis', 'sabado', 'domingo_feriado'].map((cat) => (
+                {availableCategories.map((cat) => (
                   <button
                     key={cat}
                     className={`line-detail-tab ${activeTab === cat ? 'line-detail-tab-active' : ''}`}
@@ -193,13 +209,16 @@ const [activeTab, setActiveTab] = useState('uteis');
                     Sem horários cadastrados para esta categoria.
                   </p>
                 ) : (
-                  <div className="line-detail-times-grid">
-                    {horariosByCat.map((h) => (
-                      <span key={h.id} className="line-detail-time">
-                        {h.horario}
-                      </span>
-                    ))}
-                  </div>
+                  Object.entries(scheduleGroups).map(([departure, values]) => (
+                    <section key={departure || 'geral'} className="line-detail-departure">
+                      {departure && <h3>Saída: {departure}</h3>}
+                      <div className="line-detail-times-grid">
+                        {values.map((h) => (
+                          <span key={h.id ?? h.chave_fonte} className="line-detail-time">{h.horario}</span>
+                        ))}
+                      </div>
+                    </section>
+                  ))
                 )}
               </div>
               {leafletRoute(route, points.filter(point => point.sentido === direction)).length > 0 && (
@@ -224,6 +243,7 @@ const [activeTab, setActiveTab] = useState('uteis');
         .line-detail-title{font-family:var(--font-display);font-size:var(--font-size-3xl);color:var(--color-petroleum-dark);margin:0 0 var(--space-2) 0}
         .line-detail-route{display:flex;align-items:center;gap:var(--space-2);color:var(--color-gray-600);font-size:var(--font-size-sm)}
         .line-detail-bairro{color:var(--color-gray-500);font-size:var(--font-size-sm)}
+        .line-detail-source{font-size:var(--font-size-xs);color:var(--color-gray-600)}
         .line-detail-body{display:grid;grid-template-columns:1fr 420px;gap:var(--space-6)}
         .line-detail-map-canvas{height:420px;border-radius:var(--radius-xl);border:1px solid var(--color-gray-200)}
         .line-detail-section-title{font-family:var(--font-display);font-size:var(--font-size-xl);color:var(--color-petroleum);margin-bottom:var(--space-3)}
@@ -232,6 +252,7 @@ const [activeTab, setActiveTab] = useState('uteis');
         .line-detail-tab:hover{border-color:var(--color-petroleum)}
         .line-detail-tab-active{border-color:var(--color-petroleum);color:var(--color-petroleum);background:rgb(26 35 126 / 0.05)}
         .line-detail-times{display:flex;flex-direction:column;gap:var(--space-3)}
+        .line-detail-departure h3{font-size:var(--font-size-sm);color:var(--color-gray-700);margin:0 0 var(--space-2)}
         .line-detail-times-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:var(--space-2)}
         .line-detail-time{display:inline-block;padding:var(--space-2) var(--space-4);background:rgb(26 35 126 / 0.05);color:var(--color-petroleum-dark);border-radius:var(--radius-md);font-size:var(--font-size-sm);font-weight:600;text-align:center}
         .line-detail-no-times{color:var(--color-gray-500);font-style:italic}

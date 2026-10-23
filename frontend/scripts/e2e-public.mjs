@@ -6,6 +6,10 @@ import { chromium } from 'playwright-core';
 
 const baseURL = process.env.E2E_BASE_URL || 'http://127.0.0.1:3100';
 const accessURL = process.env.E2E_ACCESS_URL;
+const expectedLineCount = Number(process.env.E2E_EXPECTED_LINE_COUNT || 46);
+const expectedHistoricalCount = process.env.E2E_EXPECTED_HISTORICAL_COUNT
+  ? Number(process.env.E2E_EXPECTED_HISTORICAL_COUNT)
+  : null;
 const candidates = [
   join(process.env.PROGRAMFILES || '', 'Google/Chrome/Application/chrome.exe'),
   join(process.env['PROGRAMFILES(X86)'] || '', 'Microsoft/Edge/Application/msedge.exe'),
@@ -69,18 +73,23 @@ await page.screenshot({ path: screenshotPath('home-desktop.png'), fullPage: true
 
 await visit(page, '/linhas', '.lines-list');
 const cards = page.locator('.line-card');
-assert.equal(await cards.count(), 10, 'A consulta pública deve listar dez linhas.');
+assert.equal(await cards.count(), expectedLineCount, `A consulta pública deve listar ${expectedLineCount} linhas vigentes.`);
 await page.locator('.lines-search input').fill('Arembepe');
 assert((await cards.count()) >= 1, 'A busca por Arembepe não retornou linha.');
 await page.locator('.lines-search input').fill('');
 const detailPaths = await cards.evaluateAll((nodes) => nodes.map((node) => new URL(node.href).pathname));
-assert.equal(new Set(detailPaths).size, 10, 'Os links das dez linhas devem ser únicos.');
+assert.equal(new Set(detailPaths).size, expectedLineCount, 'Os links das linhas vigentes devem ser únicos.');
 
 for (const path of detailPaths) {
   await visit(page, path, '.line-detail-title');
   assert((await page.locator('.line-detail-time').count()) > 0, `${path} não exibiu horários úteis.`);
   const mapStatus = await page.locator('.line-detail-map p[role="status"]').innerText();
   assert(/Trajeto|dados do mapa/i.test(mapStatus), `${path} não informou o estado geográfico.`);
+}
+
+if (expectedHistoricalCount != null) {
+  await visit(page, '/linhas/historico', '.lines-list');
+  assert.equal(await page.locator('.line-card').count(), expectedHistoricalCount, `O acervo deve listar ${expectedHistoricalCount} linhas históricas.`);
 }
 
 await visit(page, '/register', 'form.auth-card');
@@ -126,4 +135,4 @@ writeFileSync(new URL('report.json', outputDir), `${JSON.stringify(report, null,
 if (report.errors.length) {
   throw new Error(`Erros de navegador:\n${report.errors.join('\n')}`);
 }
-console.log(`E2E público aprovado: ${report.pages.length} navegações, 10 linhas, desktop e mobile.`);
+console.log(`E2E público aprovado: ${report.pages.length} navegações, ${expectedLineCount} linhas vigentes, desktop e mobile.`);

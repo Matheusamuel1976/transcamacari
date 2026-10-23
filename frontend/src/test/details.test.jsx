@@ -36,3 +36,21 @@ test('falha de consulta mostra erro e permite recuperação sem recarregar o apl
   await act(async () => container.querySelector('button').click());
   expect(container.querySelector('h1')).not.toBeNull();
 });
+
+test('horários oficiais distinguem o local de partida e categorias documentadas', async () => {
+  apiMock.lines.get.mockResolvedValue({ data: { ...fixtures[0].line, situacao_rede: 'vigente' } });
+  apiMock.lines.pontos.mockResolvedValue({ data: [] });
+  apiMock.routes.forLine.mockResolvedValue({ data: [] });
+  apiMock.horarios.list.mockResolvedValue({ data: [
+    { id: 91, horario: '05:00:00', categoria: 'segunda_sabado', partida_de: 'TISO' },
+    { id: 92, horario: '05:00:00', categoria: 'segunda_sabado', partida_de: 'Arembepe' },
+  ] });
+
+  await mount(fixtures[0].line.id);
+  const combinedTab = [...container.querySelectorAll('.line-detail-tab')]
+    .find(button => button.textContent.includes('Segunda a sábado'));
+  expect(combinedTab).toBeTruthy();
+  await act(async () => combinedTab.click());
+  expect(container.textContent).toContain('Saída: Arembepe');
+  expect(container.textContent).toContain('Saída: TISO');
+});

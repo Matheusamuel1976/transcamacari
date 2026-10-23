@@ -1,4 +1,10 @@
-export const DAY_LABELS = { uteis: 'Dias úteis', sabado: 'Sábados', domingo_feriado: 'Domingos e feriados', todos: 'Todos os dias' };
+export const DAY_LABELS = {
+  uteis: 'Dias úteis',
+  sabado: 'Sábados',
+  segunda_sabado: 'Segunda a sábado',
+  domingo_feriado: 'Domingos e feriados',
+  todos: 'Todos os dias',
+};
 
 export function formatTime(value) {
   const time = typeof value === 'string' ? value : value?.horario;
@@ -13,8 +19,10 @@ export function normalizeSchedules(values) {
     ...value,
     horario: formatTime(value),
     categoria: value.categoria || (value.dias === 'domingo' ? 'domingo_feriado' : value.dias) || 'todos',
-  })).sort((a, b) => categories.indexOf(a.categoria) - categories.indexOf(b.categoria) || a.horario.localeCompare(b.horario)).filter(value => {
-    const key = `${value.categoria}:${value.horario}`;
+  })).sort((a, b) => categories.indexOf(a.categoria) - categories.indexOf(b.categoria) ||
+    String(a.partida_de ?? '').localeCompare(String(b.partida_de ?? '')) ||
+    a.horario.localeCompare(b.horario)).filter(value => {
+    const key = `${value.categoria}:${value.partida_de ?? ''}:${value.horario}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

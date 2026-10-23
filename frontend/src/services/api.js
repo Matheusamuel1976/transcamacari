@@ -19,6 +19,17 @@ export const api = {
         .from('linhas')
         .select('*')
         .eq('publicado', true)
+        .eq('situacao_rede', 'vigente')
+        .order('codigo');
+      if (error) throw error;
+      return { data };
+    },
+    listHistorical: async () => {
+      const { data, error } = await supabase
+        .from('linhas')
+        .select('*')
+        .eq('publicado', true)
+        .eq('situacao_rede', 'historica')
         .order('codigo');
       if (error) throw error;
       return { data };
@@ -26,7 +37,7 @@ export const api = {
     get: async (id) => {
       const { data, error } = await supabase
         .from('linhas')
-        .select('*')
+        .select('*, fonte:transport_sources(*)')
         .eq('id', id)
         .single();
       if (error) throw error;
