@@ -1,4 +1,5 @@
 import { useTransition } from './TransitionContext';
+import PropTypes from 'prop-types';
 
 export function TransitionLink({
   to,
@@ -30,3 +31,15 @@ export function TransitionLink({
     </a>
   );
 }
+
+TransitionLink.propTypes = {
+  to: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({ pathname: PropTypes.string.isRequired }),
+  ]).isRequired,
+  variant: PropTypes.string,
+  hash: PropTypes.string,
+  replace: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+};

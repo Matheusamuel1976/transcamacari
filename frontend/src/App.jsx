@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { TransitionOverlay } from './motion/TransitionOverlay';
 import { AnimatedPage } from './motion/AnimatedPage';
@@ -19,6 +20,8 @@ import { MyLinesPage } from './pages/MyLinesPage';
 import { ChangePasswordPage } from './pages/ChangePasswordPage';
 import { LinesPage } from './pages/LinesPage';
 import { LineDetailPage } from './pages/LineDetailPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { configurationError } from './services/supabase';
 
 function needsPasswordChange(user) {
   return Number(user?.must_change_password || 0) === 1;
@@ -33,7 +36,7 @@ function LoadingScreen() {
 }
 
 function RequireStaff({ children }) {
-  const { user, isAuthenticated, loading } = useAuth();
+  const { user, isAuthenticated, loading, profileError, logout } = useAuth();
   const motion = useTransition();
   if (loading) return <LoadingScreen />;
   if (
@@ -43,6 +46,7 @@ function RequireStaff({ children }) {
     return <Navigate to="/login" replace />;
   if (user?.role === 'funcionario')
     return <Navigate to="/minhas-linhas" replace />;
+  if (user?.role !== 'admin') return <section className="container" style={{ paddingBlock: '8rem' }}><h1>Acesso administrativo restrito</h1><p>{profileError || 'Sua conta não possui permissão para administrar o transporte.'}</p><a href="/linhas">Consultar linhas</a>{' '}<button className="btn btn-primary" onClick={() => logout().catch(() => window.location.reload())}>Sair</button></section>;
   if (needsPasswordChange(user)) return <Navigate to="/trocar-senha" replace />;
   return (
     <DashboardLayout>
@@ -59,6 +63,9 @@ function RequireFuncionario({ children }) {
   if (needsPasswordChange(user)) return <Navigate to="/trocar-senha" replace />;
   return <AnimatedPage mode="content">{children}</AnimatedPage>;
 }
+
+RequireStaff.propTypes = { children: PropTypes.node.isRequired };
+RequireFuncionario.propTypes = { children: PropTypes.node.isRequired };
 
 function HomeRoute() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -195,7 +202,7 @@ function AppContent() {
       <TransitionOverlay />
       {!isDashboard && <Navbar />}
       <main id="main-content" className="main-content">
-        <AppRoutes />
+        <ErrorBoundary key={pathname}><AppRoutes /></ErrorBoundary>
       </main>
       <style>{`
         .loading-fullscreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--color-petroleum);z-index:9999}
@@ -208,6 +215,7 @@ function AppContent() {
 }
 
 export default function App() {
+  if (configurationError) return <main className="container" role="alert" style={{ paddingBlock: '8rem' }}><h1>Serviço temporariamente indisponível</h1><p>A conexão de dados precisa ser configurada pela equipe responsável.</p><button className="btn btn-primary" onClick={() => window.location.reload()}>Tentar novamente</button></main>;
   return (
     <AuthProvider>
       <AppContent />

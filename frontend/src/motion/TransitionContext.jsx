@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { scrollTo } from './scroll';
@@ -36,7 +37,9 @@ function focusHeading() {
     if (!h) return;
     if (!h.hasAttribute('tabindex')) h.setAttribute('tabindex', '-1');
     h.focus({ preventScroll: true });
-  } catch {}
+  } catch (error) {
+    void error;
+  }
 }
 
 export function TransitionProvider({ children }) {
@@ -139,7 +142,9 @@ export function TransitionProvider({ children }) {
       if (hash) {
         try {
           navigate({ pathname: dest, hash }, { replace: !!opts.replace });
-        } catch {}
+        } catch (error) {
+          void error;
+        }
         setPendingHash(hash);
         settle(dest, hash);
         return;
@@ -157,7 +162,9 @@ export function TransitionProvider({ children }) {
       if (reduced || v === 'admin') {
         try {
           navigate(to, { replace: !!opts.replace });
-        } catch {}
+        } catch (error) {
+          void error;
+        }
         setPendingHash(hash);
         settle(dest, hash);
         return;
@@ -195,3 +202,5 @@ export function TransitionProvider({ children }) {
     </TransitionContext.Provider>
   );
 }
+
+TransitionProvider.propTypes = { children: PropTypes.node.isRequired };

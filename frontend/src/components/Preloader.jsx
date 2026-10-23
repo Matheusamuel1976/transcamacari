@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { gsap } from 'gsap';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 
@@ -37,3 +38,5 @@ export function Preloader({ onComplete }) {
     </div>
   );
 }
+
+Preloader.propTypes = { onComplete: PropTypes.func };

@@ -27,6 +27,10 @@ export function AuditList() {
   const [rows, setRows] = useState([]);
   const [state, setState] = useState('loading');
   useEffect(() => {
+    if (!api.capabilities.teamManagement) {
+      setState('unavailable');
+      return undefined;
+    }
     let alive = true;
     api.team
       .audit()
@@ -63,6 +67,14 @@ export function AuditList() {
     if (r.action === 'team.register') return 'Novo cadastro';
     return 'Sistema';
   };
+  if (!api.capabilities.teamManagement) {
+    return (
+      <div className="alert alert-info" role="status">
+        A auditoria de acessos será habilitada quando a função administrativa
+        segura for publicada.
+      </div>
+    );
+  }
   return (
     <div className="card access__block">
       <h2>
@@ -142,8 +154,19 @@ export function AccessManagement() {
     }
   };
   useEffect(() => {
+    if (!api.capabilities.teamManagement) return undefined;
     load();
   }, []);
+
+  if (!api.capabilities.teamManagement) {
+    return (
+      <div className="alert alert-info" role="status">
+        A gestão de convites, aprovações e atribuições exige uma função
+        server-side autenticada. Esta instalação ainda não possui essa
+        fronteira segura.
+      </div>
+    );
+  }
 
   const say = (type, text) => setMsg({ type, text });
 

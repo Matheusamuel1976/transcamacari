@@ -25,7 +25,10 @@ export function MensagensPage() {
     try {
       await api.messages.remove(id);
       load();
-    } catch {}
+    } catch (error) {
+      setState('error');
+      void error;
+    }
   };
 
   const fmtWhen = (iso) => {

@@ -30,7 +30,10 @@ export function useScrollY() {
   return scrollY;
 }
 
-export function useIntersectionObserver(options = {}) {
+export function useIntersectionObserver({
+  threshold = 0.1,
+  rootMargin = '0px',
+} = {}) {
   const [entry, setEntry] = useState(null);
   const elementRef = useRef(null);
 
@@ -39,14 +42,13 @@ export function useIntersectionObserver(options = {}) {
     if (!element) return;
 
     const observer = new IntersectionObserver(([entry]) => setEntry(entry), {
-      threshold: 0.1,
-      rootMargin: '0px',
-      ...options,
+      threshold,
+      rootMargin,
     });
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [rootMargin, threshold]);
 
   return [elementRef, entry];
 }

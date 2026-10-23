@@ -11,6 +11,7 @@ import {
   Mail,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useAuth } from '../contexts/AuthContext';
 import { useTransition } from '../motion/TransitionContext';
 import { api } from '../services/api';
@@ -33,6 +34,7 @@ export function DashboardLayout({ children }) {
   const [pendingCount, setPendingCount] = useState(0);
 
   useEffect(() => {
+    if (!api.capabilities.teamManagement) return undefined;
     let alive = true;
     api.team
       .pending()
@@ -149,3 +151,5 @@ export function DashboardLayout({ children }) {
     </div>
   );
 }
+
+DashboardLayout.propTypes = { children: PropTypes.node.isRequired };

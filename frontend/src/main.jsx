@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TransitionProvider } from './motion/TransitionContext';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 gsap.registerPlugin(ScrollTrigger);
 import App from './App';
@@ -17,13 +18,17 @@ if (typeof window !== 'undefined') {
   window.addEventListener('load', () => {
     try {
       ScrollTrigger.refresh();
-    } catch {}
+    } catch (error) {
+      void error;
+    }
     if (document.fonts?.ready) {
       document.fonts.ready
         .then(() => {
           try {
             ScrollTrigger.refresh();
-          } catch {}
+          } catch (error) {
+            void error;
+          }
         })
         .catch(() => {});
     }
@@ -32,12 +37,12 @@ if (typeof window !== 'undefined') {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter
+    <ErrorBoundary><BrowserRouter
       future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
     >
       <TransitionProvider>
         <App />
       </TransitionProvider>
-    </BrowserRouter>
+    </BrowserRouter></ErrorBoundary>
   </React.StrictMode>,
 );

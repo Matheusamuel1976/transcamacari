@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { useReducedMotion } from '../hooks/useReducedMotion';
@@ -16,9 +17,9 @@ export function AnimatedPage({ children, mode = 'page' }) {
       const targets = card
         ? Array.from(card.children)
         : Array.from(root.current.children);
-      gsap.from(targets, {
-        y: mode === 'content' ? 8 : 18,
-        opacity: 0,
+      gsap.fromTo(targets, { y: mode === 'content' ? 8 : 18, opacity: 0.35 }, {
+        y: 0,
+        opacity: 1,
         duration: mode === 'content' ? 0.2 : 0.42,
         stagger: mode === 'content' ? 0 : 0.035,
         delay: motion.variant === 'auth' ? 0 : 0.12,
@@ -34,10 +35,15 @@ export function AnimatedPage({ children, mode = 'page' }) {
         });
     }, root);
     return () => context.revert();
-  }, [pathname, mode, reduced]);
+  }, [pathname, mode, reduced, motion.variant]);
   return (
     <div ref={root} className={`t-page t-page--${mode}`}>
       {children}
     </div>
   );
 }
+
+AnimatedPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  mode: PropTypes.oneOf(['page', 'content']),
+};

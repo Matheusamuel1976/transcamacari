@@ -27,10 +27,14 @@ export function revealUp(targets, trigger, opts = {}) {
     return () => {
       try {
         tween.scrollTrigger?.kill();
-      } catch {}
+      } catch (error) {
+        void error;
+      }
       try {
         tween.kill();
-      } catch {}
+      } catch (error) {
+        void error;
+      }
       gsap.set(els, { clearProps: 'opacity,visibility,transform' });
     };
   } catch {
@@ -54,13 +58,19 @@ export function parallaxY(target, trigger, yPercent = 12) {
     return () => {
       try {
         tween.scrollTrigger?.kill();
-      } catch {}
+      } catch (error) {
+        void error;
+      }
       try {
         tween.kill();
-      } catch {}
+      } catch (error) {
+        void error;
+      }
       try {
         gsap.set(target, { clearProps: 'transform' });
-      } catch {}
+      } catch (error) {
+        void error;
+      }
     };
   } catch {
     return () => {};
@@ -70,5 +80,7 @@ export function parallaxY(target, trigger, yPercent = 12) {
 export function refreshTriggers() {
   try {
     ScrollTrigger.refresh();
-  } catch {}
+  } catch (error) {
+    void error;
+  }
 }

@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import L from 'leaflet';
-import { MapPin, Clock, Bus, AlertCircle, ChevronLeft } from 'lucide-react';
+import { MapPin, AlertCircle, ChevronLeft } from 'lucide-react';
 import { api } from '../services/api';
+import { Link } from 'react-router-dom';
+import { DAY_LABELS, leafletRoute, normalizeSchedules, ROUTE_NOTICE, validPoint } from '../services/transport';
 
 const CENTER = [-12.6975, -38.3242];
 
-const CATEGORY_LABELS = {
-  uteis: 'Dias úteis',
-  sabado: 'Sábados',
-  domingo_feriado: 'Domingos e feriados',
-};
+const CATEGORY_LABELS = DAY_LABELS;
 
 export function LineDetailPage() {
   const { id } = useParams();
@@ -19,24 +17,40 @@ export function LineDetailPage() {
   const layerRef = useRef(null);
   const [line, setLine] = useState(null);
   const [horarios, setHorarios] = useState([]);
-  const [route, setRoute] = useState(null);
+  const [routes, setRoutes] = useState([]);
+  const [points, setPoints] = useState([]);
+  const [direction, setDirection] = useState('ida');
+  const [attempt, setAttempt] = useState(0);
+  const [mapError, setMapError] = useState('');
+  const route = routes.find(value => value.sentido === direction);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
 const [activeTab, setActiveTab] = useState('uteis');
 
   useEffect(() => {
     let active = true;
+    setLoading(true);
+    setError(null);
+    setLine(null);
+    setPoints([]);
+    setRoutes([]);
+    setMapError('');
     const load = async () => {
       try {
-        const [lineRes, horRes, routeRes] = await Promise.all([
+        if (!/^\d+$/.test(id)) throw new Error('Identificador de linha inválido. Volte à consulta e escolha uma linha.');
+        const [lineRes, horRes, routeRes, pointRes] = await Promise.all([
           api.lines.get(id),
           api.horarios.list(id),
-          api.lines.route(id, 'ida').catch(() => ({ data: null })),
+          api.routes.forLine(id).catch(() => ({ data: [], failed: true })),
+          api.lines.pontos(id).catch(() => ({ data: [], failed: true })),
         ]);
         if (!active) return;
         setLine(lineRes.data);
-        setHorarios(horRes.data || []);
-        setRoute(routeRes.data || null);
+        if (!lineRes.data) throw new Error('Linha não encontrada ou indisponível para consulta pública.');
+        setHorarios(normalizeSchedules(horRes.data));
+        setRoutes(Array.isArray(routeRes.data) ? routeRes.data : []);
+        setPoints(Array.isArray(pointRes.data) ? pointRes.data : []);
+        setMapError(routeRes.failed || pointRes.failed ? 'Parte dos dados do mapa não carregou. Tente novamente.' : '');
       } catch (err) {
         if (!active) return;
         setError(err.message);
@@ -48,7 +62,7 @@ const [activeTab, setActiveTab] = useState('uteis');
     return () => {
       active = false;
     };
-  }, [id]);
+  }, [id, attempt]);
 
   useEffect(() => {
     if (!mapEl.current || mapRef.current || !line) return () => {};
@@ -73,19 +87,15 @@ const [activeTab, setActiveTab] = useState('uteis');
     layer.clearLayers();
 
     const pts = [];
-    const coords = [];
+    const coords = leafletRoute(route, points.filter(point => point.sentido === direction));
 
-    if (route && route.geometry) {
-      const c = route.geometry.coordinates.map((cc) => [cc[1], cc[0]]);
-      coords.push(...c);
-      L.polyline(c, { color: '#1a237e', weight: 4, opacity: 0.9 }).addTo(layer);
+    if (coords.length) {
+      L.polyline(coords, { color: '#1a237e', weight: 4, opacity: 0.9 }).addTo(layer);
     }
 
     // Fetch pontos for this line to draw markers
-    api.lines
-      .pontos(id)
-      .then((d) => {
-        const ptsList = d.data || [];
+    {
+        const ptsList = points.filter(point => point.sentido === direction && validPoint(point) && point.geocoding_source && point.geocoding_source !== 'estimated');
         ptsList.forEach((p) => {
           const latlng = [Number(p.latitude), Number(p.longitude)];
           pts.push(latlng);
@@ -103,7 +113,7 @@ const [activeTab, setActiveTab] = useState('uteis');
             fillOpacity: 1,
           })
             .addTo(layer)
-            .bindTooltip(`${p.nome} (${p.tipo})`);
+            .bindTooltip(Object.assign(document.createElement('span'), { textContent: `${p.nome} (${p.tipo})` }));
         });
         if (coords.length) {
           map.fitBounds(L.latLngBounds(coords), {
@@ -116,12 +126,11 @@ const [activeTab, setActiveTab] = useState('uteis');
             maxZoom: 14,
           });
         }
-      })
-      .catch(() => {});
-  }, [line, route]);
+    }
+  }, [line, route, points, direction]);
 
   const horariosByCat = horarios.filter(
-    (h) => h.categoria === activeTab
+    (h) => h.categoria === activeTab || h.categoria === 'todos'
   );
 
   return (
@@ -131,18 +140,17 @@ const [activeTab, setActiveTab] = useState('uteis');
           <AlertCircle size={32} />
           <h2>Erro ao carregar linha</h2>
           <p>{error}</p>
+          <button className="btn btn-primary" onClick={() => setAttempt(value => value + 1)}>Tentar novamente</button>
+          <Link to="/linhas">Voltar para linhas</Link>
         </div>
       ) : loading ? (
         <div className="line-detail-loading">Carregando linha…</div>
       ) : line ? (
         <div>
           <div className="line-detail-header">
-            <button
-              className="btn btn-ghost btn-sm"
-              onClick={() => window.history.back()}
-            >
+            <Link className="btn btn-ghost btn-sm" to="/linhas">
               <ChevronLeft size={16} /> Voltar
-            </button>
+            </Link>
             <div className="line-detail-main">
               <span className="line-detail-code">{line.codigo}</span>
               <span className="line-detail-badge">
@@ -159,7 +167,12 @@ const [activeTab, setActiveTab] = useState('uteis');
 
           <div className="line-detail-body">
             <div className="line-detail-map">
+              <label>Sentido <select value={direction} onChange={event => setDirection(event.target.value)}><option value="ida">Ida</option><option value="volta">Volta</option></select></label>
               <div ref={mapEl} className="line-detail-map-canvas" />
+              <p role="status">{mapError || (leafletRoute(route, points.filter(point => point.sentido === direction)).length ? ROUTE_NOTICE : 'Trajeto indisponível: coordenadas provisórias ou geometria aguardando validação.')}</p>
+              <h2>Itinerário — {direction}</h2>
+              <ol>{points.filter(point => point.sentido === direction).sort((a, b) => a.ordem - b.ordem).map(point => <li key={point.id}>{point.nome}{point.geocoding_source === 'estimated' ? ' (localização estimada)' : ''}</li>)}</ol>
+              {!points.some(point => point.sentido === direction) && <p>Itinerário não disponível para este sentido.</p>}
             </div>
             <div className="line-detail-schedules">
               <h2 className="line-detail-section-title">Horários</h2>
@@ -189,19 +202,18 @@ const [activeTab, setActiveTab] = useState('uteis');
                   </div>
                 )}
               </div>
-              {route && (
+              {leafletRoute(route, points.filter(point => point.sentido === direction)).length > 0 && (
                 <div className="line-detail-route-notice">
                   <AlertCircle size={14} />
                   <span>
-                    Trajeto estimado pelas vias disponíveis; percurso sujeito a
-                    validação.
+                    {ROUTE_NOTICE}
                   </span>
                 </div>
               )}
             </div>
           </div>
         </div>
-      ) : null}
+      ) : <p role="status">Linha indisponível.</p>}
       <style>{`
         .line-detail-error{display:flex;flex-direction:column;align-items:center;gap:var(--space-3);color:var(--color-gray-600);padding:var(--space-8)}
         .line-detail-loading{color:var(--color-gray-500);padding:var(--space-8)}

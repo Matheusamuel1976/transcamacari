@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Search, ArrowDown, X } from 'lucide-react';
 import { loadPublicLines, searchText } from '../../services/lines';
+import { DAY_LABELS, formatTime, normalizeSchedules } from '../../services/transport';
+import { Link } from 'react-router-dom';
 
 export function ChapterDescubra() {
   const [lines, setLines] = useState([]);
@@ -15,7 +17,7 @@ export function ChapterDescubra() {
       setSource('live');
     } catch {
       setLines([]);
-      setSource('live');
+      setSource('error');
     }
   };
   useEffect(() => {
@@ -30,7 +32,7 @@ export function ChapterDescubra() {
       .catch(() => {
         if (alive) {
           setLines([]);
-          setSource('live');
+          setSource('error');
         }
       });
     return () => {
@@ -134,6 +136,7 @@ export function ChapterDescubra() {
         </span>
       </div>
       <div className="line-finder__results">
+        {source === 'error' && <p role="alert">Não foi possível consultar as linhas. <button onClick={load}>Tentar novamente</button></p>}
         {filtered.map((line) => (
           <article
             key={line.id}
@@ -151,7 +154,7 @@ export function ChapterDescubra() {
                 <small>{line.bairro}</small>
               </span>
               <span className="line-result__schedule">
-                {line.horarios[0]?.slice(0, 5) || 'Sem horário'}
+                {formatTime(line.horarios?.[0]) || 'Sem horário'}
                 <small>Primeiro horário cadastrado</small>
               </span>
               {selected === line.id ? (
@@ -173,12 +176,16 @@ export function ChapterDescubra() {
                 </div>
                 <div>
                   <small>Horários cadastrados</small>
+                  {line.scheduleError && <p role="alert">{line.scheduleError}</p>}
                   <p>
-                    {line.horarios.length
-                      ? line.horarios.map((h) => h.slice(0, 5)).join(' · ')
-                      : 'Nenhum horário informado.'}
+                    {Object.entries(DAY_LABELS).map(([category, label]) => {
+                      const times = normalizeSchedules(line.horarios).filter(h => h.categoria === category);
+                      return times.length ? <span key={category} style={{ display: 'block' }}><strong>{label}: </strong>{times.map(formatTime).join(' · ')}</span> : null;
+                    })}
+                    {!line.horarios?.length && 'Nenhum horário informado.'}
                   </p>
                 </div>
+                <Link to={`/linhas/${line.id}`}>Horários e itinerário completos</Link>
                 <button
                   className="btn btn-primary"
                   onClick={() => viewMap(line)}

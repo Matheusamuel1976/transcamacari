@@ -6,24 +6,29 @@ import { TransitionLink as Link } from '../../motion/TransitionLink';
 import { useTransition } from '../../motion/TransitionContext';
 
 export function LoginPage() {
-  const { login, user, isAuthenticated } = useAuth();
+  const { login, user, isAuthenticated, resetPassword } = useAuth();
   const navigate = useNavigate();
   const motion = useTransition();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [notice, setNotice] = useState('');
+  const recover = async () => {
+    setError(''); setNotice('');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { setError('Preencha seu e-mail para recuperar a senha.'); return; }
+    setLoading(true);
+    try { await resetPassword(form.email); setNotice('Se houver uma conta com esse e-mail, você receberá as instruções de recuperação.'); }
+    catch (error) { setError(error.message || 'Não foi possível solicitar a recuperação. Tente novamente.'); }
+    finally { setLoading(false); }
+  };
 
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     try {
-      const data = await login(form.email, form.password);
-      const dest = Number(data?.user?.must_change_password || 0)
-        ? '/trocar-senha'
-        : data?.user?.role === 'funcionario'
-          ? '/minhas-linhas'
-          : '/dashboard';
+      await login(form.email, form.password);
+      const dest = '/';
 
       if (motion) motion.go(dest, { variant: 'context', replace: true });
       else navigate(dest, { replace: true });
@@ -65,6 +70,7 @@ export function LoginPage() {
         </div>
         <form className="auth-card" onSubmit={submit}>
           <h2>Acesso ao painel</h2>
+          {notice && <p role="status">{notice}</p>}
           {error && (
             <div className="alert alert-error" role="alert">
               <AlertCircle size={16} />
@@ -106,6 +112,7 @@ export function LoginPage() {
             <LogIn size={18} /> {loading ? 'Entrando...' : 'Entrar'}
           </button>
           <p className="auth-alt">
+            <button type="button" onClick={recover} disabled={loading}>Esqueci minha senha</button><br />
             Sem conta? <Link to="/register">Cadastre-se</Link> ·{' '}
             <Link to="/">Voltar ao site</Link>
           </p>

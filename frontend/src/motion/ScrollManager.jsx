@@ -10,7 +10,7 @@ export function ScrollManager() {
   const { key, hash } = useLocation();
   const navigation = useNavigationType();
   const reduced = useReducedMotion();
-  const motion = useTransition();
+  const { go } = useTransition();
   const positions = useRef(new Map());
   const restoring = useRef(false);
   useLenis();
@@ -80,10 +80,10 @@ export function ScrollManager() {
       const hash = link.getAttribute('href');
       if (hash.length < 2) return;
       event.preventDefault();
-      motion.go(location.pathname, { hash });
+      go(location.pathname, { hash });
     };
     document.addEventListener('click', anchor);
     return () => document.removeEventListener('click', anchor);
-  }, [motion.go]);
+  }, [go]);
   return null;
 }

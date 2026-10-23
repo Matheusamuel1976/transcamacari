@@ -62,9 +62,9 @@ export function ChapterCaminhos() {
   useEffect(() => {
     if (reduced) return;
     const ctx = gsap.context(() => {
-      gsap.from('.journey__panel > *', {
-        x: 14,
-        opacity: 0.35,
+      gsap.fromTo('.journey__panel > *', { x: 14, opacity: 0.7 }, {
+        x: 0,
+        opacity: 1,
         stagger: 0.045,
         duration: 0.35,
         ease: 'power3.out',

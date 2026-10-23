@@ -37,7 +37,9 @@ export function MyLinesPage() {
     try {
       await logout();
       navigate('/login');
-    } catch {}
+    } catch (error) {
+      void error;
+    }
   };
 
   useEffect(() => {

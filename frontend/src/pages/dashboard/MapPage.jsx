@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { Trash2, Plus, MousePointerClick, RefreshCw } from 'lucide-react';
+import { Trash2, Plus, MousePointerClick } from 'lucide-react';
 import { api } from '../../services/api';
+import { leafletRoute, validPoint } from '../../services/transport';
 
 const CENTER = [-12.6975, -38.3242];
 
@@ -18,7 +19,21 @@ export function MapPage() {
   const [nome, setNome] = useState('');
   const [tipo, setTipo] = useState('parada');
   const [msg, setMsg] = useState('');
-  const [placing, setPlacing] = useState(true);
+  const [generating, setGenerating] = useState(false);
+  const [loadedLineId, setLoadedLineId] = useState('');
+  const generate = async () => {
+    if (generating || !lineId || String(loadedLineId) !== String(lineId)) return;
+    setGenerating(true); setMsg('');
+    try {
+      const routing = await import('../../services/routing');
+      const result = await routing.generateRouteForLine(lineId, pontos, sentido);
+      if (result.error) throw new Error(result.error);
+      const saved = await routing.saveRouteGeometry(lineId, sentido, result.geometry);
+      setRoute(saved.data); setMsg('Trajeto estimado salvo — percurso sujeito a validação.');
+    } catch (error) { setMsg(error.message); }
+    finally { setGenerating(false); }
+  };
+  const placing = true;
   const selectionRef = useRef({ placing, lineId });
   selectionRef.current = { placing, lineId };
   const requestId = useRef(0);
@@ -31,6 +46,13 @@ export function MapPage() {
         setMsg('Não foi possível carregar as linhas.')
       );
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    setRoute(null);
+    if (lineId) api.lines.route(lineId, sentido).then(result => { if (active) setRoute(result.data); }).catch(() => { if (active) setMsg('Geometria ausente para este sentido; valide os pontos antes de gerar.'); });
+    return () => { active = false; };
+  }, [lineId, sentido]);
 
   useEffect(() => {
     if (!mapEl.current || mapRef.current) return () => {};
@@ -61,6 +83,8 @@ export function MapPage() {
 
   const loadPontos = async (id) => {
     const currentRequest = ++requestId.current;
+    setPontos([]);
+    setLoadedLineId('');
     setStaged(null);
     setRoute(null);
     if (!id) {
@@ -71,10 +95,7 @@ export function MapPage() {
       const d = await api.lines.pontos(id);
       if (currentRequest !== requestId.current) return;
       setPontos(d.data || []);
-      // Load route geometry for ida by default
-      const r = await api.lines.route(id, 'ida');
-      if (currentRequest !== requestId.current) return;
-      setRoute(r.data || null);
+      setLoadedLineId(String(id));
     } catch (e) {
       setMsg(e.message);
     }
@@ -88,7 +109,7 @@ export function MapPage() {
 
     const markers = [];
     list.forEach((p) => {
-      if (p.sentido !== activeSentido) return;
+      if (p.sentido !== activeSentido || !validPoint(p)) return;
       const latlng = [Number(p.latitude), Number(p.longitude)];
       markers.push(latlng);
       const color =
@@ -104,9 +125,9 @@ export function MapPage() {
         .bindTooltip(`${p.ordem} · ${p.nome} (${p.tipo})`);
     });
 
-    if (routeGeom && routeGeom.geometry) {
-      const coords = routeGeom.geometry.coordinates.map((c) => [c[1], c[0]]);
-      const polyline = L.polyline(coords, {
+    const coords = leafletRoute(routeGeom, list.filter(point => point.sentido === activeSentido));
+    if (coords.length && routeGeom?.sentido === activeSentido) {
+      L.polyline(coords, {
         color: '#1a237e',
         weight: 4,
         opacity: 0.9,
@@ -150,6 +171,8 @@ export function MapPage() {
         longitude: staged.lng,
         tipo,
         sentido,
+        ordem: Math.max(-1, ...pontos.filter(point => point.sentido === sentido).map(point => Number(point.ordem))) + 1,
+        geocoding_source: 'manual',
       });
       setMsg('Ponto salvo.');
       setStaged(null);
@@ -182,6 +205,8 @@ export function MapPage() {
         Visualize as trajetórias estimadas pelas ruas. As polilinhas roxas
         seguem a malha viária; os círculos marcam locais do itinerário.
       </p>
+      <button className="btn btn-primary" disabled={!lineId || generating || String(loadedLineId) !== String(lineId)} onClick={generate}>{generating ? 'Calculando…' : 'Gerar e salvar trajeto estimado'}</button>
+      {lineId && !leafletRoute(route, pontos.filter(point => point.sentido === sentido)).length && <p role="status">Sem percurso confiável neste sentido. Revise as coordenadas provisórias antes de gerar.</p>}
       {msg && (
         <div className="alert alert-info" role="status">
           <span>{msg}</span>
@@ -202,6 +227,7 @@ export function MapPage() {
                 name="sentido"
                 value="ida"
                 checked={sentido === 'ida'}
+                disabled={generating}
                 onChange={() => handleSentidoChange('ida')}
               />{' '}
               Ida
@@ -212,6 +238,7 @@ export function MapPage() {
                 name="sentido"
                 value="volta"
                 checked={sentido === 'volta'}
+                disabled={generating}
                 onChange={() => handleSentidoChange('volta')}
               />{' '}
               Volta
@@ -242,6 +269,7 @@ export function MapPage() {
               id="ed-line"
               className="input-field select-field"
               value={lineId}
+              disabled={generating}
               onChange={(e) => {
                 setLineId(e.target.value);
                 setStaged(null);

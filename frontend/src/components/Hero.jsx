@@ -63,7 +63,7 @@ export function Hero() {
       if (navbar)
         intro.from(navbar, { y: -18, opacity: 0, duration: 0.6 }, 0.12);
       if (window.matchMedia('(min-width: 900px) and (pointer: fine)').matches) {
-        gsap.to('.hero__photo img', {
+        gsap.to('.hero__photo', {
           yPercent: 8,
           ease: 'none',
           scrollTrigger: {
@@ -116,7 +116,6 @@ export function Hero() {
             alt="Ônibus e tráfego em uma rua de Camaçari ao entardecer, fotografados em 2007"
             width="1024"
             height="768"
-            fetchpriority="high"
           />
           <figcaption>
             O cotidiano em movimento. <span>Camaçari · arquivo, 2007</span>

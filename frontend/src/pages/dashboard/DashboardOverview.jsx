@@ -35,12 +35,14 @@ export function DashboardOverview() {
             'Não foi possível consultar sua operação. Verifique a conexão e tente recarregar.',
           );
       });
-    api.team
-      .pending()
-      .then((d) => {
-        if (alive) setPendingCount((d.data || []).length);
-      })
-      .catch(() => {});
+    if (api.capabilities.teamManagement) {
+      api.team
+        .pending()
+        .then((d) => {
+          if (alive) setPendingCount((d.data || []).length);
+        })
+        .catch(() => {});
+    }
     return () => {
       alive = false;
     };

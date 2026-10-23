@@ -3,8 +3,8 @@ import L from 'leaflet';
 import { Search, Crosshair, Expand, X, ArrowUpRight } from 'lucide-react';
 import { loadPublicLines, searchText } from '../../services/lines';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { ROUTE_NOTICE } from '../../services/transport';
 
-const colors = ['#1A237E', '#12175C', '#4E59AC', '#1A237E'];
 const center = [-12.6975, -38.3242];
 
 export function ChapterMapa() {
@@ -14,6 +14,7 @@ export function ChapterMapa() {
   const userMarker = useRef(null);
   const [lines, setLines] = useState([]);
   const [source, setSource] = useState('loading');
+  const [attempt, setAttempt] = useState(0);
   const [q, setQ] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const [locating, setLocating] = useState(false);
@@ -21,11 +22,7 @@ export function ChapterMapa() {
   const [tileError, setTileError] = useState(false);
   const reduced = useReducedMotion();
   const selected = lines.find((line) => String(line.id) === String(selectedId));
-  const filtered = lines.filter((line) =>
-    searchText(`${line.code} ${line.name} ${line.bairro}`).includes(
-      searchText(q),
-    ),
-  );
+  const filtered = lines.filter((line) => searchText(`${line.code} ${line.name} ${line.bairro}`).includes(searchText(q)));
 
   useEffect(() => {
     const map = L.map(canvas.current, {
@@ -62,6 +59,7 @@ export function ChapterMapa() {
   }, []);
   useEffect(() => {
     let alive = true;
+    setSource('loading');
     loadPublicLines()
       .then((data) => {
         if (alive) {
@@ -72,13 +70,13 @@ export function ChapterMapa() {
       .catch(() => {
         if (alive) {
           setLines([]);
-          setSource('live');
+          setSource('error');
         }
       });
     return () => {
       alive = false;
     };
-  }, []);
+  }, [attempt]);
   useEffect(() => {
     const choose = (e) => {
       setSelectedId(e.detail.id);
@@ -90,11 +88,12 @@ export function ChapterMapa() {
   useEffect(() => {
     if (!layer.current) return;
     layer.current.clearLayers();
-    const shown = selected ? [selected] : filtered;
+    const chosen = lines.find(line => String(line.id) === String(selectedId));
+    const shown = chosen ? [chosen] : lines.filter(line => searchText(`${line.code} ${line.name} ${line.bairro}`).includes(searchText(q)));
     shown.forEach((line) => {
       const color = '#1A237E';
-      if (line.points.length > 1)
-        L.polyline(line.points, { color, weight: 3 })
+      if (line.routePoints?.length > 1)
+        L.polyline(line.routePoints, { color, weight: 3 })
           .addTo(layer.current)
           .on('click', () => setSelectedId(line.id));
       line.points.forEach((point, index) => {
@@ -219,6 +218,8 @@ export function ChapterMapa() {
               ? 'Consultando linhas…'
               : 'Linhas cadastradas'}
           </p>
+          {source === 'error' && <p role="alert">Não foi possível consultar as linhas. <button onClick={() => setAttempt(value => value + 1)}>Tentar novamente</button></p>}
+          {source === 'live' && lines.length > 0 && !lines.some(line => line.routePoints?.length) && <p className="map-message" role="status">Os itinerários estão cadastrados, mas suas coordenadas ainda precisam de validação. Nenhum percurso confiável está disponível para exibição.</p>}
           <ul className="map-lines">
             {filtered.map((line) => (
               <li key={line.id}>
@@ -237,7 +238,7 @@ export function ChapterMapa() {
                   <span>
                     {line.name}
                     <small>
-                      {line.points.length} pontos cadastrados
+                      {line.locais?.filter(point => point.sentido === 'ida').length ?? line.points.length} locais no itinerário
                     </small>
                   </span>
                   <ArrowUpRight size={15} />
@@ -254,7 +255,7 @@ export function ChapterMapa() {
           )}
           <p className="map-legend">
             <span />
-            Conexões entre pontos cadastrados.
+            {ROUTE_NOTICE}
             <br />
             Sem rastreamento em tempo real.
           </p>
@@ -276,9 +277,7 @@ export function ChapterMapa() {
               <div>
                 <strong>{selected.name}</strong>
                 <p>
-                  {selected.points.length
-                    ? `${selected.points.length} pontos · conexões visuais, não rota viária`
-                    : 'Esta linha ainda não tem pontos cadastrados.'}
+                  {selected.routePoints?.length ? ROUTE_NOTICE : 'Trajeto indisponível: coordenadas ou geometria precisam de validação.'}
                 </p>
               </div>
               <button

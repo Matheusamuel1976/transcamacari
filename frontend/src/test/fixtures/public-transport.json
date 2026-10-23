@@ -1,0 +1,6794 @@
+[
+  {
+    "line": {
+      "id": 14,
+      "codigo": "O01",
+      "nome": "Camaçari (Sede) x Vila de Abrantes / Busca Vida",
+      "bairro": "Sede / Via Parafuso / BA-099 / Jauá / Vila de Abrantes / Busca Vida",
+      "origem": "Terminal Central (Sede)",
+      "destino": "Acesso Busca Vida",
+      "categoria": "orla"
+    },
+    "schedules": [
+      {
+        "id": 706,
+        "horario": "05:00:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 260,
+        "horario": "05:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 281,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 727,
+        "horario": "05:30:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 261,
+        "horario": "05:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 707,
+        "horario": "05:40:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 295,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 741,
+        "horario": "06:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 708,
+        "horario": "06:20:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 262,
+        "horario": "06:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 282,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 728,
+        "horario": "06:30:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 709,
+        "horario": "07:00:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 263,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 742,
+        "horario": "07:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 729,
+        "horario": "07:30:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 296,
+        "horario": "07:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 283,
+        "horario": "07:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 264,
+        "horario": "07:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 710,
+        "horario": "07:40:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 711,
+        "horario": "08:20:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 265,
+        "horario": "08:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 284,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 730,
+        "horario": "08:30:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 743,
+        "horario": "09:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 297,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 712,
+        "horario": "09:10:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 266,
+        "horario": "09:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 731,
+        "horario": "09:30:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 285,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 267,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 713,
+        "horario": "10:00:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 286,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 744,
+        "horario": "10:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 732,
+        "horario": "10:30:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 298,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 714,
+        "horario": "11:00:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 268,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 733,
+        "horario": "11:30:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 287,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 299,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 745,
+        "horario": "12:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 269,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 715,
+        "horario": "12:00:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 734,
+        "horario": "12:30:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 288,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 270,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 716,
+        "horario": "13:00:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 300,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 735,
+        "horario": "13:30:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 289,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 746,
+        "horario": "13:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 271,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 717,
+        "horario": "14:00:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 736,
+        "horario": "14:30:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 290,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 272,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 301,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 718,
+        "horario": "15:00:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 747,
+        "horario": "15:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 719,
+        "horario": "16:00:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 273,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 737,
+        "horario": "16:00:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 291,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 302,
+        "horario": "16:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 748,
+        "horario": "16:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 720,
+        "horario": "16:40:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 274,
+        "horario": "16:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 721,
+        "horario": "17:20:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 275,
+        "horario": "17:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 738,
+        "horario": "17:30:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 292,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 722,
+        "horario": "18:00:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 303,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 749,
+        "horario": "18:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 276,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 723,
+        "horario": "18:40:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 277,
+        "horario": "18:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 293,
+        "horario": "19:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 739,
+        "horario": "19:00:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 304,
+        "horario": "19:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 724,
+        "horario": "19:30:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 278,
+        "horario": "19:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 750,
+        "horario": "19:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 740,
+        "horario": "20:30:00",
+        "categoria": "sabado",
+        "ordem": 13
+      },
+      {
+        "id": 725,
+        "horario": "20:30:00",
+        "categoria": "uteis",
+        "ordem": 19
+      },
+      {
+        "id": 294,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 279,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 305,
+        "horario": "21:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 751,
+        "horario": "21:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 10
+      },
+      {
+        "id": 726,
+        "horario": "21:40:00",
+        "categoria": "uteis",
+        "ordem": 20
+      },
+      {
+        "id": 280,
+        "horario": "21:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      }
+    ],
+    "points": [
+      {
+        "id": 87,
+        "ordem": 0,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 93,
+        "ordem": 0,
+        "nome": "Acesso Busca Vida",
+        "latitude": -12.74,
+        "longitude": -38.23,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 88,
+        "ordem": 1,
+        "nome": "Via Parafuso",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 94,
+        "ordem": 1,
+        "nome": "Vila de Abrantes",
+        "latitude": -12.73,
+        "longitude": -38.25,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 89,
+        "ordem": 2,
+        "nome": "BA-099",
+        "latitude": -12.71,
+        "longitude": -38.29,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 95,
+        "ordem": 2,
+        "nome": "Jauá",
+        "latitude": -12.72,
+        "longitude": -38.27,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 90,
+        "ordem": 3,
+        "nome": "Jauá",
+        "latitude": -12.72,
+        "longitude": -38.27,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 96,
+        "ordem": 3,
+        "nome": "BA-099",
+        "latitude": -12.71,
+        "longitude": -38.29,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 91,
+        "ordem": 4,
+        "nome": "Vila de Abrantes",
+        "latitude": -12.73,
+        "longitude": -38.25,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 97,
+        "ordem": 4,
+        "nome": "Via Parafuso",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 92,
+        "ordem": 5,
+        "nome": "Acesso Busca Vida",
+        "latitude": -12.74,
+        "longitude": -38.23,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 98,
+        "ordem": 5,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 1165
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 1171
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 15,
+      "codigo": "O02",
+      "nome": "Camaçari (Sede) x Arembepe (Via Aldeia Hippie)",
+      "bairro": "Sede / Estrada da Cascalheira / BA-099 / Arembepe / Aldeia Hippie",
+      "origem": "Terminal Central (Sede)",
+      "destino": "Entroncamento Aldeia Hippie",
+      "categoria": "orla"
+    },
+    "schedules": [
+      {
+        "id": 752,
+        "horario": "05:15:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 306,
+        "horario": "05:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 777,
+        "horario": "05:30:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 331,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 307,
+        "horario": "05:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 753,
+        "horario": "05:50:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 796,
+        "horario": "06:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 350,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 332,
+        "horario": "06:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 778,
+        "horario": "06:15:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 754,
+        "horario": "06:25:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 308,
+        "horario": "06:25:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 779,
+        "horario": "07:00:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 797,
+        "horario": "07:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 351,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 755,
+        "horario": "07:00:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 309,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 333,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 310,
+        "horario": "07:35:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 756,
+        "horario": "07:35:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 334,
+        "horario": "07:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 780,
+        "horario": "07:45:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 352,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 798,
+        "horario": "08:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 311,
+        "horario": "08:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 757,
+        "horario": "08:10:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 335,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 781,
+        "horario": "08:30:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 312,
+        "horario": "08:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 758,
+        "horario": "08:50:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 353,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 799,
+        "horario": "09:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 782,
+        "horario": "09:15:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 336,
+        "horario": "09:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 313,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 759,
+        "horario": "09:30:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 354,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 783,
+        "horario": "10:00:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 337,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 800,
+        "horario": "10:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 760,
+        "horario": "10:15:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 314,
+        "horario": "10:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 784,
+        "horario": "10:45:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 338,
+        "horario": "10:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 761,
+        "horario": "11:00:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 315,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 801,
+        "horario": "11:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 355,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 339,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 785,
+        "horario": "11:30:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 762,
+        "horario": "11:45:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 316,
+        "horario": "11:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 356,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 802,
+        "horario": "12:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 340,
+        "horario": "12:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 786,
+        "horario": "12:15:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 763,
+        "horario": "12:30:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 317,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 787,
+        "horario": "13:00:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 803,
+        "horario": "13:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 357,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 341,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 764,
+        "horario": "13:15:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 318,
+        "horario": "13:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 788,
+        "horario": "13:45:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 342,
+        "horario": "13:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 804,
+        "horario": "14:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 358,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 765,
+        "horario": "14:00:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 319,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 789,
+        "horario": "14:30:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 343,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 766,
+        "horario": "14:45:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 320,
+        "horario": "14:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 805,
+        "horario": "15:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 359,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 344,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 321,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 767,
+        "horario": "15:30:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 790,
+        "horario": "15:30:00",
+        "categoria": "sabado",
+        "ordem": 13
+      },
+      {
+        "id": 806,
+        "horario": "16:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 10
+      },
+      {
+        "id": 360,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 322,
+        "horario": "16:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 768,
+        "horario": "16:15:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 791,
+        "horario": "16:30:00",
+        "categoria": "sabado",
+        "ordem": 14
+      },
+      {
+        "id": 345,
+        "horario": "16:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 323,
+        "horario": "16:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 769,
+        "horario": "16:50:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 361,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 807,
+        "horario": "17:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 11
+      },
+      {
+        "id": 770,
+        "horario": "17:25:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 324,
+        "horario": "17:25:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 792,
+        "horario": "17:30:00",
+        "categoria": "sabado",
+        "ordem": 15
+      },
+      {
+        "id": 346,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 771,
+        "horario": "18:00:00",
+        "categoria": "uteis",
+        "ordem": 19
+      },
+      {
+        "id": 325,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 362,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 808,
+        "horario": "18:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 12
+      },
+      {
+        "id": 793,
+        "horario": "18:30:00",
+        "categoria": "sabado",
+        "ordem": 16
+      },
+      {
+        "id": 347,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 772,
+        "horario": "18:40:00",
+        "categoria": "uteis",
+        "ordem": 20
+      },
+      {
+        "id": 326,
+        "horario": "18:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 809,
+        "horario": "19:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 13
+      },
+      {
+        "id": 363,
+        "horario": "19:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 773,
+        "horario": "19:20:00",
+        "categoria": "uteis",
+        "ordem": 21
+      },
+      {
+        "id": 327,
+        "horario": "19:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 348,
+        "horario": "19:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 794,
+        "horario": "19:30:00",
+        "categoria": "sabado",
+        "ordem": 17
+      },
+      {
+        "id": 328,
+        "horario": "20:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 774,
+        "horario": "20:10:00",
+        "categoria": "uteis",
+        "ordem": 22
+      },
+      {
+        "id": 810,
+        "horario": "20:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 14
+      },
+      {
+        "id": 364,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 795,
+        "horario": "21:00:00",
+        "categoria": "sabado",
+        "ordem": 18
+      },
+      {
+        "id": 329,
+        "horario": "21:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 775,
+        "horario": "21:00:00",
+        "categoria": "uteis",
+        "ordem": 23
+      },
+      {
+        "id": 349,
+        "horario": "21:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 776,
+        "horario": "22:00:00",
+        "categoria": "uteis",
+        "ordem": 24
+      },
+      {
+        "id": 330,
+        "horario": "22:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      }
+    ],
+    "points": [
+      {
+        "id": 99,
+        "ordem": 0,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 104,
+        "ordem": 0,
+        "nome": "Entroncamento Aldeia Hippie",
+        "latitude": -12.73,
+        "longitude": -38.24,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 100,
+        "ordem": 1,
+        "nome": "Estrada da Cascalheira",
+        "latitude": -12.7,
+        "longitude": -38.3,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 105,
+        "ordem": 1,
+        "nome": "Arembepe (Terminal)",
+        "latitude": -12.72,
+        "longitude": -38.26,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 101,
+        "ordem": 2,
+        "nome": "BA-099",
+        "latitude": -12.71,
+        "longitude": -38.28,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 106,
+        "ordem": 2,
+        "nome": "BA-099",
+        "latitude": -12.71,
+        "longitude": -38.28,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 107,
+        "ordem": 3,
+        "nome": "Estrada da Cascalheira",
+        "latitude": -12.7,
+        "longitude": -38.3,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 102,
+        "ordem": 3,
+        "nome": "Arembepe (Terminal)",
+        "latitude": -12.72,
+        "longitude": -38.26,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 103,
+        "ordem": 4,
+        "nome": "Entroncamento Aldeia Hippie",
+        "latitude": -12.73,
+        "longitude": -38.24,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 108,
+        "ordem": 4,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 1353
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 1251
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 16,
+      "codigo": "O03",
+      "nome": "Camaçari (Sede) x Barra do Jacuípe / Guarajuba",
+      "bairro": "Sede / BA-099 / Arembepe / Barra do Jacuípe / Guarajuba",
+      "origem": "Terminal Central (Sede)",
+      "destino": "Guarajuba (Acesso Praia / Terminal)",
+      "categoria": "orla"
+    },
+    "schedules": [
+      {
+        "id": 365,
+        "horario": "05:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 811,
+        "horario": "05:20:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 831,
+        "horario": "05:45:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 385,
+        "horario": "05:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 401,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 812,
+        "horario": "06:00:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 366,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 847,
+        "horario": "06:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 832,
+        "horario": "06:30:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 386,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 813,
+        "horario": "06:40:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 367,
+        "horario": "06:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 387,
+        "horario": "07:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 402,
+        "horario": "07:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 848,
+        "horario": "07:15:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 833,
+        "horario": "07:15:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 368,
+        "horario": "07:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 814,
+        "horario": "07:20:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 815,
+        "horario": "08:00:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 388,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 834,
+        "horario": "08:00:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 369,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 403,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 849,
+        "horario": "08:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 389,
+        "horario": "08:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 370,
+        "horario": "08:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 816,
+        "horario": "08:45:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 835,
+        "horario": "08:45:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 371,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 817,
+        "horario": "09:30:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 390,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 836,
+        "horario": "09:30:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 404,
+        "horario": "09:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 850,
+        "horario": "09:45:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 818,
+        "horario": "10:30:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 391,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 372,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 837,
+        "horario": "10:30:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 405,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 851,
+        "horario": "11:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 373,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 819,
+        "horario": "11:30:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 838,
+        "horario": "11:30:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 392,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 406,
+        "horario": "12:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 852,
+        "horario": "12:15:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 393,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 820,
+        "horario": "12:30:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 374,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 839,
+        "horario": "12:30:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 407,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 375,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 821,
+        "horario": "13:30:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 840,
+        "horario": "13:30:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 394,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 853,
+        "horario": "13:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 822,
+        "horario": "14:30:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 841,
+        "horario": "14:30:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 395,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 376,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 408,
+        "horario": "14:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 854,
+        "horario": "14:45:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 377,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 823,
+        "horario": "15:30:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 842,
+        "horario": "15:30:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 396,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 855,
+        "horario": "16:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 409,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 378,
+        "horario": "16:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 824,
+        "horario": "16:10:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 843,
+        "horario": "16:30:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 397,
+        "horario": "16:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 379,
+        "horario": "16:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 825,
+        "horario": "16:50:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 410,
+        "horario": "17:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 856,
+        "horario": "17:15:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 398,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 380,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 826,
+        "horario": "17:30:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 844,
+        "horario": "17:30:00",
+        "categoria": "sabado",
+        "ordem": 13
+      },
+      {
+        "id": 381,
+        "horario": "18:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 827,
+        "horario": "18:10:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 399,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 845,
+        "horario": "18:30:00",
+        "categoria": "sabado",
+        "ordem": 14
+      },
+      {
+        "id": 411,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 857,
+        "horario": "18:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 10
+      },
+      {
+        "id": 828,
+        "horario": "19:00:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 382,
+        "horario": "19:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 829,
+        "horario": "20:00:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 400,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 846,
+        "horario": "20:00:00",
+        "categoria": "sabado",
+        "ordem": 15
+      },
+      {
+        "id": 412,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 383,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 858,
+        "horario": "20:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 11
+      },
+      {
+        "id": 830,
+        "horario": "21:15:00",
+        "categoria": "uteis",
+        "ordem": 19
+      },
+      {
+        "id": 384,
+        "horario": "21:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      }
+    ],
+    "points": [
+      {
+        "id": 109,
+        "ordem": 0,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 114,
+        "ordem": 0,
+        "nome": "Guarajuba (Acesso Praia / Terminal)",
+        "latitude": -12.73,
+        "longitude": -38.24,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 110,
+        "ordem": 1,
+        "nome": "BA-099",
+        "latitude": -12.7,
+        "longitude": -38.3,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 115,
+        "ordem": 1,
+        "nome": "Barra do Jacuípe",
+        "latitude": -12.72,
+        "longitude": -38.26,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 111,
+        "ordem": 2,
+        "nome": "Arembepe",
+        "latitude": -12.71,
+        "longitude": -38.28,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 116,
+        "ordem": 2,
+        "nome": "Arembepe",
+        "latitude": -12.71,
+        "longitude": -38.28,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 117,
+        "ordem": 3,
+        "nome": "BA-099",
+        "latitude": -12.7,
+        "longitude": -38.3,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 112,
+        "ordem": 3,
+        "nome": "Barra do Jacuípe",
+        "latitude": -12.72,
+        "longitude": -38.26,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 113,
+        "ordem": 4,
+        "nome": "Guarajuba (Acesso Praia / Terminal)",
+        "latitude": -12.73,
+        "longitude": -38.24,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 118,
+        "ordem": 4,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 1353
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 1251
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 17,
+      "codigo": "O04",
+      "nome": "Camaçari (Sede) x Monte Gordo / Itacimirim / Barra do Pojuca",
+      "bairro": "Sede / BA-099 / Guarajuba / Monte Gordo / Itacimirim / Barra do Pojuca",
+      "origem": "Terminal Central (Sede)",
+      "destino": "Barra do Pojuca",
+      "categoria": "orla"
+    },
+    "schedules": [
+      {
+        "id": 859,
+        "horario": "05:00:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 413,
+        "horario": "05:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 432,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 878,
+        "horario": "05:30:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 860,
+        "horario": "05:45:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 414,
+        "horario": "05:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 446,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 892,
+        "horario": "06:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 433,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 415,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 879,
+        "horario": "06:30:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 861,
+        "horario": "06:30:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 416,
+        "horario": "07:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 862,
+        "horario": "07:15:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 880,
+        "horario": "07:30:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 447,
+        "horario": "07:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 893,
+        "horario": "07:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 434,
+        "horario": "07:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 417,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 863,
+        "horario": "08:00:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 435,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 881,
+        "horario": "08:30:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 418,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 894,
+        "horario": "09:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 864,
+        "horario": "09:00:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 448,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 882,
+        "horario": "09:30:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 436,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 419,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 865,
+        "horario": "10:00:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 883,
+        "horario": "10:30:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 895,
+        "horario": "10:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 449,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 437,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 420,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 866,
+        "horario": "11:00:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 884,
+        "horario": "11:30:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 438,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 867,
+        "horario": "12:00:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 421,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 450,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 896,
+        "horario": "12:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 885,
+        "horario": "12:30:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 439,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 868,
+        "horario": "13:00:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 422,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 451,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 440,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 897,
+        "horario": "13:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 886,
+        "horario": "13:30:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 423,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 869,
+        "horario": "14:00:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 887,
+        "horario": "14:30:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 441,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 870,
+        "horario": "15:00:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 452,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 424,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 898,
+        "horario": "15:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 442,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 888,
+        "horario": "15:30:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 425,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 871,
+        "horario": "16:00:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 899,
+        "horario": "16:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 453,
+        "horario": "16:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 872,
+        "horario": "16:45:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 426,
+        "horario": "16:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 443,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 889,
+        "horario": "17:00:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 427,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 873,
+        "horario": "17:30:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 900,
+        "horario": "18:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 454,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 874,
+        "horario": "18:15:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 428,
+        "horario": "18:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 444,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 890,
+        "horario": "18:30:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 875,
+        "horario": "19:15:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 429,
+        "horario": "19:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 455,
+        "horario": "19:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 901,
+        "horario": "19:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 445,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 891,
+        "horario": "20:00:00",
+        "categoria": "sabado",
+        "ordem": 13
+      },
+      {
+        "id": 430,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 876,
+        "horario": "20:30:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 456,
+        "horario": "21:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 902,
+        "horario": "21:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 10
+      },
+      {
+        "id": 431,
+        "horario": "21:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 877,
+        "horario": "21:45:00",
+        "categoria": "uteis",
+        "ordem": 18
+      }
+    ],
+    "points": [
+      {
+        "id": 119,
+        "ordem": 0,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 125,
+        "ordem": 0,
+        "nome": "Barra do Pojuca",
+        "latitude": -12.74,
+        "longitude": -38.22,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 120,
+        "ordem": 1,
+        "nome": "BA-099",
+        "latitude": -12.7,
+        "longitude": -38.3,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 126,
+        "ordem": 1,
+        "nome": "Itacimirim",
+        "latitude": -12.73,
+        "longitude": -38.24,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 121,
+        "ordem": 2,
+        "nome": "Guarajuba",
+        "latitude": -12.71,
+        "longitude": -38.28,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 127,
+        "ordem": 2,
+        "nome": "Monte Gordo (Centro)",
+        "latitude": -12.72,
+        "longitude": -38.26,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 122,
+        "ordem": 3,
+        "nome": "Monte Gordo (Centro)",
+        "latitude": -12.72,
+        "longitude": -38.26,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 128,
+        "ordem": 3,
+        "nome": "Guarajuba",
+        "latitude": -12.71,
+        "longitude": -38.28,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 123,
+        "ordem": 4,
+        "nome": "Itacimirim",
+        "latitude": -12.73,
+        "longitude": -38.24,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 129,
+        "ordem": 4,
+        "nome": "BA-099",
+        "latitude": -12.7,
+        "longitude": -38.3,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 124,
+        "ordem": 5,
+        "nome": "Barra do Pojuca",
+        "latitude": -12.74,
+        "longitude": -38.22,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 130,
+        "ordem": 5,
+        "nome": "Terminal Central (Sede)",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 1443
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 1341
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 8,
+      "codigo": "S01",
+      "nome": "Centro x Glebas & Phocs",
+      "bairro": "Centro / Glebas / Phocs",
+      "origem": "Terminal Central",
+      "destino": "Phoc III (Tancredo Neves)",
+      "categoria": "sede"
+    },
+    "schedules": [
+      {
+        "id": 457,
+        "horario": "05:30:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 11,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 31,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 477,
+        "horario": "06:00:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 12,
+        "horario": "06:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 458,
+        "horario": "06:15:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 493,
+        "horario": "06:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 47,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 32,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 13,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 478,
+        "horario": "07:00:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 459,
+        "horario": "07:00:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 460,
+        "horario": "07:45:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 14,
+        "horario": "07:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 33,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 48,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 479,
+        "horario": "08:00:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 494,
+        "horario": "08:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 461,
+        "horario": "08:30:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 15,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 34,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 480,
+        "horario": "09:00:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 495,
+        "horario": "09:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 462,
+        "horario": "09:30:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 49,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 16,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 35,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 481,
+        "horario": "10:00:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 463,
+        "horario": "10:30:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 17,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 496,
+        "horario": "11:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 36,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 50,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 482,
+        "horario": "11:00:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 464,
+        "horario": "11:30:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 18,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 37,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 483,
+        "horario": "12:00:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 497,
+        "horario": "12:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 19,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 51,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 465,
+        "horario": "12:30:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 484,
+        "horario": "13:00:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 38,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 20,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 466,
+        "horario": "13:30:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 39,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 485,
+        "horario": "14:00:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 52,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 498,
+        "horario": "14:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 21,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 467,
+        "horario": "14:30:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 486,
+        "horario": "15:00:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 40,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 22,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 53,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 468,
+        "horario": "15:30:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 499,
+        "horario": "15:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 487,
+        "horario": "16:00:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 41,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 469,
+        "horario": "16:30:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 23,
+        "horario": "16:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 54,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 500,
+        "horario": "17:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 488,
+        "horario": "17:00:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 42,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 470,
+        "horario": "17:15:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 24,
+        "horario": "17:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 43,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 489,
+        "horario": "18:00:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 471,
+        "horario": "18:00:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 25,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 55,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 501,
+        "horario": "18:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 472,
+        "horario": "18:45:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 26,
+        "horario": "18:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 490,
+        "horario": "19:00:00",
+        "categoria": "sabado",
+        "ordem": 13
+      },
+      {
+        "id": 44,
+        "horario": "19:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 27,
+        "horario": "19:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 473,
+        "horario": "19:30:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 56,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 502,
+        "horario": "20:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 45,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 491,
+        "horario": "20:30:00",
+        "categoria": "sabado",
+        "ordem": 14
+      },
+      {
+        "id": 28,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 474,
+        "horario": "20:30:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 29,
+        "horario": "21:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 57,
+        "horario": "21:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 475,
+        "horario": "21:30:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 503,
+        "horario": "21:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 10
+      },
+      {
+        "id": 46,
+        "horario": "22:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 492,
+        "horario": "22:00:00",
+        "categoria": "sabado",
+        "ordem": 15
+      },
+      {
+        "id": 476,
+        "horario": "22:30:00",
+        "categoria": "uteis",
+        "ordem": 19
+      },
+      {
+        "id": 30,
+        "horario": "22:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      }
+    ],
+    "points": [
+      {
+        "id": 1,
+        "ordem": 0,
+        "nome": "Terminal Central",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 11,
+        "ordem": 0,
+        "nome": "Phoc III (Tancredo Neves)",
+        "latitude": -12.78,
+        "longitude": -38.28,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 2,
+        "ordem": 1,
+        "nome": "Centro",
+        "latitude": -12.7,
+        "longitude": -38.32,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 12,
+        "ordem": 1,
+        "nome": "Phoc II",
+        "latitude": -12.77,
+        "longitude": -38.285,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 3,
+        "ordem": 2,
+        "nome": "Bairro dos 46",
+        "latitude": -12.71,
+        "longitude": -38.315,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 13,
+        "ordem": 2,
+        "nome": "Phoc I",
+        "latitude": -12.76,
+        "longitude": -38.29,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 4,
+        "ordem": 3,
+        "nome": "Gleba A",
+        "latitude": -12.72,
+        "longitude": -38.31,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 14,
+        "ordem": 3,
+        "nome": "Gleba E",
+        "latitude": -12.75,
+        "longitude": -38.295,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 15,
+        "ordem": 4,
+        "nome": "Gleba C (Ulisses Guimarães)",
+        "latitude": -12.74,
+        "longitude": -38.3,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 5,
+        "ordem": 4,
+        "nome": "Gleba B",
+        "latitude": -12.73,
+        "longitude": -38.305,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 16,
+        "ordem": 5,
+        "nome": "Gleba B",
+        "latitude": -12.73,
+        "longitude": -38.305,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 6,
+        "ordem": 5,
+        "nome": "Gleba C (Ulisses Guimarães)",
+        "latitude": -12.74,
+        "longitude": -38.3,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 17,
+        "ordem": 6,
+        "nome": "Gleba A",
+        "latitude": -12.72,
+        "longitude": -38.31,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 7,
+        "ordem": 6,
+        "nome": "Gleba E",
+        "latitude": -12.75,
+        "longitude": -38.295,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 8,
+        "ordem": 7,
+        "nome": "Phoc I",
+        "latitude": -12.76,
+        "longitude": -38.29,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 18,
+        "ordem": 7,
+        "nome": "Bairro dos 46",
+        "latitude": -12.71,
+        "longitude": -38.315,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 9,
+        "ordem": 8,
+        "nome": "Phoc II",
+        "latitude": -12.77,
+        "longitude": -38.285,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 19,
+        "ordem": 8,
+        "nome": "Centro",
+        "latitude": -12.7,
+        "longitude": -38.32,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 10,
+        "ordem": 9,
+        "nome": "Phoc III (Tancredo Neves)",
+        "latitude": -12.78,
+        "longitude": -38.28,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 20,
+        "ordem": 9,
+        "nome": "Terminal Central",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 676
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 664
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 9,
+      "codigo": "S02",
+      "nome": "Ponto Certo x Lama Preta (Via Gravatá & Bomba)",
+      "bairro": "Ponto Certo / Gravatá / Bomba / Centro / Lama Preta",
+      "origem": "Ponto Certo",
+      "destino": "Lama Preta",
+      "categoria": "sede"
+    },
+    "schedules": [
+      {
+        "id": 504,
+        "horario": "05:40:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 58,
+        "horario": "05:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 525,
+        "horario": "06:00:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 79,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 59,
+        "horario": "06:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 505,
+        "horario": "06:20:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 92,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 538,
+        "horario": "06:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 60,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 80,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 526,
+        "horario": "07:00:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 506,
+        "horario": "07:00:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 507,
+        "horario": "07:40:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 61,
+        "horario": "07:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 93,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 81,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 539,
+        "horario": "08:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 527,
+        "horario": "08:00:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 508,
+        "horario": "08:20:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 62,
+        "horario": "08:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 528,
+        "horario": "09:00:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 509,
+        "horario": "09:00:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 63,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 82,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 94,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 540,
+        "horario": "09:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 529,
+        "horario": "10:00:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 83,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 64,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 510,
+        "horario": "10:00:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 84,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 95,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 530,
+        "horario": "11:00:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 541,
+        "horario": "11:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 511,
+        "horario": "11:00:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 65,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 531,
+        "horario": "12:00:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 85,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 66,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 512,
+        "horario": "12:00:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 96,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 542,
+        "horario": "12:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 513,
+        "horario": "12:40:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 67,
+        "horario": "12:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 86,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 532,
+        "horario": "13:00:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 68,
+        "horario": "13:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 514,
+        "horario": "13:20:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 515,
+        "horario": "14:00:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 69,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 87,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 97,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 533,
+        "horario": "14:00:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 543,
+        "horario": "14:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 70,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 516,
+        "horario": "15:00:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 544,
+        "horario": "15:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 98,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 88,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 534,
+        "horario": "15:30:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 71,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 517,
+        "horario": "16:00:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 518,
+        "horario": "16:40:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 72,
+        "horario": "16:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 535,
+        "horario": "17:00:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 99,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 545,
+        "horario": "17:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 89,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 519,
+        "horario": "17:20:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 73,
+        "horario": "17:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 520,
+        "horario": "18:00:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 74,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 100,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 90,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 546,
+        "horario": "18:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 536,
+        "horario": "18:30:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 521,
+        "horario": "18:40:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 75,
+        "horario": "18:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 522,
+        "horario": "19:30:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 76,
+        "horario": "19:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 537,
+        "horario": "20:00:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 91,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 547,
+        "horario": "20:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 101,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 523,
+        "horario": "20:30:00",
+        "categoria": "uteis",
+        "ordem": 19
+      },
+      {
+        "id": 77,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 78,
+        "horario": "21:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 524,
+        "horario": "21:30:00",
+        "categoria": "uteis",
+        "ordem": 20
+      }
+    ],
+    "points": [
+      {
+        "id": 21,
+        "ordem": 0,
+        "nome": "Ponto Certo",
+        "latitude": -12.69,
+        "longitude": -38.32,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 28,
+        "ordem": 0,
+        "nome": "Lama Preta",
+        "latitude": -12.66,
+        "longitude": -38.34,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 22,
+        "ordem": 1,
+        "nome": "Gravatá",
+        "latitude": -12.7,
+        "longitude": -38.315,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 29,
+        "ordem": 1,
+        "nome": "Piacaveira",
+        "latitude": -12.67,
+        "longitude": -38.335,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 23,
+        "ordem": 2,
+        "nome": "Bomba",
+        "latitude": -12.71,
+        "longitude": -38.31,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 30,
+        "ordem": 2,
+        "nome": "Camaçari de Dentro",
+        "latitude": -12.68,
+        "longitude": -38.33,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 24,
+        "ordem": 3,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 31,
+        "ordem": 3,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 25,
+        "ordem": 4,
+        "nome": "Camaçari de Dentro",
+        "latitude": -12.68,
+        "longitude": -38.33,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 32,
+        "ordem": 4,
+        "nome": "Bomba",
+        "latitude": -12.71,
+        "longitude": -38.31,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 26,
+        "ordem": 5,
+        "nome": "Piacaveira",
+        "latitude": -12.67,
+        "longitude": -38.335,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 33,
+        "ordem": 5,
+        "nome": "Gravatá",
+        "latitude": -12.7,
+        "longitude": -38.315,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 27,
+        "ordem": 6,
+        "nome": "Lama Preta",
+        "latitude": -12.66,
+        "longitude": -38.34,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 34,
+        "ordem": 6,
+        "nome": "Ponto Certo",
+        "latitude": -12.69,
+        "longitude": -38.32,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 496
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 545
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 10,
+      "codigo": "S03",
+      "nome": "Limoeiro / Jardim Limoeiro x Inocoop",
+      "bairro": "Bairro Novo / Jardim Limoeiro / Limoeiro / Centro / Inocoop",
+      "origem": "Bairro Novo",
+      "destino": "Ficam",
+      "categoria": "sede"
+    },
+    "schedules": [
+      {
+        "id": 548,
+        "horario": "05:50:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 102,
+        "horario": "05:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 122,
+        "horario": "06:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 568,
+        "horario": "06:15:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 103,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 549,
+        "horario": "06:30:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 135,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 581,
+        "horario": "07:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 550,
+        "horario": "07:10:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 104,
+        "horario": "07:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 569,
+        "horario": "07:15:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 123,
+        "horario": "07:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 105,
+        "horario": "07:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 551,
+        "horario": "07:50:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 124,
+        "horario": "08:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 570,
+        "horario": "08:15:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 106,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 582,
+        "horario": "08:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 552,
+        "horario": "08:30:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 136,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 125,
+        "horario": "09:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 571,
+        "horario": "09:15:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 553,
+        "horario": "09:30:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 107,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 583,
+        "horario": "10:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 137,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 572,
+        "horario": "10:15:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 126,
+        "horario": "10:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 554,
+        "horario": "10:30:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 108,
+        "horario": "10:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 127,
+        "horario": "11:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 573,
+        "horario": "11:15:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 109,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 555,
+        "horario": "11:30:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 584,
+        "horario": "11:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 138,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 128,
+        "horario": "12:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 574,
+        "horario": "12:15:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 110,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 556,
+        "horario": "12:30:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 139,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 585,
+        "horario": "13:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 575,
+        "horario": "13:15:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 129,
+        "horario": "13:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 557,
+        "horario": "13:30:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 111,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 130,
+        "horario": "14:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 576,
+        "horario": "14:15:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 140,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 558,
+        "horario": "14:30:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 112,
+        "horario": "14:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 586,
+        "horario": "14:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 113,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 577,
+        "horario": "15:30:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 559,
+        "horario": "15:30:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 131,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 141,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 587,
+        "horario": "16:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 114,
+        "horario": "16:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 560,
+        "horario": "16:30:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 578,
+        "horario": "17:00:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 132,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 561,
+        "horario": "17:10:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 115,
+        "horario": "17:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 142,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 588,
+        "horario": "17:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 562,
+        "horario": "17:50:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 116,
+        "horario": "17:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 563,
+        "horario": "18:30:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 133,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 117,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 579,
+        "horario": "18:30:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 589,
+        "horario": "19:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 143,
+        "horario": "19:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 564,
+        "horario": "19:10:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 118,
+        "horario": "19:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 119,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 565,
+        "horario": "20:00:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 580,
+        "horario": "20:00:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 134,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 144,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 590,
+        "horario": "20:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 566,
+        "horario": "21:00:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 120,
+        "horario": "21:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 567,
+        "horario": "22:00:00",
+        "categoria": "uteis",
+        "ordem": 19
+      },
+      {
+        "id": 121,
+        "horario": "22:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      }
+    ],
+    "points": [
+      {
+        "id": 35,
+        "ordem": 0,
+        "nome": "Bairro Novo",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 42,
+        "ordem": 0,
+        "nome": "Ficam",
+        "latitude": -12.67,
+        "longitude": -38.34,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 36,
+        "ordem": 1,
+        "nome": "Jardim Limoeiro",
+        "latitude": -12.71,
+        "longitude": -38.305,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 43,
+        "ordem": 1,
+        "nome": "Inocoop (Bela Vista)",
+        "latitude": -12.68,
+        "longitude": -38.335,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 37,
+        "ordem": 2,
+        "nome": "Limoeiro",
+        "latitude": -12.72,
+        "longitude": -38.3,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 44,
+        "ordem": 2,
+        "nome": "Dois de Julho",
+        "latitude": -12.69,
+        "longitude": -38.33,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 38,
+        "ordem": 3,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 45,
+        "ordem": 3,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 39,
+        "ordem": 4,
+        "nome": "Dois de Julho",
+        "latitude": -12.69,
+        "longitude": -38.33,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 46,
+        "ordem": 4,
+        "nome": "Limoeiro",
+        "latitude": -12.72,
+        "longitude": -38.3,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 40,
+        "ordem": 5,
+        "nome": "Inocoop (Bela Vista)",
+        "latitude": -12.68,
+        "longitude": -38.335,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 47,
+        "ordem": 5,
+        "nome": "Jardim Limoeiro",
+        "latitude": -12.71,
+        "longitude": -38.305,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 41,
+        "ordem": 6,
+        "nome": "Ficam",
+        "latitude": -12.67,
+        "longitude": -38.34,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 48,
+        "ordem": 6,
+        "nome": "Bairro Novo",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 630
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 612
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 11,
+      "codigo": "S04",
+      "nome": "Verdes Horizontes x Parque Verde",
+      "bairro": "Verdes Horizontes / Novo Horizonte / Centro / Parque Verde",
+      "origem": "Verdes Horizontes",
+      "destino": "Parque Verde",
+      "categoria": "sede"
+    },
+    "schedules": [
+      {
+        "id": 591,
+        "horario": "05:30:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 145,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 612,
+        "horario": "06:00:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 166,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 146,
+        "horario": "06:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 592,
+        "horario": "06:10:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 179,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 625,
+        "horario": "06:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 147,
+        "horario": "06:50:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 593,
+        "horario": "06:50:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 613,
+        "horario": "07:00:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 167,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 594,
+        "horario": "07:30:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 148,
+        "horario": "07:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 180,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 168,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 626,
+        "horario": "08:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 614,
+        "horario": "08:00:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 595,
+        "horario": "08:10:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 149,
+        "horario": "08:10:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 615,
+        "horario": "09:00:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 596,
+        "horario": "09:00:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 150,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 169,
+        "horario": "09:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 181,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 627,
+        "horario": "09:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 616,
+        "horario": "10:00:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 170,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 151,
+        "horario": "10:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 597,
+        "horario": "10:00:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 171,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 182,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 617,
+        "horario": "11:00:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 628,
+        "horario": "11:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 598,
+        "horario": "11:00:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 152,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 618,
+        "horario": "12:00:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 172,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 153,
+        "horario": "12:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 599,
+        "horario": "12:00:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 183,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 629,
+        "horario": "12:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 600,
+        "horario": "12:40:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 154,
+        "horario": "12:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 173,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 619,
+        "horario": "13:00:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 155,
+        "horario": "13:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 601,
+        "horario": "13:20:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 602,
+        "horario": "14:00:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 156,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 174,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 184,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 620,
+        "horario": "14:00:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 630,
+        "horario": "14:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 157,
+        "horario": "15:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 603,
+        "horario": "15:00:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 631,
+        "horario": "15:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 185,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 175,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 621,
+        "horario": "15:30:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 158,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 604,
+        "horario": "16:00:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 605,
+        "horario": "16:40:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 159,
+        "horario": "16:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 622,
+        "horario": "17:00:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 186,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 632,
+        "horario": "17:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 176,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 606,
+        "horario": "17:20:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 160,
+        "horario": "17:20:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 607,
+        "horario": "18:00:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 161,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 187,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 177,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 633,
+        "horario": "18:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 623,
+        "horario": "18:30:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 608,
+        "horario": "18:40:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 162,
+        "horario": "18:40:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 609,
+        "horario": "19:30:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 163,
+        "horario": "19:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 624,
+        "horario": "20:00:00",
+        "categoria": "sabado",
+        "ordem": 12
+      },
+      {
+        "id": 178,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 634,
+        "horario": "20:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 188,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 610,
+        "horario": "20:30:00",
+        "categoria": "uteis",
+        "ordem": 19
+      },
+      {
+        "id": 164,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 165,
+        "horario": "21:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 611,
+        "horario": "21:30:00",
+        "categoria": "uteis",
+        "ordem": 20
+      }
+    ],
+    "points": [
+      {
+        "id": 49,
+        "ordem": 0,
+        "nome": "Verdes Horizontes",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 56,
+        "ordem": 0,
+        "nome": "Parque Verde",
+        "latitude": -12.66,
+        "longitude": -38.345,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 50,
+        "ordem": 1,
+        "nome": "Novo Horizonte",
+        "latitude": -12.71,
+        "longitude": -38.305,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 57,
+        "ordem": 1,
+        "nome": "Parque Florestal",
+        "latitude": -12.67,
+        "longitude": -38.34,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 51,
+        "ordem": 2,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 58,
+        "ordem": 2,
+        "nome": "Parque Satélite",
+        "latitude": -12.68,
+        "longitude": -38.335,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 52,
+        "ordem": 3,
+        "nome": "Alto da Cruz",
+        "latitude": -12.69,
+        "longitude": -38.33,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 59,
+        "ordem": 3,
+        "nome": "Alto da Cruz",
+        "latitude": -12.69,
+        "longitude": -38.33,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 53,
+        "ordem": 4,
+        "nome": "Parque Satélite",
+        "latitude": -12.68,
+        "longitude": -38.335,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 60,
+        "ordem": 4,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 54,
+        "ordem": 5,
+        "nome": "Parque Florestal",
+        "latitude": -12.67,
+        "longitude": -38.34,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 61,
+        "ordem": 5,
+        "nome": "Novo Horizonte",
+        "latitude": -12.71,
+        "longitude": -38.305,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 55,
+        "ordem": 6,
+        "nome": "Parque Verde",
+        "latitude": -12.66,
+        "longitude": -38.345,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 62,
+        "ordem": 6,
+        "nome": "Verdes Horizontes",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 498
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 486
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 12,
+      "codigo": "S05",
+      "nome": "Mangueiral x Triângulo (Via Burisatuba & Vera Cruz)",
+      "bairro": "Mangueiral / Bom Viver / Burisatuba / Vera Cruz / Triângulo / Centro",
+      "origem": "Mangueiral",
+      "destino": "Centro",
+      "categoria": "sede"
+    },
+    "schedules": [
+      {
+        "id": 635,
+        "horario": "05:45:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 189,
+        "horario": "05:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 209,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 655,
+        "horario": "06:00:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 190,
+        "horario": "06:25:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 636,
+        "horario": "06:25:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 221,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 667,
+        "horario": "06:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 637,
+        "horario": "07:05:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 191,
+        "horario": "07:05:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 656,
+        "horario": "07:15:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 210,
+        "horario": "07:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 192,
+        "horario": "07:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 638,
+        "horario": "07:45:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 222,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 668,
+        "horario": "08:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 193,
+        "horario": "08:25:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 639,
+        "horario": "08:25:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 211,
+        "horario": "08:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 657,
+        "horario": "08:30:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 194,
+        "horario": "09:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 640,
+        "horario": "09:15:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 669,
+        "horario": "09:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 223,
+        "horario": "09:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 658,
+        "horario": "09:45:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 212,
+        "horario": "09:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 641,
+        "horario": "10:15:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 195,
+        "horario": "10:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 659,
+        "horario": "11:00:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 224,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 213,
+        "horario": "11:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 670,
+        "horario": "11:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 642,
+        "horario": "11:15:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 196,
+        "horario": "11:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 660,
+        "horario": "12:15:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 214,
+        "horario": "12:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 643,
+        "horario": "12:15:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 197,
+        "horario": "12:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 671,
+        "horario": "12:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 225,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 198,
+        "horario": "13:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 644,
+        "horario": "13:15:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 215,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 661,
+        "horario": "13:30:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 226,
+        "horario": "14:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 672,
+        "horario": "14:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 5
+      },
+      {
+        "id": 645,
+        "horario": "14:15:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 199,
+        "horario": "14:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 662,
+        "horario": "14:45:00",
+        "categoria": "sabado",
+        "ordem": 7
+      },
+      {
+        "id": 216,
+        "horario": "14:45:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 200,
+        "horario": "15:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 646,
+        "horario": "15:15:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 673,
+        "horario": "15:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 6
+      },
+      {
+        "id": 227,
+        "horario": "15:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 217,
+        "horario": "16:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 663,
+        "horario": "16:00:00",
+        "categoria": "sabado",
+        "ordem": 8
+      },
+      {
+        "id": 201,
+        "horario": "16:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 647,
+        "horario": "16:15:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 202,
+        "horario": "16:55:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 648,
+        "horario": "16:55:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 228,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 674,
+        "horario": "17:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 7
+      },
+      {
+        "id": 664,
+        "horario": "17:30:00",
+        "categoria": "sabado",
+        "ordem": 9
+      },
+      {
+        "id": 218,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 203,
+        "horario": "17:35:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 649,
+        "horario": "17:35:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 204,
+        "horario": "18:15:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 650,
+        "horario": "18:15:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 675,
+        "horario": "18:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 8
+      },
+      {
+        "id": 229,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 205,
+        "horario": "19:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 651,
+        "horario": "19:00:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 665,
+        "horario": "19:00:00",
+        "categoria": "sabado",
+        "ordem": 10
+      },
+      {
+        "id": 219,
+        "horario": "19:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 230,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 652,
+        "horario": "20:00:00",
+        "categoria": "uteis",
+        "ordem": 17
+      },
+      {
+        "id": 206,
+        "horario": "20:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 676,
+        "horario": "20:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 9
+      },
+      {
+        "id": 666,
+        "horario": "20:30:00",
+        "categoria": "sabado",
+        "ordem": 11
+      },
+      {
+        "id": 220,
+        "horario": "20:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 207,
+        "horario": "21:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 653,
+        "horario": "21:00:00",
+        "categoria": "uteis",
+        "ordem": 18
+      },
+      {
+        "id": 208,
+        "horario": "22:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 654,
+        "horario": "22:00:00",
+        "categoria": "uteis",
+        "ordem": 19
+      }
+    ],
+    "points": [
+      {
+        "id": 63,
+        "ordem": 0,
+        "nome": "Mangueiral",
+        "latitude": -12.71,
+        "longitude": -38.3,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 70,
+        "ordem": 0,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 64,
+        "ordem": 1,
+        "nome": "Bom Viver",
+        "latitude": -12.7,
+        "longitude": -38.295,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 71,
+        "ordem": 1,
+        "nome": "Triângulo",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 65,
+        "ordem": 2,
+        "nome": "Burisatuba",
+        "latitude": -12.69,
+        "longitude": -38.29,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 72,
+        "ordem": 2,
+        "nome": "Vera Cruz",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 66,
+        "ordem": 3,
+        "nome": "Morro de Santana/Manteiga",
+        "latitude": -12.68,
+        "longitude": -38.285,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 73,
+        "ordem": 3,
+        "nome": "Morro de Santana/Manteiga",
+        "latitude": -12.68,
+        "longitude": -38.285,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 67,
+        "ordem": 4,
+        "nome": "Vera Cruz",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 74,
+        "ordem": 4,
+        "nome": "Burisatuba",
+        "latitude": -12.69,
+        "longitude": -38.29,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 68,
+        "ordem": 5,
+        "nome": "Triângulo",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 75,
+        "ordem": 5,
+        "nome": "Bom Viver",
+        "latitude": -12.7,
+        "longitude": -38.295,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 69,
+        "ordem": 6,
+        "nome": "Centro",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 76,
+        "ordem": 6,
+        "nome": "Mangueiral",
+        "latitude": -12.71,
+        "longitude": -38.3,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 523
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 680
+      }
+    ]
+  },
+  {
+    "line": {
+      "id": 13,
+      "codigo": "S06",
+      "nome": "Circular Polo Industrial",
+      "bairro": "Terminal Rodoviário / Boulevard Shopping / Via Parafuso / Polo Petroquímico",
+      "origem": "Terminal Rodoviário",
+      "destino": "Polo Petroquímico",
+      "categoria": "sede"
+    },
+    "schedules": [
+      {
+        "id": 677,
+        "horario": "05:00:00",
+        "categoria": "uteis",
+        "ordem": 0
+      },
+      {
+        "id": 231,
+        "horario": "05:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 255,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 232,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 701,
+        "horario": "05:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 0
+      },
+      {
+        "id": 694,
+        "horario": "05:30:00",
+        "categoria": "sabado",
+        "ordem": 0
+      },
+      {
+        "id": 248,
+        "horario": "05:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 678,
+        "horario": "05:30:00",
+        "categoria": "uteis",
+        "ordem": 1
+      },
+      {
+        "id": 233,
+        "horario": "06:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 679,
+        "horario": "06:00:00",
+        "categoria": "uteis",
+        "ordem": 2
+      },
+      {
+        "id": 234,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 695,
+        "horario": "06:30:00",
+        "categoria": "sabado",
+        "ordem": 1
+      },
+      {
+        "id": 680,
+        "horario": "06:30:00",
+        "categoria": "uteis",
+        "ordem": 3
+      },
+      {
+        "id": 249,
+        "horario": "06:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 702,
+        "horario": "07:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 1
+      },
+      {
+        "id": 256,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 235,
+        "horario": "07:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 681,
+        "horario": "07:00:00",
+        "categoria": "uteis",
+        "ordem": 4
+      },
+      {
+        "id": 682,
+        "horario": "07:30:00",
+        "categoria": "uteis",
+        "ordem": 5
+      },
+      {
+        "id": 696,
+        "horario": "07:30:00",
+        "categoria": "sabado",
+        "ordem": 2
+      },
+      {
+        "id": 250,
+        "horario": "07:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 236,
+        "horario": "07:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 237,
+        "horario": "08:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 683,
+        "horario": "08:00:00",
+        "categoria": "uteis",
+        "ordem": 6
+      },
+      {
+        "id": 238,
+        "horario": "11:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 684,
+        "horario": "11:30:00",
+        "categoria": "uteis",
+        "ordem": 7
+      },
+      {
+        "id": 239,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 685,
+        "horario": "12:30:00",
+        "categoria": "uteis",
+        "ordem": 8
+      },
+      {
+        "id": 697,
+        "horario": "12:30:00",
+        "categoria": "sabado",
+        "ordem": 3
+      },
+      {
+        "id": 251,
+        "horario": "12:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 703,
+        "horario": "13:00:00",
+        "categoria": "domingo_feriado",
+        "ordem": 2
+      },
+      {
+        "id": 257,
+        "horario": "13:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 686,
+        "horario": "13:30:00",
+        "categoria": "uteis",
+        "ordem": 9
+      },
+      {
+        "id": 698,
+        "horario": "13:30:00",
+        "categoria": "sabado",
+        "ordem": 4
+      },
+      {
+        "id": 240,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 252,
+        "horario": "13:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 687,
+        "horario": "16:30:00",
+        "categoria": "uteis",
+        "ordem": 10
+      },
+      {
+        "id": 241,
+        "horario": "16:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 242,
+        "horario": "17:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 688,
+        "horario": "17:00:00",
+        "categoria": "uteis",
+        "ordem": 11
+      },
+      {
+        "id": 699,
+        "horario": "17:30:00",
+        "categoria": "sabado",
+        "ordem": 5
+      },
+      {
+        "id": 704,
+        "horario": "17:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 3
+      },
+      {
+        "id": 253,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 258,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 243,
+        "horario": "17:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 689,
+        "horario": "17:30:00",
+        "categoria": "uteis",
+        "ordem": 12
+      },
+      {
+        "id": 690,
+        "horario": "18:00:00",
+        "categoria": "uteis",
+        "ordem": 13
+      },
+      {
+        "id": 244,
+        "horario": "18:00:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 254,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 691,
+        "horario": "18:30:00",
+        "categoria": "uteis",
+        "ordem": 14
+      },
+      {
+        "id": 700,
+        "horario": "18:30:00",
+        "categoria": "sabado",
+        "ordem": 6
+      },
+      {
+        "id": 245,
+        "horario": "18:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 259,
+        "horario": "21:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 246,
+        "horario": "21:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      },
+      {
+        "id": 692,
+        "horario": "21:30:00",
+        "categoria": "uteis",
+        "ordem": 15
+      },
+      {
+        "id": 705,
+        "horario": "21:30:00",
+        "categoria": "domingo_feriado",
+        "ordem": 4
+      },
+      {
+        "id": 693,
+        "horario": "22:30:00",
+        "categoria": "uteis",
+        "ordem": 16
+      },
+      {
+        "id": 247,
+        "horario": "22:30:00",
+        "categoria": "todos",
+        "ordem": 0
+      }
+    ],
+    "points": [
+      {
+        "id": 77,
+        "ordem": 0,
+        "nome": "Terminal Rodoviário",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 82,
+        "ordem": 0,
+        "nome": "Polo Petroquímico",
+        "latitude": -12.73,
+        "longitude": -38.25,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 78,
+        "ordem": 1,
+        "nome": "Boulevard Shopping",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 83,
+        "ordem": 1,
+        "nome": "Complexo Industrial Ford/BYD",
+        "latitude": -12.72,
+        "longitude": -38.27,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 79,
+        "ordem": 2,
+        "nome": "Via Parafuso",
+        "latitude": -12.71,
+        "longitude": -38.29,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 84,
+        "ordem": 2,
+        "nome": "Via Parafuso",
+        "latitude": -12.71,
+        "longitude": -38.29,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 85,
+        "ordem": 3,
+        "nome": "Boulevard Shopping",
+        "latitude": -12.7,
+        "longitude": -38.31,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 80,
+        "ordem": 3,
+        "nome": "Complexo Industrial Ford/BYD",
+        "latitude": -12.72,
+        "longitude": -38.27,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 81,
+        "ordem": 4,
+        "nome": "Polo Petroquímico",
+        "latitude": -12.73,
+        "longitude": -38.25,
+        "sentido": "ida",
+        "geocoding_source": "estimated"
+      },
+      {
+        "id": 86,
+        "ordem": 4,
+        "nome": "Terminal Rodoviário",
+        "latitude": -12.6975,
+        "longitude": -38.3242,
+        "sentido": "volta",
+        "geocoding_source": "estimated"
+      }
+    ],
+    "routeSummary": [
+      {
+        "sentido": "ida",
+        "estado": "estimated",
+        "vertices": 1001
+      },
+      {
+        "sentido": "volta",
+        "estado": "estimated",
+        "vertices": 1007
+      }
+    ]
+  }
+]

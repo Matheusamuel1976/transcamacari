@@ -1,0 +1,119 @@
+import assert from 'node:assert/strict';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { chromium } from 'playwright-core';
+
+const baseURL = process.env.E2E_BASE_URL || 'http://127.0.0.1:3100';
+const candidates = [
+  join(process.env.PROGRAMFILES || '', 'Google/Chrome/Application/chrome.exe'),
+  join(process.env['PROGRAMFILES(X86)'] || '', 'Microsoft/Edge/Application/msedge.exe'),
+  join(process.env.LOCALAPPDATA || '', 'Google/Chrome/Application/chrome.exe'),
+];
+const executablePath = candidates.find(existsSync);
+assert(executablePath, 'Chrome ou Edge não foi encontrado para o teste E2E.');
+
+const outputDir = new URL('../test-results/', import.meta.url);
+mkdirSync(outputDir, { recursive: true });
+const screenshotPath = (name) => fileURLToPath(new URL(name, outputDir));
+const report = { baseURL, checkedAt: new Date().toISOString(), pages: [], errors: [] };
+const browser = await chromium.launch({ executablePath, headless: true });
+
+async function settle(page) {
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForTimeout(350);
+}
+
+function observe(page, label) {
+  page.on('pageerror', (error) => report.errors.push(`${label}: ${error.message}`));
+  page.on('console', (message) => {
+    if (message.type() === 'error') report.errors.push(`${label}: console: ${message.text()}`);
+  });
+}
+
+async function visit(page, path, selector) {
+  const response = await page.goto(`${baseURL}${path}`, { waitUntil: 'domcontentloaded' });
+  assert(response?.ok(), `${path} respondeu HTTP ${response?.status()}`);
+  await settle(page);
+  await page.waitForSelector(selector, { state: 'visible', timeout: 10000 });
+  const text = (await page.locator('body').innerText()).trim();
+  assert(text.length > 40, `${path} renderizou conteúdo insuficiente.`);
+  report.pages.push(path);
+}
+
+const desktop = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await desktop.newPage();
+observe(page, 'desktop');
+
+await visit(page, '/', 'main');
+await page.waitForTimeout(1700);
+const essentialHidden = await page.locator('main h1, main h2, main a, main button').evaluateAll((nodes) =>
+  nodes.filter((node) => {
+    const style = getComputedStyle(node);
+    const rect = node.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0 &&
+      (style.visibility === 'hidden' || Number(style.opacity) < 0.2);
+  }).map((node) => node.textContent?.trim()).filter(Boolean),
+);
+assert.deepEqual(essentialHidden, [], `Elementos essenciais apagados: ${essentialHidden.join(', ')}`);
+await page.screenshot({ path: screenshotPath('home-desktop.png'), fullPage: true });
+
+await visit(page, '/linhas', '.lines-list');
+const cards = page.locator('.line-card');
+assert.equal(await cards.count(), 10, 'A consulta pública deve listar dez linhas.');
+await page.locator('.lines-search input').fill('Arembepe');
+assert((await cards.count()) >= 1, 'A busca por Arembepe não retornou linha.');
+await page.locator('.lines-search input').fill('');
+const detailPaths = await cards.evaluateAll((nodes) => nodes.map((node) => new URL(node.href).pathname));
+assert.equal(new Set(detailPaths).size, 10, 'Os links das dez linhas devem ser únicos.');
+
+for (const path of detailPaths) {
+  await visit(page, path, '.line-detail-title');
+  assert((await page.locator('.line-detail-time').count()) > 0, `${path} não exibiu horários úteis.`);
+  const mapStatus = await page.locator('.line-detail-map p[role="status"]').innerText();
+  assert(/Trajeto|dados do mapa/i.test(mapStatus), `${path} não informou o estado geográfico.`);
+}
+
+await visit(page, '/register', 'form.auth-card');
+assert(await page.locator('#name').isVisible(), 'Cadastro sem campo de nome.');
+assert(await page.locator('#email').isVisible(), 'Cadastro sem campo de e-mail.');
+assert(await page.locator('#password').isVisible(), 'Cadastro sem campo de senha.');
+assert.equal(await page.locator('#company, #company_code').count(), 0, 'Cadastro ainda promete vínculo empresarial inexistente.');
+await page.screenshot({ path: screenshotPath('cadastro-desktop.png'), fullPage: true });
+
+await visit(page, '/login', 'form.auth-card');
+assert(await page.getByText('Esqueci minha senha').isVisible(), 'Recuperação de senha não está acessível.');
+await page.locator('a[href="/register"]').click();
+await page.waitForURL('**/register');
+await page.waitForSelector('form.auth-card', { state: 'visible' });
+assert(await page.locator('#email').isVisible(), 'Transição login→cadastro ocultou o formulário.');
+report.pages.push('/login→/register');
+await desktop.close();
+
+const mobile = await browser.newContext({
+  viewport: { width: 390, height: 844 },
+  isMobile: true,
+  reducedMotion: 'reduce',
+});
+const mobilePage = await mobile.newPage();
+observe(mobilePage, 'mobile');
+await visit(mobilePage, '/', 'main');
+await mobilePage.screenshot({ path: screenshotPath('home-mobile.png'), fullPage: true });
+await visit(mobilePage, '/linhas', '.lines-list');
+assert.equal(await mobilePage.locator('.line-card').count(), 10, 'Mobile deve listar dez linhas.');
+await mobilePage.screenshot({ path: screenshotPath('linhas-mobile.png'), fullPage: true });
+await visit(mobilePage, '/login', 'form.auth-card');
+await mobilePage.locator('a[href="/register"]').click();
+await mobilePage.waitForURL('**/register');
+await mobilePage.waitForSelector('form.auth-card', { state: 'visible' });
+assert(await mobilePage.locator('#email').isVisible(), 'Cadastro mobile não ficou visível após a transição.');
+report.pages.push('/login→/register?mobile');
+await mobilePage.screenshot({ path: screenshotPath('cadastro-mobile.png'), fullPage: true });
+await mobile.close();
+await browser.close();
+
+writeFileSync(new URL('report.json', outputDir), `${JSON.stringify(report, null, 2)}\n`);
+if (report.errors.length) {
+  throw new Error(`Erros de navegador:\n${report.errors.join('\n')}`);
+}
+console.log(`E2E público aprovado: ${report.pages.length} navegações, 10 linhas, desktop e mobile.`);

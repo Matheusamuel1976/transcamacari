@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Plus, Pencil, Trash2, Search } from 'lucide-react';
 import { api } from '../../services/api';
 
@@ -24,7 +24,7 @@ export function LinesManagement() {
   const [msg, setMsg] = useState('');
   const [saving, setSaving] = useState(false);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
       const d = await api.lines.listAll();
       const all = d.data || [];
@@ -41,10 +41,10 @@ export function LinesManagement() {
     } catch {
       setMsg('Falha ao carregar linhas. Exibindo vazio.');
     }
-  };
+  }, [q]);
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   const loadHorarios = async (linhaId) => {
     try {
@@ -81,16 +81,17 @@ export function LinesManagement() {
         publicado: form.publicado,
       };
 
-      if (editing) {
-        await api.lines.update(editing, linhaData);
+      let lineId = editing;
+      if (lineId) {
+        await api.lines.update(lineId, linhaData);
         // Delete existing horarios first
-        const { data: existing } = await api.horarios.list(editing);
-        for (const h of existing.data || []) {
+        const { data: existing } = await api.horarios.list(lineId);
+        for (const h of existing || []) {
           await api.horarios.remove(h.id);
         }
       } else {
         const created = await api.lines.create(linhaData);
-        setEditing(created.data.id);
+        lineId = created.data.id;
       }
 
       // Insert horarios by category
@@ -104,7 +105,7 @@ export function LinesManagement() {
         const times = val.split(',').map((t) => t.trim()).filter(Boolean);
         for (const t of times) {
           await api.horarios.create({
-            linha_id: editing,
+            linha_id: lineId,
             horario: t,
             categoria: cat,
             ordem,

@@ -159,7 +159,8 @@ export function AccountSettings() {
       </form>
       <h2 className="dash-h2">E-mail da plataforma</h2>
       <p className="dash-sub">
-        Verifica se o SMTP configurado no servidor entrega mensagens de verdade.
+        O teste de entrega ficará disponível quando houver um provedor de e-mail
+        configurado em uma função segura do servidor.
       </p>
       {smtp.text && (
         <p
@@ -172,10 +173,14 @@ export function AccountSettings() {
       <button
         className="btn btn-ghost"
         onClick={testSmtp}
-        disabled={smtp.sending}
+        disabled={smtp.sending || !api.capabilities.smtpTest}
       >
         <Send size={16} />{' '}
-        {smtp.sending ? 'Enviando…' : 'Enviar e-mail de teste'}
+        {smtp.sending
+          ? 'Enviando…'
+          : api.capabilities.smtpTest
+            ? 'Enviar e-mail de teste'
+            : 'Teste de e-mail indisponível'}
       </button>
       <style>{`.account-form{padding:30px;display:flex;flex-direction:column;gap:22px;max-width:520px;margin-bottom:40px}.account-form button{align-self:start}.dash-h2{font-family:var(--font-display);font-size:22px;color:var(--color-petroleum);margin-bottom:4px}`}</style>
     </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 const DEFAULT_SPRING = { stiffness: 170, damping: 16, mass: 1 };
 
@@ -266,6 +267,27 @@ const Magnet = ({
       </div>
     </div>
   );
+};
+
+Magnet.propTypes = {
+  children: PropTypes.node.isRequired,
+  padding: PropTypes.number,
+  disabled: PropTypes.bool,
+  magnetStrength: PropTypes.number,
+  maxOffset: PropTypes.number,
+  exclusive: PropTypes.bool,
+  axis: PropTypes.oneOf(['x', 'y', 'both']),
+  tilt: PropTypes.number,
+  scale: PropTypes.number,
+  spring: PropTypes.shape({
+    stiffness: PropTypes.number,
+    damping: PropTypes.number,
+    mass: PropTypes.number,
+  }),
+  onActiveChange: PropTypes.func,
+  wrapperClassName: PropTypes.string,
+  innerClassName: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default Magnet;

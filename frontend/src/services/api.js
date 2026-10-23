@@ -1,6 +1,17 @@
 import { supabase } from './supabase';
 
+const privilegedFeatureUnavailable = () =>
+  Promise.reject(
+    new Error(
+      'A gestão de acessos exige uma função administrativa segura que ainda não foi publicada.',
+    ),
+  );
+
 export const api = {
+  capabilities: {
+    teamManagement: false,
+    smtpTest: false,
+  },
   // --- Linhas ---
   lines: {
     list: async () => {
@@ -108,35 +119,36 @@ export const api = {
     },
   },
 
-  // --- Perfis / Funcionarios ---
+  // Perfis existentes são somente leitura no navegador. Criar ou remover uma
+  // identidade exige a Admin API em uma função server-side.
   employees: {
     list: async () => {
       const { data, error } = await supabase.from('profiles').select('*').order('name');
       if (error) throw error;
       return { data };
     },
-    create: async (d) => {
-      const { data, error } = await supabase.from('profiles').insert(d).select().single();
-      if (error) throw error;
-      return { data };
-    },
-    update: async (id, d) => {
-      const { data, error } = await supabase.from('profiles').update(d).eq('id', id).select().single();
-      if (error) throw error;
-      return { data };
-    },
-    remove: async (id) => {
-      const { error } = await supabase.from('profiles').delete().eq('id', id);
-      if (error) throw error;
-      return { success: true };
-    },
   },
+
+  team: {
+    users: privilegedFeatureUnavailable,
+    pending: privilegedFeatureUnavailable,
+    invite: privilegedFeatureUnavailable,
+    regenerateInvite: privilegedFeatureUnavailable,
+    createUser: privilegedFeatureUnavailable,
+    approve: privilegedFeatureUnavailable,
+    remove: privilegedFeatureUnavailable,
+    assign: privilegedFeatureUnavailable,
+    audit: privilegedFeatureUnavailable,
+  },
+
+  smtpTest: privilegedFeatureUnavailable,
 
   // --- Contato ---
   contact: async (d) => {
-    const { data, error } = await supabase.from('contact_messages').insert(d).select().single();
+    if (d.website) return { delivery: 'stored', message: 'Solicitação recebida.' };
+    const { error } = await supabase.from('contact_messages').insert({ nome: d.nome, email: d.email, assunto: d.assunto, mensagem: d.mensagem });
     if (error) throw error;
-    return { data };
+    return { delivery: 'stored', message: 'Mensagem registrada para a equipe. O envio por e-mail não está habilitado neste canal.' };
   },
 
   messages: {
@@ -154,6 +166,11 @@ export const api = {
 
   // --- Route geometries ---
   routes: {
+    forLine: async (id) => {
+      const { data, error } = await supabase.from('route_geometries').select('*').eq('linha_id', id).order('sentido');
+      if (error) throw error;
+      return { data };
+    },
     list: async () => {
       const { data, error } = await supabase.from('route_geometries').select('*').order('linha_id');
       if (error) throw error;

@@ -1,31 +1,23 @@
-# TransCamaçari 2.0 — Caminhos que conectam
+﻿# TransCamaçari
 
-Aplicação existente reconstruída dentro desta pasta: React 18/Vite + PHP 8.3 MVC, MySQL/PDO, GSAP/ScrollTrigger, Lenis, React Bits Magnet e Leaflet/OpenStreetMap.
+Consulta de linhas, horários e itinerários de ônibus de Camaçari/BA. React 18/Vite/JSX, GSAP, Lenis, Leaflet e Supabase. Backend PHP legado preservado.
 
-## Executar localmente
+## Executar
+Em frontend/: npm ci quando necessário; configurar frontend/.env com VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY do projeto existente, depois npm run dev (porta 3000). Nunca usar service_role/chave secreta no frontend. Preservar .env existente e não imprimir valores.
 
-Frontend: `cd frontend`, `npm install`, `npm run dev` (porta 3000). `npm run build` gera a distribuição.
+npm run build gera frontend/dist/. npm run lint executa ESLint; npm test executa os testes de regressão em jsdom. Typecheck não configurado. Veja [onboarding](docs/onboarding.md) e [qualidade](docs/quality.md).
 
-Backend: `cd backend`, `composer install`, copiar `.env.example` para `.env` e configurar banco/SMTP. Executar `php -S 127.0.0.1:8000 -t public`. O Vite encaminha `/api` à porta 8000.
+O proxy /api para PHP na porta 8000 permanece no Vite; services/api.js já usa Supabase. PHP não é necessário às operações migradas. Para investigar legado: Composer e php -S 127.0.0.1:8000 -t public em backend/, usando banco local separado.
 
-O banco não é criado automaticamente. Avalie `backend/database/schema.sql` e faça backup antes de provisionar um ambiente; `seed_demo.sql` contém apenas dados fictícios.
+## Documentação
+- [Auditoria e correções de 22/10/2026](docs/AUDITORIA_CORRECOES_2026-10-22.md)
+- [Pesquisa geográfica das dez linhas](docs/PESQUISA_GEOGRAFICA_2026-10-22.md)
+- [Produto e aceite](PRODUCT.md)
+- [Instruções para agentes](AGENTS.md)
+- [Arquitetura](docs/architecture.md)
+- [Migração Supabase](docs/MIGRACAO_SUPABASE.md)
+- [Ferramentas e relatório de preparação](docs/setup.md)
+- [Qualidade e próxima investigação](docs/quality.md)
+- [Motion, registro histórico](docs/MOTION.md)
 
-## Interface
-
-Hero com fotografia documental de Camaçari (arquivo, 2007), tipografia editorial, máscara de entrada, linha animada, parallax e CTA Magnet. Seções com composições distintas, consulta por bairro/linha/destino, detalhes inline, mapa sincronizado com a seleção e contato no footer. Redução de movimento respeitada e conteúdo legível independente dos reveals.
-
-Linhas de exemplo têm IDs `demo-*`, horários e pontos fictícios claramente sinalizados. API vazia produz estado vazio. Falha de conexão produz demonstração identificada. Traços são conexões entre pontos, sem cálculo viário nem rastreamento em tempo real. Fotos/autor/licença em `frontend/public/assets/images/SOURCES.md` e no footer.
-
-## Gerenciamento e API
-
-Rotas existentes `/login`, `/register` e `/dashboard/{linhas,funcionarios,mapa,configuracoes}` preservadas. Sessão revalidada em `/auth/me`, mutações com CSRF, logout real, CRUD por empresa e editor de pontos. Novo `PUT /auth/profile` persiste o nome do usuário sem mudança de schema.
-
-APIs de linhas, horários, pontos, funcionários, autenticação, contato e health mantidas. PHPMailer instalado. Contato diferencia mensagem registrada de e-mail enviado; SMTP precisa de configuração e teste real. `SMTP_ENCRYPTION` aceita `tls` (padrão) ou `ssl`.
-
-## Evidências e limites
-
-Consulte `docs/AUDITORIA.md` e `docs/VALIDACAO.md`. Build e sintaxe PHP aprovados; health, CSRF, acesso anônimo, contato inválido e proxy verificados. Sem banco conectado: login com credenciais, CRUD persistente e SMTP ainda não validados de ponta a ponta. Nomes/perfis da equipe aguardam dados confirmados.
-
-Graphify local em `graphify-out/`; índice estrutural parcial complementado por extração semântica dos documentos/fontes de imagens, quando registrada. Dependências e dist excluídos por `.graphifyignore`. Não usar o grafo como prova de execução funcional.
-
-Nenhum push ou deploy foi realizado. A aprovação visual continua pertencendo ao usuário.
+AUDITORIA.md, VALIDACAO.md e DEPLOY.md em docs/, além de [RELATORIO_FINAL.md](docs/historico/RELATORIO_FINAL.md), são registros anteriores: confrontar com o checkout atual. Nenhum push ou deploy integra estas correções locais.

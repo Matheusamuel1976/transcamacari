@@ -191,19 +191,19 @@ section[id] {
   overflow: visible;
 }
 .journey__path {
-  stroke: #1a237e;
+  stroke: #c9d2e8;
   stroke-width: 2;
 }
 .journey__graphic circle {
-  stroke: #1a237e;
+  stroke: #c9d2e8;
   stroke-width: 2;
-  fill: #1a237e;
+  fill: #c9d2e8;
 }
 .journey__orb {
   position: absolute;
   width: 110px;
   height: 110px;
-  background: #1a237e;
+  background: #4e59ac;
   border-radius: 50%;
   left: 42%;
   top: 3px;
@@ -225,8 +225,8 @@ section[id] {
   font-size: 15px;
 }
 .journey__tabs button[aria-selected='true'] {
-  color: #4e59ac;
-  border-bottom: 2px solid #1a237e;
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
 }
 .journey__panel {
   display: grid;
@@ -247,7 +247,7 @@ section[id] {
   max-width: 50ch;
 }
 .journey__panel a {
-  color: #4e59ac;
+  color: #ffffff;
   font-size: 13px;
   display: flex;
   justify-content: space-between;

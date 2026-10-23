@@ -1,23 +1,26 @@
-# TransCamaçari 2.0
+﻿# TransCamaçari
 <!-- impeccable:product-schema 1 -->
 
 ## Platform
-web
+Web, React/Vite, português do Brasil.
 
 ## Users
-Moradores e visitantes consultam linhas, bairros, horários e pontos de Camaçari. Empresas autenticadas gerenciam suas linhas e funcionários. Público inferido do conteúdo existente e do pedido.
+Moradores e visitantes de Camaçari que consultam transporte; empresas e operadores que gerenciam informações. Papéis efetivos e isolamento devem ser validados no Supabase, sem inferi-los da interface.
 
 ## Product Purpose
-Organizar a consulta de mobilidade urbana e a gestão dos dados de transporte em uma aplicação existente.
+Consultar linhas, bairros, destinos, horários por categoria de dia e itinerários em mapa; preservar recursos de gestão existentes.
 
 ## Capabilities and Constraints
-Preservar React/Vite, PHP MVC, MySQL/PDO, sessões, permissões por empresa, CRUD, Leaflet/OpenStreetMap e contato PHPMailer. Não apagar dados, alterar o esquema sem análise, fazer push ou deploy. Dados de demonstração devem ser identificados; nunca simular rastreamento em tempo real. SMTP só pode ser declarado funcional após teste configurado.
+Preservar React 18/JSX, Vite, GSAP, Lenis, Leaflet e Supabase. PHP legado permanece. Não recriar a aplicação ou trocar framework/ORM. Migrações e seed de dez linhas existem em supabase/migrations/; existência de SQL não prova aplicação/correção remota. Fonte indicada anteriormente: PDF de três páginas, não reextraído nesta preparação.
 
 ## Brand Commitments
-TransCamaçari; “Caminhos que conectam — Camaçari em movimento”. Reconstrução visual original com Ray Corral como referência prioritária, seguida por Casa di Solare, Rejouice e Active Theory. O pedido autoriza decisões de implementação e exige mostrar a hero funcional antes de expandir o redesign.
+TransCamaçari, “Caminhos que conectam — Camaçari em movimento”. Diretriz vigente: roxo (#1A237E, #12175C, #4E59AC) e branco. CSS e registros antigos podem conter escolhas anteriores; esta preparação não autoriza redesign. Não inventar equipe, fotos documentais ou dados oficiais.
 
 ## Evidence on Hand
-TransCamacari/frontend e TransCamacari/backend são a base ativa. transporte7_old é referência legada preservada. Não há fotos próprias nem nomes confirmados da equipe. Não inventar fotografia documental ou dados oficiais.
+Fontes ativas na raiz: frontend/, backend/ e supabase/. backups/ é histórico. Arquitetura em docs/architecture.md; resultados atuais em docs/setup.md e docs/quality.md. Relatórios anteriores são evidências datadas.
 
 ## Accessibility & Inclusion
-Responsividade, teclado, contraste, prefers-reduced-motion e conteúdo visível independentemente das animações.
+Teclado, foco visível, contraste, responsividade e prefers-reduced-motion. Conteúdo e formulários utilizáveis mesmo quando animações falham.
+
+## Critérios de aceite
+Consulta trata carregamento, lista vazia e erro sem tela branca; horários mantêm categorias/formato; mapas distinguem pontos, geometria viária e estimativas; cadastro trata validação/confirmação de e-mail; acesso e escrita respeitam autorização no banco. Cada correção exige reprodução e verificação do fluxo/regressão pertinente. Critérios definidos, ainda não validados nesta preparação.

@@ -1,5 +1,6 @@
-import { supabase } from './supabase';
+﻿import { supabase } from './supabase';
 
+import { leafletRoute, validPoint } from './transport';
 const NOMINATIM_BASE = 'https://nominatim.openstreetmap.org';
 const OSRM_BASE = 'https://router.project-osrm.org';
 const REQUEST_DELAY_MS = 1100; // Respect Nominatim rate limit (~1 req/sec)
@@ -9,6 +10,7 @@ function sleep(ms) {
 }
 
 async function geocodePlace(placeName, context = 'Camaçari, Bahia, Brasil') {
+  await sleep(REQUEST_DELAY_MS);
   const query = `${placeName}, ${context}`;
   const url = `${NOMINATIM_BASE}/search?format=json&q=${encodeURIComponent(query)}&limit=5`;
 
@@ -64,69 +66,43 @@ async function routeSegment(lat1, lng1, lat2, lng2) {
 }
 
 export async function generateRouteForLine(linhaId, locais, sentido) {
-  /**
-   * locais: array of { nome, latitude, longitude, ordem, tipo }
-   * sentido: 'ida' | 'volta'
-   * Returns: { geometry, segments, error }
-   */
-  if (!locais || locais.length < 2) {
-    return { error: 'Locais insuficientes para gerar rota' };
+  if (!linhaId || !['ida', 'volta'].includes(sentido)) return { error: 'Linha ou sentido inválido.' };
+  const sorted = (Array.isArray(locais) ? locais : []).filter(point => point.sentido === sentido).sort((a, b) => a.ordem - b.ordem);
+  if (sorted.length < 2) return { error: 'Locais insuficientes para este sentido.' };
+  if (sorted.some(point => !validPoint(point) || !point.geocoding_source || point.geocoding_source === 'estimated')) {
+    return { error: 'As coordenadas dos pontos precisam de validação antes de gerar um trajeto confiável.' };
   }
-
-  const sorted = [...locais].sort((a, b) => a.ordem - b.ordem);
-  const segments = [];
-  const allCoords = [];
-
-  for (let i = 0; i < sorted.length - 1; i++) {
-    const a = sorted[i];
-    const b = sorted[i + 1];
-
+  const coordinates = sorted.map(point => `${Number(point.longitude)},${Number(point.latitude)}`).join(';');
+  const radiuses = sorted.map(() => 150).join(';');
+  try {
     await sleep(REQUEST_DELAY_MS);
-
-    let segment;
-    try {
-      segment = await routeSegment(a.latitude, a.longitude, b.latitude, b.longitude);
-    } catch (err) {
-      return {
-        error: `Falha no roteamento entre ${a.nome} e ${b.nome}: ${err.message}`,
-        partialSegments: segments,
-      };
-    }
-
-    if (!segment) {
-      return {
-        error: `Sem rota viária entre ${a.nome} e ${b.nome}`,
-        partialSegments: segments,
-      };
-    }
-
-    segments.push({
-      from: a.nome,
-      to: b.nome,
-      distance: segment.distance,
-      duration: segment.duration,
-      geometry: segment.geometry,
-    });
-
-    if (i === 0) {
-      allCoords.push(...segment.geometry.coordinates);
-    } else {
-      // Avoid duplicating the join point
-      allCoords.push(...segment.geometry.coordinates.slice(1));
-    }
+    const response = await fetch(`${OSRM_BASE}/route/v1/driving/${coordinates}?overview=full&geometries=geojson&radiuses=${radiuses}&steps=false`, { signal: AbortSignal.timeout(30000) });
+    if (!response.ok) throw new Error(`OSRM HTTP ${response.status}`);
+    const data = await response.json();
+    const route = data.routes?.[0];
+    if (data.code !== 'Ok' || !leafletRoute({ geometry: route?.geometry }).length) throw new Error('Nenhuma geometria viária válida retornada.');
+    if (data.waypoints?.length !== sorted.length || route.legs?.length !== sorted.length - 1 || data.waypoints.some(point => !Number.isFinite(point.distance) || point.distance > 150)) throw new Error('O trajeto não passa próximo de todos os pontos intermediários.');
+    const directDistance = sorted.slice(1).reduce((total, point, index) => total + distanceMeters(sorted[index], point), 0);
+    if (!Number.isFinite(route.distance) || route.distance < directDistance * 0.8 || route.distance > Math.max(directDistance * 5, 10000)) throw new Error('Distância do trajeto implausível; revise os pontos e o percurso.');
+    return { geometry: route.geometry, segments: route.legs, distance: route.distance, waypoints: data.waypoints, error: null };
+  } catch (error) {
+    return { error: error.message };
   }
-
-  return {
-    geometry: {
-      type: 'LineString',
-      coordinates: allCoords,
-    },
-    segments,
-    error: null,
-  };
 }
 
+function distanceMeters(a, b) {
+  const rad = value => value * Math.PI / 180;
+  const dLat = rad(Number(b.latitude) - Number(a.latitude));
+  const dLng = rad(Number(b.longitude) - Number(a.longitude));
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(Number(a.latitude))) * Math.cos(rad(Number(b.latitude))) * Math.sin(dLng / 2) ** 2;
+  return 12742000 * Math.asin(Math.min(1, Math.sqrt(h)));
+}
 export async function saveRouteGeometry(linhaId, sentido, geometry, estado = 'estimated') {
+  if (!leafletRoute({ geometry }).length) throw new Error('Geometria inválida; nada foi salvo.');
+  if (estado !== 'estimated') throw new Error('Geração automática salva apenas trajetos estimados. A revisão é uma ação separada.');
+  const points = await supabase.from('itinerary_locais').select('latitude,longitude,geocoding_source').eq('linha_id', linhaId).eq('sentido', sentido);
+  if (points.error) throw points.error;
+  if (!points.data?.length || points.data.some(point => !validPoint(point) || !point.geocoding_source || point.geocoding_source === 'estimated')) throw new Error('Coordenadas sem validação; nada foi salvo.');
   const { data, error } = await supabase
     .from('route_geometries')
     .upsert(
@@ -135,7 +111,7 @@ export async function saveRouteGeometry(linhaId, sentido, geometry, estado = 'es
         sentido,
         geometry,
         estado_validacao: estado,
-        metodo_geracao: 'osrm+nominatim',
+        metodo_geracao: 'osrm',
         data_geracao: new Date().toISOString(),
       },
       { onConflict: 'linha_id,sentido' }

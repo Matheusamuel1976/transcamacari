@@ -4,13 +4,14 @@ import { KeyRound, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export function ChangePasswordPage() {
-  const { user, isAuthenticated, updatePassword } = useAuth();
+  const { user, isAuthenticated, updatePassword, loading: authLoading, isRecovery } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ current: '', password: '', confirm: '' });
   const [error, setError] = useState('');
   const [ok, setOk] = useState('');
   const [loading, setLoading] = useState(false);
 
+  if (authLoading) return <p role="status">Verificando sessão…</p>;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
 
   const submit = async (e) => {
@@ -61,7 +62,7 @@ export function ChangePasswordPage() {
               <span>{ok}</span>
             </div>
           )}
-          <div className="input-group">
+          {!isRecovery && <div className="input-group">
             <label className="input-label" htmlFor="current">
               Senha atual (a inicial que você recebeu)
             </label>
@@ -74,7 +75,7 @@ export function ChangePasswordPage() {
               onChange={(e) => setForm({ ...form, current: e.target.value })}
               autoComplete="current-password"
             />
-          </div>
+          </div>}
           <div className="input-group">
             <label className="input-label" htmlFor="password">
               Nova senha (mín. 8)

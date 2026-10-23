@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Search, Bus, Clock, MapPin, ChevronRight } from 'lucide-react';
+import { Search, Bus, MapPin, ChevronRight } from 'lucide-react';
 import { api } from '../services/api';
 import { Link } from 'react-router-dom';
+import { searchText } from '../services/lines';
 
 const CATEGORY_LABELS = {
   sede: 'Sede',
@@ -13,22 +14,24 @@ export function LinesPage() {
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState('');
   const [categoria, setCategoria] = useState('');
+  const [error, setError] = useState('');
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
+    let active = true;
+    setLoading(true); setError('');
     api.lines
       .list()
-      .then((d) => setLines(d.data || []))
-      .catch(() => setLines([]))
-      .finally(() => setLoading(false));
-  }, []);
+      .then((d) => { if (active) setLines(Array.isArray(d.data) ? d.data : []); })
+      .catch(() => { if (active) { setLines([]); setError('Não foi possível consultar as linhas. Verifique a conexão e tente novamente.'); } })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [attempt]);
 
   const filtered = lines.filter((l) => {
     const matchQ =
       !q ||
-      l.codigo.toLowerCase().includes(q.toLowerCase()) ||
-      l.nome.toLowerCase().includes(q.toLowerCase()) ||
-      l.origem.toLowerCase().includes(q.toLowerCase()) ||
-      l.destino.toLowerCase().includes(q.toLowerCase());
+      [l.codigo, l.nome, l.origem, l.destino, l.bairro].some(value => searchText(value).includes(searchText(q)));
     const matchCat = !categoria || l.categoria === categoria;
     return matchQ && matchCat;
   });
@@ -36,6 +39,7 @@ export function LinesPage() {
   return (
     <div>
       <h1 className="lines-h1">Linhas de ônibus</h1>
+      {error && <p role="alert">{error} <button onClick={() => setAttempt(value => value + 1)}>Tentar novamente</button></p>}
       <p className="lines-sub">
         Consulte as linhas, horários e trajetos do transporte coletivo de
         Camaçari.
