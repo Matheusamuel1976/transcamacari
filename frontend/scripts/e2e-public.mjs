@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 
 const baseURL = process.env.E2E_BASE_URL || 'http://127.0.0.1:3100';
+const accessURL = process.env.E2E_ACCESS_URL;
 const candidates = [
   join(process.env.PROGRAMFILES || '', 'Google/Chrome/Application/chrome.exe'),
   join(process.env['PROGRAMFILES(X86)'] || '', 'Microsoft/Edge/Application/msedge.exe'),
@@ -18,6 +19,13 @@ mkdirSync(outputDir, { recursive: true });
 const screenshotPath = (name) => fileURLToPath(new URL(name, outputDir));
 const report = { baseURL, checkedAt: new Date().toISOString(), pages: [], errors: [] };
 const browser = await chromium.launch({ executablePath, headless: true });
+
+async function unlockProtectedDeployment(context) {
+  if (!accessURL) return;
+  const accessPage = await context.newPage();
+  await accessPage.goto(accessURL, { waitUntil: 'domcontentloaded' });
+  await accessPage.close();
+}
 
 async function settle(page) {
   await page.waitForLoadState('domcontentloaded');
@@ -42,6 +50,7 @@ async function visit(page, path, selector) {
 }
 
 const desktop = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+await unlockProtectedDeployment(desktop);
 const page = await desktop.newPage();
 observe(page, 'desktop');
 
@@ -95,6 +104,7 @@ const mobile = await browser.newContext({
   isMobile: true,
   reducedMotion: 'reduce',
 });
+await unlockProtectedDeployment(mobile);
 const mobilePage = await mobile.newPage();
 observe(mobilePage, 'mobile');
 await visit(mobilePage, '/', 'main');
