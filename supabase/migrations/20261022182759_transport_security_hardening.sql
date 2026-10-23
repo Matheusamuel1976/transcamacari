@@ -83,4 +83,3 @@ USING (publicado = true AND visivel = 1);
 -- authenticated profile SELECT no longer throws 42P17; operator cannot change role;
 -- ten published lines and schedules remain readable; admin CRUD works with RLS.
 -- Rollback: use a separately captured schema/privileges backup. Do not disable RLS.
-
