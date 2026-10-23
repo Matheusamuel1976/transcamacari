@@ -6,6 +6,7 @@ backend/vendor/
 
 # Build (a Vercel gera a cada deploy)
 frontend/dist/
+frontend/test-results/
 
 # Segredos locais (produção usa variáveis de ambiente)
 **/.env
@@ -13,6 +14,9 @@ frontend/dist/
 
 # Análise local
 graphify-out/
+.impeccable/
+backups/
+.codex/
 
 # Sistema
 .DS_Store
