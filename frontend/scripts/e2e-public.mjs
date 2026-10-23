@@ -119,7 +119,11 @@ observe(mobilePage, 'mobile');
 await visit(mobilePage, '/', 'main');
 await mobilePage.screenshot({ path: screenshotPath('home-mobile.png'), fullPage: true });
 await visit(mobilePage, '/linhas', '.lines-list');
-assert.equal(await mobilePage.locator('.line-card').count(), 10, 'Mobile deve listar dez linhas.');
+assert.equal(
+  await mobilePage.locator('.line-card').count(),
+  expectedLineCount,
+  `Mobile deve listar ${expectedLineCount} linhas vigentes.`,
+);
 await mobilePage.screenshot({ path: screenshotPath('linhas-mobile.png'), fullPage: true });
 await visit(mobilePage, '/login', 'form.auth-card');
 await mobilePage.locator('a[href="/register"]').click();
