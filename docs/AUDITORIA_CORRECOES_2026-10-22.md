@@ -97,7 +97,7 @@ Proposta revisável: [SQL de segurança](sql/proposed-security-hardening.sql), *
 - `docs/sql/proposed-security-hardening.sql`: cópia histórica da proposta aplicada; migração canônica registrada em supabase/migrations/.
 
 ## Testes, revisão e limites
-Resultados finais:
+Resultados da etapa intermediária, preservados como histórico; o estado final está no adendo abaixo:
 
 | Verificação | Resultado |
 |---|---|
@@ -118,7 +118,7 @@ Dependências: Vite e React Router da aplicação foram preservados. Versões in
 
 Revisão independente somente leitura encontrou uma condição de corrida no editor: pontos da linha anterior poderiam ser gravados na nova seleção. Corrigida com limpeza imediata, identificação da linha carregada, bloqueio durante consulta/geração e teste correspondente. Não houve segunda revisão integral nem alegação de ausência de todos os defeitos.
 
-Navegador CUA bloqueou localhost por permissão salva, inclusive após o usuário informar que iria liberar. A liberação efetiva não foi observada; nenhum contorno foi tentado. Não há console/rede capturados no browser local/publicado, screenshots pós-correção, validação desktop/mobile, busca/filtro/manuseio do mapa em navegador real ou criação de conta/login/logout administrativo real. Os testes são DOM simulado e protocolo de dados, não E2E. A captura de tela do usuário foi tratada como evidência visual, não instrução.
+Nesta etapa intermediária, o navegador CUA bloqueou localhost por permissão salva, inclusive após o usuário informar que iria liberar. A liberação efetiva não foi observada e nenhum contorno foi tentado. A validação local posterior com Playwright e Chrome está registrada no adendo; criação de conta, login administrativo e recuperação por e-mail com mutações reais continuam não executados.
 
 Pendências adicionais de migração: AccessManagement ainda depende de api.team ausente; EmployeesManagement usa campos antigos contra profiles; SMTP administrativo depende de api.smtpTest ausente. Não afirmar painel completamente funcional. Substituir essas operações exige contrato administrativo seguro (não usar service_role no frontend); não mascarar criando APIs fictícias nem reativar PHP.
 
