@@ -323,4 +323,3 @@ VALUES (
   metodo_geracao = EXCLUDED.metodo_geracao,
   data_geracao = EXCLUDED.data_geracao,
   erro = EXCLUDED.erro;
-

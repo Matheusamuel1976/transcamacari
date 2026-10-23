@@ -1,11 +1,11 @@
 /**
  * Gerador de rotas geometricas - Salva resultados em JSON para insercao via SQL Editor
- * 
+ *
  * O OSRM conseguiu calcular todas as rotas. A insercao no Supabase falhou porque
  * a politica RLS de route_geometries so permite INSERT para usuarios autenticados
  * com role admin. Como nao temos a chave service_role nem credenciais de admin para
  * autenticacao via API, salvamos os resultados aqui para insercao manual via SQL Editor.
- * 
+ *
  * Execucao: node generate_routes_save_json.js
  */
 
