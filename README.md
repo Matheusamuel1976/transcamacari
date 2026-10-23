@@ -2,6 +2,8 @@
 
 Consulta de linhas, horários e itinerários de ônibus de Camaçari/BA. React 18/Vite/JSX, GSAP, Lenis, Leaflet e Supabase. Backend PHP legado preservado.
 
+Atualização de 2026: [rede, fontes e geografia](docs/REDE_OFICIAL_2026.md) e [plano seguro de publicação](docs/PLANO_PUBLICACAO_REDE_2026.md).
+
 ## Executar
 Em frontend/: npm ci quando necessário; configurar frontend/.env com VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY do projeto existente, depois npm run dev (porta 3000). Nunca usar service_role/chave secreta no frontend. Preservar .env existente e não imprimir valores.
 

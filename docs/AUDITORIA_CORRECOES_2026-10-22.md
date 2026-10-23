@@ -169,3 +169,10 @@ Validação após aplicação:
 - Advisor de RLS desabilitada caiu de nove tabelas para uma, spatial_ref_sys do PostGIS. Tabelas legadas sem políticas aparecem como INFO, coerente com bloqueio intencional. Permanecem avisos de PostGIS, search_path do trigger antigo e proteção contra senhas vazadas. transport_is_admin aparece como SECURITY DEFINER autenticado: uso intencional, retorno booleano baseado em auth.uid(), execução anônima revogada e search_path fixo.
 
 Não houve cadastro real, envio de contato, teste visual, push ou deploy nesta etapa. O frontend publicado permanece anterior às correções locais; a segurança do banco já está ativa. Testar criação real de conta e clientes antigos continua necessário antes de declarar o produto integralmente validado.
+# Adendo de 23/10/2026 - rede oficial preparada localmente
+
+A página de itinerários da STT e o PDF institucional de agosto de 2026 substituem, como referência documental atual, a premissa de dez linhas S01-S06/O01-O04. Foram preparados 46 códigos, 1.130 horários, separação vigente/histórica, rastreabilidade de fontes e dois candidatos viários estimados para a 0302. Consulte [REDE_OFICIAL_2026.md](REDE_OFICIAL_2026.md).
+
+O Supabase de produção foi consultado somente para auditoria: 13 linhas totais (dez publicadas, três demonstração/manual), 900 horários, 130 locais e 20 geometrias. A única migração registrada continua sendo `20261022182759_transport_security_hardening`. A migração e os imports novos não foram aplicados.
+
+Os advisors atuais também registram alertas preexistentes: tabelas legadas com RLS e sem políticas intencionais, `spatial_ref_sys`/PostGIS no schema público, grants de funções da extensão, índices/políticas com oportunidades de desempenho e proteção de senhas vazadas desabilitada. Nenhum desses itens foi alterado remotamente nesta tarefa.

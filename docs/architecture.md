@@ -1,5 +1,9 @@
 # Arquitetura — 22/10/2026
 
+## Atualização de rede 2026
+
+A transição preparada em 23/10/2026 adiciona rastreabilidade documental sem substituir o modelo existente. `transport_sources` centraliza a fonte; `linhas.situacao_rede` separa `vigente`, `historica`, `temporaria` e `nao_verificada`; horários passam a registrar local de partida e chave idempotente. Pontos podem representar evidência textual sem coordenada, enquanto o frontend continua exigindo coordenadas válidas para mapa e roteamento. Consulte [rede oficial](REDE_OFICIAL_2026.md) e [plano de publicação](PLANO_PUBLICACAO_REDE_2026.md).
+
 > Este inventário antecede as correções funcionais. `transport.js` agora normaliza horários/valida geometrias; a landing consulta horários e geometrias persistidas, recusa coordenadas provisórias e não desenha conexões retas. Auth consulta profiles para autorização, com bloqueio seguro em caso de erro. Estado e restrições em [auditoria](AUDITORIA_CORRECOES_2026-10-22.md).
 
 Base: master, commit `8e5b03545313a299d4e02792cd93271c601fe49a`. Checkout começou limpo em main (`2964ee4`); troca para master conforme orientação. Branches têm diferenças funcionais: não portar mudanças nesta preparação.

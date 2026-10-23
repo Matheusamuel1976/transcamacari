@@ -1,11 +1,19 @@
 # Qualidade e próxima investigação
 
+## Preparação da rede 2026 (23/10/2026)
+
+- Inventário normalizado: 46 códigos e 1.130 horários, com testes de unicidade, validade e classificação.
+- Frontend preparado para separar rede vigente e acervo histórico e agrupar horários por local de partida.
+- Dois candidatos OSRM da linha 0302 são validados como estimados; 45 linhas permanecem sem geometria por falta de sequência operacional suficiente.
+- Migração e imports são artefatos locais. A validação em banco isolado e o E2E com a nova base dependem de autorização para usar um ambiente de ensaio ou aplicar a migração existente.
+- `npm audit` registra quatro dependências afetadas (uma alta e três moderadas): Vite/esbuild no ambiente de desenvolvimento e React Router. As correções oferecidas exigem Vite 8 e React Router 7; nenhuma atualização major foi aplicada sem análise de migração.
+
 ## Estado verificado após a finalização local
 
 | Comando | Resultado atual |
 |---|---|
-| `npm test` | 28/28 aprovados |
-| `npm run test:e2e` | Aprovado: dez linhas, cadastro direto e login→cadastro, desktop e mobile |
+| `npm test` | 37/37 aprovados |
+| `npm run test:e2e` | Produção atual aprovada: dez linhas, cadastro direto e login→cadastro, desktop e mobile; a rede nova aguarda banco isolado e preview autorizados |
 | `npm run build` | Aprovado, Vite 5.4.21 |
 | `npm run lint` | Aprovado: zero erros e zero avisos |
 | `npm audit` | 4 achados: 3 moderados e 1 alto; correções disponíveis somente por majors de Vite/Router |
