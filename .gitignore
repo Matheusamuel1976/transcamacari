@@ -17,6 +17,8 @@ graphify-out/
 .impeccable/
 backups/
 .codex/
+tmp/
+supabase/.temp/
 
 # Sistema
 .DS_Store
