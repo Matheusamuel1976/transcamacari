@@ -4,12 +4,15 @@ import { loadPublicLines, searchText } from '../../services/lines';
 import { DAY_LABELS, formatTime, normalizeSchedules } from '../../services/transport';
 import { Link } from 'react-router-dom';
 
+const RESULTS_STEP = 8;
+
 export function ChapterDescubra() {
   const [lines, setLines] = useState([]);
   const [source, setSource] = useState('loading');
   const [q, setQ] = useState('');
   const [bairro, setBairro] = useState('');
   const [selected, setSelected] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(RESULTS_STEP);
   const load = async () => {
     setSource('loading');
     try {
@@ -56,6 +59,12 @@ export function ChapterDescubra() {
         ),
       ).includes(searchText(q)),
   );
+  const visibleLines = filtered.slice(0, visibleCount);
+  const remaining = Math.max(filtered.length - visibleCount, 0);
+  const nextBatch = Math.min(RESULTS_STEP, remaining);
+  useEffect(() => {
+    setVisibleCount(RESULTS_STEP);
+  }, [q, bairro]);
   const viewMap = (line) => {
     window.dispatchEvent(
       new CustomEvent('transcamacari:line', { detail: { id: line.id } }),
@@ -135,9 +144,9 @@ export function ChapterDescubra() {
             : 'Carregando...'}
         </span>
       </div>
-      <div className="line-finder__results">
+      <div id="line-finder-results" className="line-finder__results">
         {source === 'error' && <p role="alert">Não foi possível consultar as linhas. <button onClick={load}>Tentar novamente</button></p>}
-        {filtered.map((line) => (
+        {visibleLines.map((line) => (
           <article
             key={line.id}
             className={`line-result ${selected === line.id ? 'line-result--open' : ''}`}
@@ -197,6 +206,19 @@ export function ChapterDescubra() {
           </article>
         ))}
       </div>
+      {remaining > 0 && (
+        <button
+          type="button"
+          className="line-finder__more"
+          aria-controls="line-finder-results"
+          aria-expanded={visibleCount > RESULTS_STEP}
+          onClick={() => setVisibleCount(count => count + RESULTS_STEP)}
+        >
+          Ver mais {nextBatch} {nextBatch === 1 ? 'linha' : 'linhas'}
+          <small>{remaining} restantes</small>
+          <ArrowDown size={18} aria-hidden="true" />
+        </button>
+      )}
       {source !== 'loading' && filtered.length === 0 && (
         <div className="line-finder__empty">
           <h3>Nenhuma linha encontrada.</h3>

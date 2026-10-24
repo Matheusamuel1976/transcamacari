@@ -69,7 +69,15 @@ const essentialHidden = await page.locator('main h1, main h2, main a, main butto
   }).map((node) => node.textContent?.trim()).filter(Boolean),
 );
 assert.deepEqual(essentialHidden, [], `Elementos essenciais apagados: ${essentialHidden.join(', ')}`);
+await page.waitForSelector('.line-result', { state: 'visible', timeout: 10000 });
+assert.equal(await page.locator('.line-result').count(), 8, 'A landing deve começar com oito linhas.');
 await page.screenshot({ path: screenshotPath('home-desktop.png'), fullPage: true });
+while (await page.locator('.line-finder__more').count()) {
+  const before = await page.locator('.line-result').count();
+  await page.locator('.line-finder__more').click();
+  assert((await page.locator('.line-result').count()) > before, 'Ver mais linhas não revelou novos resultados.');
+}
+assert.equal(await page.locator('.line-result').count(), expectedLineCount, 'Todas as linhas devem permanecer acessíveis após expansão.');
 
 await visit(page, '/linhas', '.lines-list');
 const cards = page.locator('.line-card');
@@ -80,11 +88,17 @@ await page.locator('.lines-search input').fill('');
 const detailPaths = await cards.evaluateAll((nodes) => nodes.map((node) => new URL(node.href).pathname));
 assert.equal(new Set(detailPaths).size, expectedLineCount, 'Os links das linhas vigentes devem ser únicos.');
 
-for (const path of detailPaths) {
+for (const [detailIndex, path] of detailPaths.entries()) {
   await visit(page, path, '.line-detail-title');
   assert((await page.locator('.line-detail-time').count()) > 0, `${path} não exibiu horários úteis.`);
   const mapStatus = await page.locator('.line-detail-map p[role="status"]').innerText();
   assert(/Trajeto|dados do mapa/i.test(mapStatus), `${path} não informou o estado geográfico.`);
+  if (detailIndex === 0) await page.screenshot({ path: screenshotPath('line-detail-desktop.png'), fullPage: true });
+  if (detailIndex === 0 && await page.locator('.line-detail-times-toggle').count()) {
+    const before = await page.locator('.line-detail-time').count();
+    await page.locator('.line-detail-times-toggle').first().click();
+    assert((await page.locator('.line-detail-time').count()) > before, `${path} não expandiu os horários.`);
+  }
 }
 
 if (expectedHistoricalCount != null) {
@@ -122,6 +136,8 @@ await unlockProtectedDeployment(mobile);
 const mobilePage = await mobile.newPage();
 observe(mobilePage, 'mobile');
 await visit(mobilePage, '/', 'main');
+await mobilePage.waitForSelector('.line-result', { state: 'visible', timeout: 10000 });
+assert.equal(await mobilePage.locator('.line-result').count(), 8, 'Mobile deve começar com oito linhas na landing.');
 await mobilePage.screenshot({ path: screenshotPath('home-mobile.png'), fullPage: true });
 await visit(mobilePage, '/linhas', '.lines-list');
 assert.equal(

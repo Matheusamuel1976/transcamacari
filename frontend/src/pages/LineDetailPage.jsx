@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import L from 'leaflet';
-import { MapPin, AlertCircle, ChevronLeft } from 'lucide-react';
+import { MapPin, AlertCircle, ChevronDown, ChevronLeft, ChevronUp } from 'lucide-react';
 import { api } from '../services/api';
 import { Link } from 'react-router-dom';
 import { DAY_LABELS, leafletRoute, normalizeSchedules, ROUTE_NOTICE, validPoint } from '../services/transport';
@@ -9,6 +9,8 @@ import { DAY_LABELS, leafletRoute, normalizeSchedules, ROUTE_NOTICE, validPoint 
 const CENTER = [-12.6975, -38.3242];
 
 const CATEGORY_LABELS = DAY_LABELS;
+const SCHEDULE_PREVIEW_SIZE = 12;
+const ITINERARY_PREVIEW_SIZE = 5;
 
 export function LineDetailPage() {
   const { id } = useParams();
@@ -26,6 +28,8 @@ export function LineDetailPage() {
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
 const [activeTab, setActiveTab] = useState('uteis');
+const [expandedScheduleGroups, setExpandedScheduleGroups] = useState({});
+const [itineraryExpanded, setItineraryExpanded] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -146,6 +150,20 @@ const [activeTab, setActiveTab] = useState('uteis');
     groups[departure].push(schedule);
     return groups;
   }, {});
+  const directionPoints = points
+    .filter(point => point.sentido === direction)
+    .sort((a, b) => a.ordem - b.ordem);
+  const visibleDirectionPoints = itineraryExpanded
+    ? directionPoints
+    : directionPoints.slice(0, ITINERARY_PREVIEW_SIZE);
+
+  useEffect(() => {
+    setExpandedScheduleGroups({});
+  }, [activeTab]);
+
+  useEffect(() => {
+    setItineraryExpanded(false);
+  }, [direction]);
 
   return (
     <div>
@@ -187,8 +205,20 @@ const [activeTab, setActiveTab] = useState('uteis');
               <div ref={mapEl} className="line-detail-map-canvas" />
               <p role="status">{mapError || (leafletRoute(route, points.filter(point => point.sentido === direction)).length ? ROUTE_NOTICE : 'Trajeto indisponível: coordenadas provisórias ou geometria aguardando validação.')}</p>
               <h2>Itinerário — {direction}</h2>
-              <ol>{points.filter(point => point.sentido === direction).sort((a, b) => a.ordem - b.ordem).map(point => <li key={point.id}>{point.nome}{point.geocoding_source === 'estimated' || point.grau_confirmacao === 'estimado_com_evidencias' ? ' (localização estimada com evidências)' : ''}</li>)}</ol>
-              {!points.some(point => point.sentido === direction) && <p>Itinerário não disponível para este sentido.</p>}
+              <ol id="line-detail-itinerary" className="line-detail-itinerary">{visibleDirectionPoints.map(point => <li key={point.id}>{point.nome}{point.geocoding_source === 'estimated' || point.grau_confirmacao === 'estimado_com_evidencias' ? ' (localização estimada com evidências)' : ''}</li>)}</ol>
+              {directionPoints.length > ITINERARY_PREVIEW_SIZE && (
+                <button
+                  type="button"
+                  className="line-detail-disclosure line-detail-itinerary-toggle"
+                  aria-controls="line-detail-itinerary"
+                  aria-expanded={itineraryExpanded}
+                  onClick={() => setItineraryExpanded(value => !value)}
+                >
+                  {itineraryExpanded ? <ChevronUp size={17} aria-hidden="true" /> : <ChevronDown size={17} aria-hidden="true" />}
+                  {itineraryExpanded ? 'Mostrar menos' : `Ver itinerário completo · ${directionPoints.length} locais`}
+                </button>
+              )}
+              {!directionPoints.length && <p>Itinerário não disponível para este sentido.</p>}
             </div>
             <div className="line-detail-schedules">
               <h2 className="line-detail-section-title">Horários</h2>
@@ -209,16 +239,34 @@ const [activeTab, setActiveTab] = useState('uteis');
                     Sem horários cadastrados para esta categoria.
                   </p>
                 ) : (
-                  Object.entries(scheduleGroups).map(([departure, values]) => (
-                    <section key={departure || 'geral'} className="line-detail-departure">
-                      {departure && <h3>Saída: {departure}</h3>}
-                      <div className="line-detail-times-grid">
-                        {values.map((h) => (
-                          <span key={h.id ?? h.chave_fonte} className="line-detail-time">{h.horario}</span>
-                        ))}
-                      </div>
-                    </section>
-                  ))
+                  Object.entries(scheduleGroups).map(([departure, values], groupIndex) => {
+                    const groupKey = departure || 'geral';
+                    const expanded = Boolean(expandedScheduleGroups[groupKey]);
+                    const visibleValues = expanded ? values : values.slice(0, SCHEDULE_PREVIEW_SIZE);
+                    const groupId = `line-detail-times-${groupIndex}`;
+                    return (
+                      <section key={groupKey} className="line-detail-departure">
+                        {departure && <h3>Saída: {departure}</h3>}
+                        <div id={groupId} className="line-detail-times-grid">
+                          {visibleValues.map((h) => (
+                            <span key={h.id ?? h.chave_fonte} className="line-detail-time">{h.horario}</span>
+                          ))}
+                        </div>
+                        {values.length > SCHEDULE_PREVIEW_SIZE && (
+                          <button
+                            type="button"
+                            className="line-detail-disclosure line-detail-times-toggle"
+                            aria-controls={groupId}
+                            aria-expanded={expanded}
+                            onClick={() => setExpandedScheduleGroups(current => ({ ...current, [groupKey]: !expanded }))}
+                          >
+                            {expanded ? <ChevronUp size={17} aria-hidden="true" /> : <ChevronDown size={17} aria-hidden="true" />}
+                            {expanded ? 'Mostrar menos' : `Ver todos os horários · ${values.length}`}
+                          </button>
+                        )}
+                      </section>
+                    );
+                  })
                 )}
               </div>
               {leafletRoute(route, points.filter(point => point.sentido === direction)).length > 0 && (
@@ -255,6 +303,10 @@ const [activeTab, setActiveTab] = useState('uteis');
         .line-detail-departure h3{font-size:var(--font-size-sm);color:var(--color-gray-700);margin:0 0 var(--space-2)}
         .line-detail-times-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:var(--space-2)}
         .line-detail-time{display:inline-block;padding:var(--space-2) var(--space-4);background:rgb(26 35 126 / 0.05);color:var(--color-petroleum-dark);border-radius:var(--radius-md);font-size:var(--font-size-sm);font-weight:600;text-align:center}
+        .line-detail-itinerary{margin-bottom:var(--space-3)}
+        .line-detail-disclosure{display:inline-flex;align-items:center;gap:var(--space-2);margin-top:var(--space-3);padding:var(--space-2) 0;color:var(--color-petroleum);font-size:var(--font-size-sm);font-weight:650;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+        .line-detail-disclosure:hover{color:var(--color-petroleum-dark)}
+        .line-detail-disclosure:focus-visible{outline:2px solid var(--color-petroleum);outline-offset:4px;border-radius:2px}
         .line-detail-no-times{color:var(--color-gray-500);font-style:italic}
         .line-detail-route-notice{display:flex;align-items:center;gap:var(--space-2);margin-top:var(--space-4);padding:var(--space-3);background:rgb(26 35 126 / 0.05);border:1px solid rgb(26 35 126 / 0.1);border-radius:var(--radius-md);font-size:var(--font-size-xs);color:var(--color-petroleum)}
         .line-detail-route-notice AlertCircle{color:var(--color-petroleum)}

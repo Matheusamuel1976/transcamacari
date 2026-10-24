@@ -375,6 +375,32 @@ section[id] {
   align-items: center;
   font-size: 14px;
 }
+.line-finder__more {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 22px 0;
+  color: #1a237e;
+  font-size: 14px;
+  font-weight: 650;
+  border-bottom: 1px solid #c9cfdd;
+  transition: color 0.2s, background 0.2s;
+}
+.line-finder__more small {
+  color: #5a5a5a;
+  font-size: 11px;
+  font-weight: 400;
+}
+.line-finder__more:hover {
+  color: #12175c;
+  background: #e4e7ef;
+}
+.line-finder__more:focus-visible {
+  outline: 2px solid #1a237e;
+  outline-offset: 4px;
+}
 .line-finder__empty {
   padding: 45px 0;
 }

@@ -22,7 +22,12 @@ test.each(fixtures)('$line.codigo: horários e itinerários reais renderizam sem
   await mount(fixture.line.id);
   expect(container.querySelector('h1').textContent).toBe(fixture.line.nome);
   expect(container.querySelector('.line-detail-time')).not.toBeNull();
-  expect(container.querySelectorAll('ol li').length).toBe(fixture.points.filter(p => p.sentido === 'ida').length);
+  const idaCount = fixture.points.filter(p => p.sentido === 'ida').length;
+  expect(container.querySelectorAll('ol li').length).toBe(Math.min(idaCount, 5));
+  if (idaCount > 5) {
+    await act(async () => container.querySelector('.line-detail-itinerary-toggle').click());
+    expect(container.querySelectorAll('ol li').length).toBe(idaCount);
+  }
   for (const tab of container.querySelectorAll('.line-detail-tab')) await act(async () => tab.click());
   expect(container.querySelector('.line-detail-times')).not.toBeNull();
 });

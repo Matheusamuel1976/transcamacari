@@ -6,7 +6,8 @@
 - Supabase recebeu as migrações `restore_company_employee_access` e `fix_company_access_pgcrypto_schema`, após backup e ensaio transacional com rollback.
 - Produção preserva 10 empresas, 4 perfis, 59 linhas e 2.030 horários. O catálogo contém 56 linhas públicas (46 vigentes e visíveis) e as 3 linhas manuais permanecem privadas.
 - Cadastro de **Empresa** e **Funcionário**, gestão de convites, aprovação, suspensão e atribuições privadas estão publicados. Catálogo municipal e linhas empresariais usam escopos e políticas RLS distintos.
-- Validação final: 42 testes Vitest, lint, build e `git diff --check` aprovados. O E2E passou no preview e na produção com 55 navegações, 46 linhas vigentes, todos os detalhes de horários, os dois tipos de cadastro, desktop e mobile.
+- Validação final: 45 testes Vitest, lint, build e `git diff --check` aprovados. O E2E passou no preview e na produção com 55 navegações, 46 linhas vigentes, todos os detalhes de horários, os dois tipos de cadastro, desktop e mobile.
+- A landing page agora apresenta 8 linhas por vez; os detalhes mostram inicialmente até 12 horários por grupo e 5 locais do itinerário, com controles acessíveis para revelar ou recolher o conteúdo completo.
 - Fluxos RPC reais foram exercitados em transações reversíveis: criação empresarial, código com hash, vínculo pendente, rejeição de código inválido, aprovação idempotente, atribuições e rotação do convite. Nenhum usuário, empresa ou convite de teste permaneceu no banco.
 - Confirmação por e-mail não foi completada com uma caixa postal real. Não se desabilitou confirmação nem se alteraram tabelas internas de Auth para fabricar esse resultado.
 - Geometrias continuam sujeitas à evidência descrita em [pesquisa geográfica](PESQUISA_GEOGRAFICA_2026-10-22.md); ausência de fonte confiável não autoriza apresentar um caminho estimado como oficial.
