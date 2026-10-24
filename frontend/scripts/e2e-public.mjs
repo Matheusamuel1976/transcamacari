@@ -78,6 +78,14 @@ while (await page.locator('.line-finder__more').count()) {
   assert((await page.locator('.line-result').count()) > before, 'Ver mais linhas não revelou novos resultados.');
 }
 assert.equal(await page.locator('.line-result').count(), expectedLineCount, 'Todas as linhas devem permanecer acessíveis após expansão.');
+await page.waitForSelector('.map-lines li', { state: 'visible', timeout: 10000 });
+assert.equal(await page.locator('.map-lines li').count(), 6, 'O mapa deve começar com seis linhas na barra lateral.');
+while (await page.locator('.map-lines-more').count()) {
+  const before = await page.locator('.map-lines li').count();
+  await page.locator('.map-lines-more').click();
+  assert((await page.locator('.map-lines li').count()) > before, 'Ver mais linhas no mapa não revelou novos resultados.');
+}
+assert.equal(await page.locator('.map-lines li').count(), expectedLineCount, 'Todas as linhas do mapa devem permanecer acessíveis após expansão.');
 
 await visit(page, '/linhas', '.lines-list');
 const cards = page.locator('.line-card');

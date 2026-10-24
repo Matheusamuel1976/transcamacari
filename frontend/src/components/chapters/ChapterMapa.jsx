@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { Search, Crosshair, Expand, X, ArrowUpRight } from 'lucide-react';
+import { Search, Crosshair, Expand, X, ArrowUpRight, ChevronDown } from 'lucide-react';
 import { loadPublicLines, searchText } from '../../services/lines';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { ROUTE_NOTICE } from '../../services/transport';
 
 const center = [-12.6975, -38.3242];
+const MAP_RESULTS_STEP = 6;
 
 export function ChapterMapa() {
   const canvas = useRef(null);
@@ -16,6 +17,7 @@ export function ChapterMapa() {
   const [source, setSource] = useState('loading');
   const [attempt, setAttempt] = useState(0);
   const [q, setQ] = useState('');
+  const [visibleCount, setVisibleCount] = useState(MAP_RESULTS_STEP);
   const [selectedId, setSelectedId] = useState(null);
   const [locating, setLocating] = useState(false);
   const [error, setError] = useState('');
@@ -23,6 +25,13 @@ export function ChapterMapa() {
   const reduced = useReducedMotion();
   const selected = lines.find((line) => String(line.id) === String(selectedId));
   const filtered = lines.filter((line) => searchText(`${line.code} ${line.name} ${line.bairro}`).includes(searchText(q)));
+  const visibleLines = filtered.slice(0, visibleCount);
+  const remaining = Math.max(filtered.length - visibleCount, 0);
+  const nextBatch = Math.min(MAP_RESULTS_STEP, remaining);
+
+  useEffect(() => {
+    setVisibleCount(MAP_RESULTS_STEP);
+  }, [q]);
 
   useEffect(() => {
     const map = L.map(canvas.current, {
@@ -220,8 +229,8 @@ export function ChapterMapa() {
           </p>
           {source === 'error' && <p role="alert">Não foi possível consultar as linhas. <button onClick={() => setAttempt(value => value + 1)}>Tentar novamente</button></p>}
           {source === 'live' && lines.length > 0 && !lines.some(line => line.routePoints?.length) && <p className="map-message" role="status">Os itinerários estão cadastrados, mas suas coordenadas ainda precisam de validação. Nenhum percurso confiável está disponível para exibição.</p>}
-          <ul className="map-lines">
-            {filtered.map((line) => (
+          <ul id="map-lines-list" className="map-lines">
+            {visibleLines.map((line) => (
               <li key={line.id}>
                 <button
                   aria-pressed={String(selectedId) === String(line.id)}
@@ -246,6 +255,18 @@ export function ChapterMapa() {
               </li>
             ))}
           </ul>
+          {remaining > 0 && (
+            <button
+              type="button"
+              className="map-lines-more"
+              aria-controls="map-lines-list"
+              aria-expanded={visibleCount > MAP_RESULTS_STEP}
+              onClick={() => setVisibleCount(count => count + MAP_RESULTS_STEP)}
+            >
+              Ver mais {nextBatch} {nextBatch === 1 ? 'linha' : 'linhas'}
+              <ChevronDown size={15} aria-hidden="true" />
+            </button>
+          )}
           {!filtered.length && (
             <p className="map-message">
               {lines.length
