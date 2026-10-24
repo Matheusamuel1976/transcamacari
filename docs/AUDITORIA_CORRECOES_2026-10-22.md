@@ -1,5 +1,18 @@
 # Auditoria e correções — TransCamaçari, 22/10/2026
 
+## Atualização final de produção — 23/10/2026
+
+O estado descrito na auditoria abaixo é histórico. As correções foram integradas sem reescrita de histórico e publicadas em `master` e `main` na revisão `551d236`. O deployment de produção `dpl_CozUiCvCj7f1KFGjMpE4GLWCNUxv` ficou `READY` e `https://transcamacari.vercel.app` foi associado à mesma revisão.
+
+- **A — animações/visibilidade: CORRIGIDO.** E2E e capturas de produção validaram desktop, mobile e movimento reduzido; nenhum conteúdo essencial permaneceu invisível. O texto “em movimento.” usa azul legível.
+- **B — horários: CORRIGIDO.** O E2E percorreu as 46 linhas vigentes e todos os detalhes, com horários úteis e sem exceção de página ou erro de console.
+- **C — trajetos: PARCIALMENTE CORRIGIDO.** O frontend só apresenta geometrias persistidas e identificadas como estimadas. A pesquisa não fornece sequência operacional suficiente para validar todas as linhas; não foram inventados percursos.
+- **D — cadastro: CORRIGIDO no produto e no banco.** As abas Empresa/Funcionário estão em produção. RPCs, RLS, pendência, aprovação, isolamento entre empresas e atribuições foram validados em transações com rollback. Confirmação por e-mail real não foi executada sem uma caixa postal controlada.
+
+Estado final verificado: 42 testes Vitest, lint e build aprovados; E2E aprovado no preview e na produção com 55 navegações; 10 empresas, 4 perfis, 59 linhas e 2.030 horários preservados; 56 linhas públicas e 3 privadas. As migrações `restore_company_employee_access` e `fix_company_access_pgcrypto_schema` constam no histórico remoto. O backup anterior está fora do Git em `C:\Users\freeb\.codex\backups\transcamacari-company-access-20261023\before.json`.
+
+Persistem avisos independentes: `spatial_ref_sys`/PostGIS, proteção contra senhas vazadas desabilitada, políticas permissivas sobrepostas e índices antigos. Eles não foram alterados automaticamente porque exigem avaliação própria ou configuração externa.
+
 ## Estado da entrega
 **Entrega parcial; não declarar finalização funcional nem publicar ainda.** Correções locais e testes foram implementados. Permanecem bloqueios de validação visual e coordenadas de itinerário. A remediação de RLS/perfis foi autorizada e aplicada em produção em 22/10/2026, conforme adendo abaixo. Nenhum push, deploy ou seed foi executado.
 
