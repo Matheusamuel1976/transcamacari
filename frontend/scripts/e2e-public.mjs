@@ -86,6 +86,11 @@ while (await page.locator('.map-lines-more').count()) {
   assert((await page.locator('.map-lines li').count()) > before, 'Ver mais linhas no mapa não revelou novos resultados.');
 }
 assert.equal(await page.locator('.map-lines li').count(), expectedLineCount, 'Todas as linhas do mapa devem permanecer acessíveis após expansão.');
+const teamPhotos = page.locator('.team-photo img');
+assert.equal(await teamPhotos.count(), 5, 'A seção da equipe deve exibir cinco fotografias.');
+await teamPhotos.first().scrollIntoViewIfNeeded();
+await page.waitForFunction(() => Array.from(document.querySelectorAll('.team-photo img')).every(image => image.complete && image.naturalWidth > 0));
+await page.locator('#equipe').screenshot({ path: screenshotPath('team-desktop.png') });
 
 await visit(page, '/linhas', '.lines-list');
 const cards = page.locator('.line-card');
@@ -147,6 +152,10 @@ await visit(mobilePage, '/', 'main');
 await mobilePage.waitForSelector('.line-result', { state: 'visible', timeout: 10000 });
 assert.equal(await mobilePage.locator('.line-result').count(), 8, 'Mobile deve começar com oito linhas na landing.');
 await mobilePage.screenshot({ path: screenshotPath('home-mobile.png'), fullPage: true });
+const mobileTeamPhotos = mobilePage.locator('.team-photo img');
+await mobileTeamPhotos.first().scrollIntoViewIfNeeded();
+await mobilePage.waitForFunction(() => Array.from(document.querySelectorAll('.team-photo img')).every(image => image.complete && image.naturalWidth > 0));
+await mobilePage.locator('#equipe').screenshot({ path: screenshotPath('team-mobile.png') });
 await visit(mobilePage, '/linhas', '.lines-list');
 assert.equal(
   await mobilePage.locator('.line-card').count(),
@@ -159,6 +168,7 @@ await mobilePage.locator('a[href="/register"]').click();
 await mobilePage.waitForURL('**/register');
 await mobilePage.waitForSelector('form.auth-card', { state: 'visible' });
 assert(await mobilePage.locator('#email').isVisible(), 'Cadastro mobile não ficou visível após a transição.');
+await mobilePage.getByRole('tab', { name: 'Empresa' }).click();
 assert(await mobilePage.locator('#company_name').isVisible(), 'Cadastro empresarial mobile não ficou visível.');
 await mobilePage.getByRole('tab', { name: 'Funcionário' }).click();
 assert(await mobilePage.locator('#company_code').isVisible(), 'Cadastro de funcionário mobile não ficou visível.');

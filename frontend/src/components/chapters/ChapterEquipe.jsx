@@ -1,11 +1,11 @@
-import { ArrowUpRight, ImagePlus } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 const team = [
-  { name: 'Keyla Nogueira', initials: 'KN' },
-  { name: 'Leandro', initials: 'LE' },
-  { name: 'Eduardo', initials: 'ED' },
-  { name: 'Matheus Jacinto', initials: 'MJ' },
-  { name: 'Thairan', initials: 'TH' },
+  { name: 'Keyla Nogueira', photo: '/assets/images/team/integrante-01.png' },
+  { name: 'Leandro', photo: '/assets/images/team/integrante-02.png' },
+  { name: 'Eduardo', photo: '/assets/images/team/integrante-03.png' },
+  { name: 'Matheus Jacinto', photo: '/assets/images/team/integrante-04.png' },
+  { name: 'Thairan', photo: '/assets/images/team/integrante-05.png' },
 ];
 
 export function ChapterEquipe() {
@@ -28,8 +28,8 @@ export function ChapterEquipe() {
       <div className="project-team__note" id="desenvolvedores" tabIndex={-1}>
         <h3>Sobre o projeto</h3>
         <p>
-          As fotografias da equipe entram aqui em breve — nenhuma imagem é
-          exibida sem autorização.
+          Conheça a equipe que transformou pesquisa, tecnologia e mobilidade
+          urbana nesta experiência para Camaçari.
         </p>
         <a href="#contato">
           Fale com a equipe <ArrowUpRight size={20} />
@@ -38,15 +38,13 @@ export function ChapterEquipe() {
       <ul className="team-grid" aria-label="Desenvolvedores">
         {team.map((m) => (
           <li key={m.name} className="team-card">
-            <div
-              className="team-photo"
-              role="img"
-              aria-label={`Fotografia de ${m.name} em breve`}
-            >
-              <span aria-hidden="true">{m.initials}</span>
-              <span className="team-photo__hint">
-                <ImagePlus size={16} /> foto em breve
-              </span>
+            <div className="team-photo">
+              <img
+                src={m.photo}
+                alt={`Retrato de ${m.name}`}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <p className="team-name">{m.name}</p>
             <p className="team-role">Equipe TransCamaçari</p>
