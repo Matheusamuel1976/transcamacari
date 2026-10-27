@@ -9,7 +9,7 @@
 - Validação final: 46 testes Vitest, lint, build e `git diff --check` aprovados. O E2E passou no preview e na produção com 55 navegações, 46 linhas vigentes, todos os detalhes de horários, os dois tipos de cadastro, desktop e mobile.
 - A landing page agora apresenta 8 linhas por vez; os detalhes mostram inicialmente até 12 horários por grupo e 5 locais do itinerário, com controles acessíveis para revelar ou recolher o conteúdo completo.
 - A lista lateral do mapa apresenta 6 linhas por vez, e códigos longos reservam largura suficiente em desktop e mobile sem invadir o nome da linha.
-- A seção da equipe exibe as cinco fotografias fornecidas na sequência numérica dos arquivos, com texto alternativo, carregamento adiado e recorte responsivo.
+- A seção da equipe exibe as cinco fotografias fornecidas com a associação nominal confirmada, texto alternativo, carregamento adiado e recorte responsivo.
 - Fluxos RPC reais foram exercitados em transações reversíveis: criação empresarial, código com hash, vínculo pendente, rejeição de código inválido, aprovação idempotente, atribuições e rotação do convite. Nenhum usuário, empresa ou convite de teste permaneceu no banco.
 - Confirmação por e-mail não foi completada com uma caixa postal real. Não se desabilitou confirmação nem se alteraram tabelas internas de Auth para fabricar esse resultado.
 - Geometrias continuam sujeitas à evidência descrita em [pesquisa geográfica](PESQUISA_GEOGRAFICA_2026-10-22.md); ausência de fonte confiável não autoriza apresentar um caminho estimado como oficial.

@@ -12,10 +12,10 @@ test('associa as cinco fotografias aos integrantes na sequência informada', asy
 
   const photos = Array.from(container.querySelectorAll('.team-photo img'));
   expect(photos.map(photo => new URL(photo.src).pathname)).toEqual([
-    '/assets/images/team/integrante-01.png',
     '/assets/images/team/integrante-02.png',
-    '/assets/images/team/integrante-03.png',
+    '/assets/images/team/integrante-01.png',
     '/assets/images/team/integrante-04.png',
+    '/assets/images/team/integrante-03.png',
     '/assets/images/team/integrante-05.png',
   ]);
   expect(photos.map(photo => photo.alt)).toEqual([

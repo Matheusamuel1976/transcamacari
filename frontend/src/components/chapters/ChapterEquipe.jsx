@@ -1,10 +1,10 @@
 import { ArrowUpRight } from 'lucide-react';
 
 const team = [
-  { name: 'Keyla Nogueira', photo: '/assets/images/team/integrante-01.png' },
-  { name: 'Leandro', photo: '/assets/images/team/integrante-02.png' },
-  { name: 'Eduardo', photo: '/assets/images/team/integrante-03.png' },
-  { name: 'Matheus Jacinto', photo: '/assets/images/team/integrante-04.png' },
+  { name: 'Keyla Nogueira', photo: '/assets/images/team/integrante-02.png' },
+  { name: 'Leandro', photo: '/assets/images/team/integrante-01.png' },
+  { name: 'Eduardo', photo: '/assets/images/team/integrante-04.png' },
+  { name: 'Matheus Jacinto', photo: '/assets/images/team/integrante-03.png' },
   { name: 'Thairan', photo: '/assets/images/team/integrante-05.png' },
 ];
 
