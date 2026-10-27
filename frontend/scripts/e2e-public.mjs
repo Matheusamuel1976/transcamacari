@@ -6,6 +6,13 @@ import { chromium } from 'playwright-core';
 
 const baseURL = process.env.E2E_BASE_URL || 'http://127.0.0.1:3100';
 const accessURL = process.env.E2E_ACCESS_URL;
+const trustedOidcToken = process.env.VERCEL_OIDC_TOKEN;
+const contextOptions = (options = {}) => ({
+  ...options,
+  ...(trustedOidcToken ? {
+    extraHTTPHeaders: { 'x-vercel-trusted-oidc-idp-token': trustedOidcToken },
+  } : {}),
+});
 const expectedLineCount = Number(process.env.E2E_EXPECTED_LINE_COUNT || 46);
 const expectedHistoricalCount = process.env.E2E_EXPECTED_HISTORICAL_COUNT
   ? Number(process.env.E2E_EXPECTED_HISTORICAL_COUNT)
@@ -53,7 +60,7 @@ async function visit(page, path, selector) {
   report.pages.push(path);
 }
 
-const desktop = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const desktop = await browser.newContext(contextOptions({ viewport: { width: 1440, height: 900 } }));
 await unlockProtectedDeployment(desktop);
 const page = await desktop.newPage();
 observe(page, 'desktop');
@@ -93,6 +100,16 @@ await page.waitForFunction(() => Array.from(document.querySelectorAll('.team-pho
 await page.locator('#equipe').screenshot({ path: screenshotPath('team-desktop.png') });
 
 await visit(page, '/linhas', '.lines-list');
+const catalogSpacing = await page.evaluate(() => ({
+  headingTop: document.querySelector('.lines-h1')?.getBoundingClientRect().top ?? 0,
+  navbarBottom: document.querySelector('.navbar')?.getBoundingClientRect().bottom ?? 0,
+}));
+assert(
+  catalogSpacing.headingTop >= catalogSpacing.navbarBottom,
+  'O menu fixo não deve encobrir o título do catálogo.',
+);
+assert.equal(await page.locator('#lines-search').getAttribute('aria-label'), 'Buscar linhas');
+assert.equal(await page.locator('label[for="lines-category"]').count(), 1);
 const cards = page.locator('.line-card');
 assert.equal(await cards.count(), expectedLineCount, `A consulta pública deve listar ${expectedLineCount} linhas vigentes.`);
 await page.locator('.lines-search input').fill('Arembepe');
@@ -140,11 +157,11 @@ assert(await page.locator('#email').isVisible(), 'Transição login→cadastro o
 report.pages.push('/login→/register');
 await desktop.close();
 
-const mobile = await browser.newContext({
+const mobile = await browser.newContext(contextOptions({
   viewport: { width: 390, height: 844 },
   isMobile: true,
   reducedMotion: 'reduce',
-});
+}));
 await unlockProtectedDeployment(mobile);
 const mobilePage = await mobile.newPage();
 observe(mobilePage, 'mobile');

@@ -107,4 +107,5 @@ Navegador: inventário CUA respondeu; acesso a localhost foi negado pelo control
 - O mapa não exibe mais “0 locais” como informação útil: usa um estado de atualização quando o itinerário detalhado não está disponível.
 - Fotografias da equipe mantêm carregamento tardio e agora reservam dimensões para evitar deslocamento de layout.
 - Verificação local: 48 testes aprovados, lint sem erros/avisos, build aprovado e `git diff --check` aprovado. O navegador do Codex negou acesso ao `127.0.0.1:3100` por permissão salva; a confirmação visual local ficou bloqueada sem tentativa de contorno.
+- Preview Vercel protegido validado pelo link temporário oficial: E2E público aprovado em 55 navegações, cobrindo 46 linhas, detalhes/horários, cadastro, login, mapa e responsividade; relatório sem erros de console. O harness também aceita o token OIDC efêmero da Vercel sem persistir credenciais.
 - O detector Impeccable manteve três apontamentos já avaliados: faixa lateral intencional da identidade visual, transição de `max-height` em estilo inativo e tipografia editorial deliberada. Nenhum deles representa falha funcional.
