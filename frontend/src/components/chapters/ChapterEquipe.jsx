@@ -44,6 +44,8 @@ export function ChapterEquipe() {
                 alt={`Retrato de ${m.name}`}
                 loading="lazy"
                 decoding="async"
+                width="1024"
+                height="1024"
               />
             </div>
             <p className="team-name">{m.name}</p>

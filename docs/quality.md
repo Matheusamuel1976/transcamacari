@@ -97,3 +97,14 @@ Navegador: inventário CUA respondeu; acesso a localhost foi negado pelo control
 - Validação local: 42 testes Vitest aprovados, lint sem erros e build aprovado. E2E real dos novos fluxos depende de banco com a migração e contas de teste autorizadas.
 - Aviso conhecido: `public.spatial_ref_sys` é reportada pelo Supabase sem RLS. Por ser tabela da extensão PostGIS, não foi alterada nesta migração funcional.
 - Backup anterior preparado em `C:\Users\freeb\.codex\backups\transcamacari-company-access-20261023\before.json`, SHA-256 `AA63D98C538F84A8BBDB3B50912DF7F31E845D119300548A6991AECCF2888CC9`.
+# Revisão Impeccable de UI/UX — 27/10/2026
+
+- Corrigido o recuo das páginas `/linhas`, `/linhas/historico` e detalhes sob a navegação fixa.
+- Busca e filtro do catálogo agora têm nomes e associações acessíveis; controles do mapa, Leaflet e links principais atendem ao alvo mínimo de 44 px.
+- Contraste do rodapé e dos links de autenticação foi elevado; textos auxiliares pequenos foram ampliados.
+- A preferência de movimento reduzido deixou de cancelar indiscriminadamente toda transição; os componentes animados mantêm alternativas específicas.
+- A seção de tecnologia agora documenta Supabase JS 2, PostgreSQL/RLS e Supabase Auth, além de descrever corretamente as geometrias persistidas.
+- O mapa não exibe mais “0 locais” como informação útil: usa um estado de atualização quando o itinerário detalhado não está disponível.
+- Fotografias da equipe mantêm carregamento tardio e agora reservam dimensões para evitar deslocamento de layout.
+- Verificação local: 48 testes aprovados, lint sem erros/avisos, build aprovado e `git diff --check` aprovado. O navegador do Codex negou acesso ao `127.0.0.1:3100` por permissão salva; a confirmação visual local ficou bloqueada sem tentativa de contorno.
+- O detector Impeccable manteve três apontamentos já avaliados: faixa lateral intencional da identidade visual, transição de `max-height` em estilo inativo e tipografia editorial deliberada. Nenhum deles representa falha funcional.

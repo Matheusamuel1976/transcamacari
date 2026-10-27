@@ -229,12 +229,13 @@ function AppContent() {
   const { pathname } = useLocation();
   const isDashboard =
     pathname.startsWith('/dashboard') || pathname === '/minhas-linhas';
+  const isCatalog = pathname.startsWith('/linhas');
   return (
     <>
       <ScrollManager />
       <TransitionOverlay />
       {!isDashboard && <Navbar />}
-      <main id="main-content" className="main-content">
+      <main id="main-content" className={`main-content${isCatalog ? ' main-content--catalog' : ''}`}>
         <ErrorBoundary key={pathname}><AppRoutes /></ErrorBoundary>
       </main>
       <style>{`
@@ -242,6 +243,7 @@ function AppContent() {
         .loading-spinner{width:48px;height:48px;border:3px solid rgba(26,35,126,.3);border-top-color:var(--color-petroleum-light);border-radius:50%;animation:spin 1s linear infinite}
         @keyframes spin{to{transform:rotate(360deg)}}
         .main-content{min-height:100vh}
+        .main-content--catalog{width:100%;max-width:var(--container-max);margin:0 auto;padding:calc(var(--header-height) + var(--space-10)) var(--container-padding) var(--space-16)}
       `}</style>
     </>
   );

@@ -37,7 +37,7 @@ export function LinesPage({ historical = false }) {
   });
 
   return (
-    <div>
+    <div className="lines-page">
       <h1 className="lines-h1">{historical ? 'Acervo histórico' : 'Linhas de ônibus'}</h1>
       {error && <p role="alert">{error} <button onClick={() => setAttempt(value => value + 1)}>Tentar novamente</button></p>}
       <p className="lines-sub">
@@ -51,15 +51,18 @@ export function LinesPage({ historical = false }) {
         <div className="lines-search">
           <Search size={18} />
           <input
+            id="lines-search"
             className="input-field"
+            aria-label="Buscar linhas"
             placeholder="Buscar por código, nome, origem ou destino..."
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
         </div>
         <div className="lines-filter">
-          <label className="filter-label">Categoria</label>
+          <label className="filter-label" htmlFor="lines-category">Categoria</label>
           <select
+            id="lines-category"
             className="input-field select-field"
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
@@ -125,7 +128,7 @@ export function LinesPage({ historical = false }) {
         .line-bairro{font-weight:500;color:var(--color-gray-700)}
         .lines-loading{color:var(--color-gray-500);padding:var(--space-8)}
         .lines-empty{display:flex;flex-direction:column;align-items:center;gap:var(--space-3);color:var(--color-gray-500);padding:var(--space-8)}
-        @media(max-width:640px){.lines-search input{width:200px}}
+        @media(max-width:640px){.lines-toolbar,.lines-search,.lines-filter{width:100%}.lines-search input,.lines-filter select{width:100%}}
       `}</style>
     </div>
   );

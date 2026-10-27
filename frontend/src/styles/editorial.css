@@ -450,6 +450,8 @@ section[id] {
 }
 .map-actions button {
   padding: 12px;
+  min-width: 44px;
+  min-height: 44px;
   background: #e4e7ef;
   color: #1a237e;
   display: flex;
@@ -465,8 +467,14 @@ section[id] {
   cursor: wait;
 }
 .map-source {
-  font-size: 11px;
+  font-size: 12px;
   color: #12175c;
+}
+.leaflet-bar a,
+.leaflet-touch .leaflet-bar a {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
 }
 .map-lines {
   display: flex;

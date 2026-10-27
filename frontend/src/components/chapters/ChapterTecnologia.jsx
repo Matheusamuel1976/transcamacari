@@ -4,12 +4,12 @@ const stack = [
   ['React 18', 'Interface e rotas'],
   ['Vite 5', 'Build e desenvolvimento'],
   ['React Router 6', 'Navegação'],
+  ['Supabase JS 2', 'Dados e integração'],
+  ['PostgreSQL + RLS', 'Persistência e autorização'],
+  ['Supabase Auth', 'Contas e sessões'],
   ['Leaflet + OpenStreetMap', 'Mapa interativo'],
   ['GSAP + ScrollTrigger', 'Movimento e reveals'],
   ['Lenis', 'Rolagem suave'],
-  ['PHP 8.3 MVC', 'API e regras de negócio'],
-  ['MySQL + PDO', 'Persistência'],
-  ['PHPMailer', 'Contato via SMTP'],
   ['Lucide', 'Iconografia'],
 ];
 
@@ -31,8 +31,8 @@ export function ChapterTecnologia() {
           <div>
             <h3>Planeje seu deslocamento</h3>
             <p>
-              Consulte os horários informados pelas empresas. Confirme
-              alterações de operação diretamente com o responsável pela linha.
+              Consulte os horários cadastrados para a rede municipal. Confirme
+              alterações operacionais com o responsável pela linha.
             </p>
           </div>
         </article>
@@ -41,9 +41,9 @@ export function ChapterTecnologia() {
           <div>
             <h3>Entenda o percurso</h3>
             <p>
-              O mapa conecta os pontos cadastrados. As linhas tracejadas são
-              conexões visuais, sem cálculo de rota viária ou rastreamento de
-              ônibus.
+              O mapa exibe geometrias persistidas que acompanham a malha viária
+              quando há dados suficientes. Percursos estimados permanecem
+              identificados e sujeitos a validação; não há rastreamento em tempo real.
             </p>
           </div>
         </article>

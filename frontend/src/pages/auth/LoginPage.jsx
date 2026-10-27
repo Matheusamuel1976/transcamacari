@@ -121,7 +121,7 @@ export function LoginPage() {
       <style>{`
         .auth-wrap{min-height:100vh;background:linear-gradient(135deg,#1A237E 0%,#12175C 70%);padding:calc(var(--header-height) + var(--space-10)) 0 var(--space-16);color:#F5F5F5}
         .auth-grid{display:grid;gap:var(--space-10);align-items:center;align-content:center;min-height:calc(100svh - 260px)}
-        .auth-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#4E59AC}
+        .auth-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-auth-muted)}
         .auth-visual h1{font-family:var(--font-display);font-size:clamp(2.6rem,6vw,4.6rem);line-height:1;letter-spacing:-.035em;color:#F5F5F5;margin:18px 0 8px}
         .auth-visual h1 em{font-style:normal;color:#4E59AC}
         .auth-route{width:100%;max-width:520px;height:auto;margin:30px 0 10px;overflow:visible}
@@ -136,9 +136,9 @@ export function LoginPage() {
         .auth-card .input-field:focus{border-color:#4E59AC;box-shadow:0 0 0 3px rgba(26,35,126,.25)}
         .auth-card .btn-accent{background:#1A237E;border-color:#1A237E;color:#F5F5F5}
         .auth-card .btn-accent:hover:not(:disabled){background:#12175C;border-color:#12175C}
-        .auth-alt{font-size:var(--font-size-sm);color:#8A93C9}
-        .auth-alt a{color:#4E59AC;font-weight:600}
-        .auth-alt a:hover{color:#1A237E}
+        .auth-alt{font-size:var(--font-size-sm);color:var(--color-auth-muted)}
+        .auth-alt a,.auth-alt button{display:inline-flex;align-items:center;min-height:44px;color:var(--color-auth-muted);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+        .auth-alt a:hover,.auth-alt button:hover{color:var(--color-white)}
         @media(min-width:900px){.auth-grid{grid-template-columns:1fr 1.08fr;gap:clamp(40px,6vw,96px)}}
         @media(max-width:899px){.auth-route{max-width:340px}.auth-card{max-width:none;justify-self:stretch;padding:32px 24px}.auth-grid{min-height:0}}
       `}</style>

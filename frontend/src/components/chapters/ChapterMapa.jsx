@@ -247,7 +247,10 @@ export function ChapterMapa() {
                   <span>
                     {line.name}
                     <small>
-                      {line.locais?.filter(point => point.sentido === 'ida').length ?? line.points.length} locais no itinerário
+                      {(() => {
+                        const places = line.locais?.filter(point => point.sentido === 'ida').length ?? line.points.length;
+                        return places > 0 ? `${places} locais no itinerário` : 'Itinerário detalhado em atualização';
+                      })()}
                     </small>
                   </span>
                   <ArrowUpRight size={15} />

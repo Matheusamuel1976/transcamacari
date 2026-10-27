@@ -25,6 +25,7 @@ test('associa as cinco fotografias aos integrantes na sequência informada', asy
     'Retrato de Matheus Jacinto',
     'Retrato de Thairan',
   ]);
+  expect(photos.every(photo => photo.width === 1024 && photo.height === 1024)).toBe(true);
 
   await act(async () => root.unmount());
   container.remove();
