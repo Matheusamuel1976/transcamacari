@@ -57,7 +57,7 @@ test('detalhe público exige linha publicada e pertencente ao catálogo', async 
   expect(calls).toContainEqual(['eq', 'id', 42]);
   expect(calls).toContainEqual(['eq', 'escopo_acesso', 'catalogo_publico']);
   expect(calls).toContainEqual(['eq', 'publicado', true]);
-  expect(calls).toContainEqual(['eq', 'visivel', true]);
+  expect(calls).toContainEqual(['eq', 'visivel', 1]);
 });
 
 test('serviço não oferece mais consulta global de linhas', async () => {

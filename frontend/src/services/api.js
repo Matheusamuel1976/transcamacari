@@ -42,7 +42,7 @@ export const api = {
         .eq('id', id)
         .eq('escopo_acesso', 'catalogo_publico')
         .eq('publicado', true)
-        .eq('visivel', true)
+        .eq('visivel', 1)
         .single();
       if (error) throw error;
       return { data };
@@ -69,7 +69,7 @@ export const api = {
       if (error) throw error;
       const ids = (assignments || []).map((item) => item.linha_id);
       if (!ids.length) return { data: [] };
-      const result = await supabase.from('linhas').select('*').in('id', ids).eq('escopo_acesso', 'empresa_privada').eq('visivel', true).order('codigo');
+      const result = await supabase.from('linhas').select('*').in('id', ids).eq('escopo_acesso', 'empresa_privada').eq('visivel', 1).order('codigo');
       if (result.error) throw result.error;
       return { data: result.data };
     },
