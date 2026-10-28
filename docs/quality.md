@@ -118,3 +118,12 @@ Navegador: inventário CUA respondeu; acesso a localhost foi negado pelo control
 - Verificação local: 48 testes aprovados, lint sem erros/avisos, build aprovado e `git diff --check` aprovado. O navegador do Codex negou acesso ao `127.0.0.1:3100` por permissão salva; a confirmação visual local ficou bloqueada sem tentativa de contorno.
 - Preview Vercel protegido validado pelo link temporário oficial: E2E público aprovado em 55 navegações, cobrindo 46 linhas, detalhes/horários, cadastro, login, mapa e responsividade; relatório sem erros de console. O harness também aceita o token OIDC efêmero da Vercel sem persistir credenciais.
 - O detector Impeccable manteve três apontamentos já avaliados: faixa lateral intencional da identidade visual, transição de `max-height` em estilo inativo e tipografia editorial deliberada. Nenhum deles representa falha funcional.
+
+# Planos empresariais e marca — 28/10/2026
+
+- A landing ganhou uma seção editorial de planos empresariais, com faixas mensais e anuais, indicação de dois meses grátis e CTAs para o cadastro de empresa.
+- Menu desktop/mobile e rodapé passaram a oferecer o atalho “Planos”. O símbolo e o ponto da marca usam `#FF6D00`; o CTA circular “Encontre sua linha” usa texto branco e o favicon recebeu versionamento de cache.
+- Nenhuma divulgação de aplicativo, checkout, integração financeira ou alteração de dados foi adicionada.
+- Cobertura automatizada adicionada para conteúdo, alternância de cobrança, acessibilidade, navegação, marca, contraste e ausência de divulgação de aplicativo. O E2E também verifica a seção em desktop/mobile e ausência de overflow horizontal.
+- Detector Impeccable executado uma vez após as alterações visuais: zero apontamentos.
+- Verificação local: 61 testes Vitest aprovados, lint sem erros/avisos, build aprovado, `git diff --check` aprovado e E2E público aprovado em 56 navegações com 46 linhas, desktop e mobile.

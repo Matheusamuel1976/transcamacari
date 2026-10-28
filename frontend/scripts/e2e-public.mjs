@@ -78,6 +78,40 @@ const essentialHidden = await page.locator('main h1, main h2, main a, main butto
 assert.deepEqual(essentialHidden, [], `Elementos essenciais apagados: ${essentialHidden.join(', ')}`);
 await page.waitForSelector('.line-result', { state: 'visible', timeout: 10000 });
 assert.equal(await page.locator('.line-result').count(), 8, 'A landing deve começar com oito linhas.');
+await page.locator('a[href="/#planos"]').first().click();
+await page.waitForSelector('#planos', { state: 'visible' });
+assert.equal(await page.getByText('R$ 60–100').count(), 1, 'O preço mensal básico deve estar visível.');
+await page.getByRole('button', { name: /Anual/ }).click();
+assert.equal(await page.getByText('R$ 600–1.000').count(), 1, 'O preço anual básico deve estar visível.');
+assert.equal(await page.getByText('2 meses grátis').count(), 1, 'A economia anual deve estar informada.');
+assert.equal(
+  await page.locator('#planos a[href="/register?tipo=empresa"]').count(),
+  2,
+  'Os dois planos devem direcionar ao cadastro empresarial.',
+);
+await page.locator('#planos a[href="/register?tipo=empresa"]').first().click();
+await page.waitForURL('**/register?tipo=empresa');
+await page.waitForSelector('#company_name', { state: 'visible' });
+await visit(page, '/', 'main');
+await page.waitForSelector('.line-result', { state: 'visible', timeout: 10000 });
+const brandColors = await page.evaluate(() => ({
+  symbol: getComputedStyle(document.querySelector('.navbar__brand > svg')).color,
+  dot: getComputedStyle(document.querySelector('.navbar__dot')).color,
+  lineCta: getComputedStyle(document.querySelector('.hero__find')).color,
+}));
+assert.equal(brandColors.symbol, 'rgb(255, 109, 0)', 'O símbolo da marca deve usar laranja.');
+assert.equal(brandColors.dot, 'rgb(255, 109, 0)', 'O ponto da marca deve usar laranja.');
+assert.equal(brandColors.lineCta, 'rgb(245, 245, 245)', 'O CTA de linha deve usar texto branco.');
+assert.match(
+  await page.locator('link[rel="icon"]').getAttribute('href'),
+  /favicon\.svg\?v=orange-2026$/,
+  'O favicon deve invalidar o cache anterior.',
+);
+assert.equal(
+  await page.getByText(/mobi bahia|Google Play|App Store/i).count(),
+  0,
+  'A landing não deve divulgar um aplicativo inexistente.',
+);
 await page.screenshot({ path: screenshotPath('home-desktop.png'), fullPage: true });
 while (await page.locator('.line-finder__more').count()) {
   const before = await page.locator('.line-result').count();
@@ -168,6 +202,14 @@ observe(mobilePage, 'mobile');
 await visit(mobilePage, '/', 'main');
 await mobilePage.waitForSelector('.line-result', { state: 'visible', timeout: 10000 });
 assert.equal(await mobilePage.locator('.line-result').count(), 8, 'Mobile deve começar com oito linhas na landing.');
+await mobilePage.locator('#planos').scrollIntoViewIfNeeded();
+assert.equal(
+  await mobilePage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+  true,
+  'A landing mobile não deve produzir rolagem horizontal.',
+);
+await mobilePage.getByRole('button', { name: /Anual/ }).click();
+assert.equal(await mobilePage.getByText('R$ 1.200–2.000+').count(), 1, 'O preço anual avançado deve aparecer no mobile.');
 await mobilePage.screenshot({ path: screenshotPath('home-mobile.png'), fullPage: true });
 const mobileTeamPhotos = mobilePage.locator('.team-photo img');
 await mobileTeamPhotos.first().scrollIntoViewIfNeeded();

@@ -30,6 +30,9 @@ export function Footer() {
           <TransitionLink to="/" hash="mapa">
             Mapa
           </TransitionLink>
+          <TransitionLink to="/" hash="planos">
+            Planos
+          </TransitionLink>
           <TransitionLink to="/" hash="equipe">
             Equipe
           </TransitionLink>

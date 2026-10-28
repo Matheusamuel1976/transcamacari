@@ -6,6 +6,7 @@ import { ChapterCaminhos } from '../components/chapters/ChapterCaminhos';
 import { ChapterDescubra } from '../components/chapters/ChapterDescubra';
 import { ChapterMapa } from '../components/chapters/ChapterMapa';
 import { ChapterTecnologia } from '../components/chapters/ChapterTecnologia';
+import { ChapterPlanos } from '../components/chapters/ChapterPlanos';
 import { ChapterEquipe } from '../components/chapters/ChapterEquipe';
 import { Footer } from '../components/Footer';
 
@@ -20,6 +21,7 @@ export function LandingPage() {
       <ChapterDescubra />
       <ChapterMapa />
       <ChapterTecnologia />
+      <ChapterPlanos />
       <ChapterEquipe />
       <Footer />
     </div>
