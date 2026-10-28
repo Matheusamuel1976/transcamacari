@@ -8,7 +8,7 @@ A correção troca consultas genéricas por contratos de contexto, restringe nav
 
 A migração `20261028_isolate_public_company_operations.sql` está preparada e não aplicada. Ela preserva 56 linhas públicas, três privadas, 14 empresas e perfis existentes; força escrita empresarial para escopo privado/não publicado, valida empresa e atribuição nas tabelas filhas, recusa códigos expirados e impede UPDATE direto de `role`, `status` e `company_id`.
 
-Evidência local: 55 testes aprovados, lint e build aprovados. O E2E público local ficou limitado pela ausência deliberada das variáveis públicas do Supabase neste checkout. Não houve escrita remota, push ou deploy.
+Evidência final: 55 testes aprovados, lint e build aprovados. O primeiro E2E publicado revelou que `visivel` é `smallint` no banco real; o filtro foi corrigido de `true` para `1` sem alterar dados. O hotfix passou no E2E de produção com 55 navegações, 46 linhas vigentes, desktop e mobile. `master`, `main` e Vercel foram atualizados; a migração Supabase não foi aplicada.
 
 ## Atualização final de produção — 23/10/2026
 
