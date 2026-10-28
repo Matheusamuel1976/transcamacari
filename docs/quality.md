@@ -1,5 +1,14 @@
 # Qualidade e próxima investigação
 
+## Isolamento de catálogo e empresas — 28/10/2026
+
+- O frontend usa contratos separados para catálogo administrativo (`listPublicAdmin`), empresa (`listCompany`), detalhe público (`getPublic`) e atribuições de funcionário (`assigned`). Não há mais `listAll`.
+- Navegação e guards separam `admin`, `company_admin` e `funcionario`; empresas não recebem controles de publicação municipal e o mapa empresarial consulta somente linhas privadas.
+- O convite empresarial mostra empresa, referência interna, código temporário, validade, cópia, rotação e acesso direto ao cadastro de funcionário. O código não é colocado na URL.
+- A migração local `20261028_isolate_public_company_operations.sql` força rotas empresariais a privadas e não publicadas, restringe RLS por papel/empresa/atribuição, expira códigos em 30 dias e limita a edição do perfil ao nome por RPC. **Não aplicada ao Supabase.**
+- Verificação local: 55 testes Vitest aprovados, lint sem erros/avisos, build aprovado e `git diff --check` aprovado. O E2E local iniciou, mas não pôde carregar dados porque este checkout não contém `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY`; nenhuma credencial foi inventada ou copiada.
+- Próxima investigação: revisar/aplicar a migração em ambiente autorizado e executar a matriz RLS e os fluxos reais com contas controladas antes de push ou deploy.
+
 ## Estado publicado em 23/10/2026
 
 - GitHub `master` e `main`, preview e produção Vercel foram alinhados à revisão `551d236`.

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Trash2,
   Check,
@@ -9,6 +9,8 @@ import {
   History,
 } from 'lucide-react';
 import { api } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
+import { TransitionLink } from '../../motion/TransitionLink';
 
 const ACTION_LABELS = {
   'auth.login': 'entrou',
@@ -111,6 +113,7 @@ export function AuditList() {
 }
 
 export function AccessManagement() {
+  const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [pending, setPending] = useState([]);
   const [lines, setLines] = useState([]);
@@ -121,28 +124,31 @@ export function AccessManagement() {
   const [assignSel, setAssignSel] = useState([]);
   const [approveSel, setApproveSel] = useState({});
   const [msg, setMsg] = useState({ type: '', text: '' });
+  const [company, setCompany] = useState(null);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
-      const [u, p, l, inv] = await Promise.all([
+      const [u, p, l, inv, companyResult] = await Promise.all([
         api.team.users(),
         api.team.pending(),
-        api.lines.listPrivate(),
+        api.lines.listCompany(),
         api.team.invite(),
+        user.company_id ? api.company.get(user.company_id) : Promise.resolve({ data: null }),
       ]);
       setUsers(u.data || []);
       setPending(p.data || []);
       setLines(l.data || []);
       setInvite(inv.code || '');
       setInviteExp(inv.expires_at || '');
+      setCompany(companyResult.data);
     } catch (err) {
       setMsg({ type: 'error', text: err.message });
     }
-  };
+  }, [user.company_id]);
   useEffect(() => {
     if (!api.capabilities.teamManagement) return undefined;
     load();
-  }, []);
+  }, [load]);
 
   if (!api.capabilities.teamManagement) {
     return (
@@ -236,12 +242,12 @@ export function AccessManagement() {
 
       <section className="card access__block">
         <h2>
-          <KeyRound size={18} /> Código da empresa
+          <KeyRound size={18} /> Adicionar funcionário
         </h2>
+        <p><strong>{company?.nome || 'Sua empresa'}</strong> <span className="access__reference">Referência interna #{company?.id || user.company_id}</span></p>
         <p className="access__hint">
-          Compartilhe com quem deve se cadastrar como funcionário. Quem se
-          cadastra com o código entra na fila de aprovação abaixo.
-          {inviteExp && <span className="access__exp"> Código temporário ativo.</span>}
+          Compartilhe o código temporário. O funcionário abre o cadastro, informa o código e aguarda sua aprovação e atribuição de linhas.
+          {inviteExp && <span className="access__exp"> Válido até {new Date(inviteExp).toLocaleString('pt-BR')}.</span>}
         </p>
         <div className="access__invite">
           <code>{invite || 'Gere um novo código para compartilhar'}</code>
@@ -264,6 +270,7 @@ export function AccessManagement() {
             <RefreshCw size={16} /> Novo código
           </button>
         </div>
+        <TransitionLink className="btn btn-primary" to="/register?tipo=funcionario">Abrir cadastro de funcionário</TransitionLink>
       </section>
 
       <section className="card access__block">

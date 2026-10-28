@@ -3,7 +3,7 @@ import { api } from '../../services/api';
 import { AccessManagement, AuditList } from './AccessManagement';
 
 export function EmployeesManagement() {
-  const [tab, setTab] = useState('perfis');
+  const [tab, setTab] = useState('acessos');
   const [profiles, setProfiles] = useState([]);
   const [state, setState] = useState('loading');
 

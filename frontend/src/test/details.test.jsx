@@ -5,7 +5,7 @@ import { afterEach, expect, test, vi } from 'vitest';
 import fixtures from './fixtures/public-transport.json';
 import { LineDetailPage } from '../pages/LineDetailPage';
 
-const apiMock = vi.hoisted(() => ({ lines: { get: vi.fn(), pontos: vi.fn() }, horarios: { list: vi.fn() }, routes: { forLine: vi.fn() } }));
+const apiMock = vi.hoisted(() => ({ lines: { getPublic: vi.fn(), pontos: vi.fn() }, horarios: { list: vi.fn() }, routes: { forLine: vi.fn() } }));
 vi.mock('../services/api', () => ({ api: apiMock }));
 let root, container;
 afterEach(async () => { if (root) await act(async () => root.unmount()); container?.remove(); });
@@ -15,7 +15,7 @@ async function mount(id) {
 }
 
 test.each(fixtures)('$line.codigo: horários e itinerários reais renderizam sem tela branca', async fixture => {
-  apiMock.lines.get.mockResolvedValue({ data: fixture.line });
+  apiMock.lines.getPublic.mockResolvedValue({ data: fixture.line });
   apiMock.lines.pontos.mockResolvedValue({ data: fixture.points });
   apiMock.horarios.list.mockResolvedValue({ data: fixture.schedules });
   apiMock.routes.forLine.mockResolvedValue({ data: [] });
@@ -33,17 +33,17 @@ test.each(fixtures)('$line.codigo: horários e itinerários reais renderizam sem
 });
 
 test('falha de consulta mostra erro e permite recuperação sem recarregar o aplicativo', async () => {
-  apiMock.lines.get.mockRejectedValueOnce(new Error('Falha de rede')).mockRejectedValueOnce(new Error('Falha de rede'));
+  apiMock.lines.getPublic.mockRejectedValueOnce(new Error('Falha de rede')).mockRejectedValueOnce(new Error('Falha de rede'));
   apiMock.horarios.list.mockResolvedValue({ data: [] }); apiMock.routes.forLine.mockResolvedValue({ data: [] }); apiMock.lines.pontos.mockResolvedValue({ data: [] });
   await mount(8);
   expect(container.textContent).toContain('Falha de rede');
-  apiMock.lines.get.mockResolvedValue({ data: fixtures[0].line });
+  apiMock.lines.getPublic.mockResolvedValue({ data: fixtures[0].line });
   await act(async () => container.querySelector('button').click());
   expect(container.querySelector('h1')).not.toBeNull();
 });
 
 test('horários oficiais distinguem o local de partida e categorias documentadas', async () => {
-  apiMock.lines.get.mockResolvedValue({ data: { ...fixtures[0].line, situacao_rede: 'vigente' } });
+  apiMock.lines.getPublic.mockResolvedValue({ data: { ...fixtures[0].line, situacao_rede: 'vigente' } });
   apiMock.lines.pontos.mockResolvedValue({ data: [] });
   apiMock.routes.forLine.mockResolvedValue({ data: [] });
   apiMock.horarios.list.mockResolvedValue({ data: [

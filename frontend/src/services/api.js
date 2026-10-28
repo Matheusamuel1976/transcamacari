@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+import { readCompanyInvite, saveCompanyInvite } from './companyInvite';
 
 const unwrap = ({ data, error }) => {
   if (error) throw error;
@@ -34,24 +35,28 @@ export const api = {
       if (error) throw error;
       return { data };
     },
-    get: async (id) => {
+    getPublic: async (id) => {
       const { data, error } = await supabase
         .from('linhas')
         .select('*, fonte:transport_sources(*)')
         .eq('id', id)
+        .eq('escopo_acesso', 'catalogo_publico')
+        .eq('publicado', true)
+        .eq('visivel', true)
         .single();
       if (error) throw error;
       return { data };
     },
-    listAll: async () => {
+    listPublicAdmin: async () => {
       const { data, error } = await supabase
         .from('linhas')
         .select('*')
+        .eq('escopo_acesso', 'catalogo_publico')
         .order('codigo');
       if (error) throw error;
       return { data };
     },
-    listPrivate: async () => {
+    listCompany: async () => {
       const { data, error } = await supabase.from('linhas').select('*').eq('escopo_acesso', 'empresa_privada').order('codigo');
       if (error) throw error;
       return { data };
@@ -64,7 +69,7 @@ export const api = {
       if (error) throw error;
       const ids = (assignments || []).map((item) => item.linha_id);
       if (!ids.length) return { data: [] };
-      const result = await supabase.from('linhas').select('*').in('id', ids).eq('escopo_acesso', 'empresa_privada').order('codigo');
+      const result = await supabase.from('linhas').select('*').in('id', ids).eq('escopo_acesso', 'empresa_privada').eq('visivel', true).order('codigo');
       if (result.error) throw result.error;
       return { data: result.data };
     },
@@ -171,10 +176,10 @@ export const api = {
       if (error) throw error;
       return { data };
     },
-    invite: async () => ({ code: sessionStorage.getItem('transcamacari-company-code') || '' }),
+    invite: async () => readCompanyInvite(),
     regenerateInvite: async () => {
       const data = unwrap(await supabase.rpc('rotate_company_invite'));
-      if (data?.code) sessionStorage.setItem('transcamacari-company-code', data.code);
+      saveCompanyInvite(data);
       return data;
     },
     approve: async (id, lineIds) => {
@@ -203,6 +208,14 @@ export const api = {
   onboarding: {
     completeCompany: async (companyName) => unwrap(await supabase.rpc('complete_company_registration', { company_name: companyName })),
     requestMembership: async (companyCode) => unwrap(await supabase.rpc('request_employee_membership', { company_code: companyCode })),
+  },
+
+  company: {
+    get: async (id) => {
+      const { data, error } = await supabase.from('companies').select('id,nome').eq('id', id).single();
+      if (error) throw error;
+      return { data };
+    },
   },
 
   smtpTest: () => Promise.reject(new Error('O teste SMTP ainda não está configurado.')),

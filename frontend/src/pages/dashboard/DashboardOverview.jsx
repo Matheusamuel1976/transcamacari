@@ -18,7 +18,8 @@ export function DashboardOverview() {
   const [error, setError] = useState('');
   useEffect(() => {
     let alive = true;
-    Promise.all([user?.role === 'company_admin' ? api.lines.listPrivate() : api.lines.list(), api.employees.list()])
+    const isCompany = user?.role === 'company_admin';
+    Promise.all([isCompany ? api.lines.listCompany() : api.lines.listPublicAdmin(), isCompany ? api.employees.list() : Promise.resolve({ data: [] })])
       .then(([lines, employees]) => {
         if (!alive) return;
         setStats({
@@ -37,7 +38,7 @@ export function DashboardOverview() {
             'Não foi possível consultar sua operação. Verifique a conexão e tente recarregar.',
           );
       });
-    if (api.capabilities.teamManagement) {
+    if (isCompany && api.capabilities.teamManagement) {
       api.team
         .pending()
         .then((d) => {
@@ -51,14 +52,14 @@ export function DashboardOverview() {
   }, [user?.role]);
   const cards = [
     [Bus, 'Linhas cadastradas', 'linhas'],
-    [Users, 'Funcionários', 'funcionarios'],
+    ...(user?.role === 'company_admin' ? [[Users, 'Funcionários', 'funcionarios']] : []),
     [MapPin, 'Pontos de parada', 'pontos'],
     [Clock, 'Horários cadastrados', 'horarios'],
   ];
   return (
     <div>
-      <h1 className="dash-h1">Sua operação, em perspectiva.</h1>
-      <p className="dash-sub">Organize as conexões que movimentam a cidade.</p>
+      <h1 className="dash-h1">{user?.role === 'company_admin' ? 'Sua operação, em perspectiva.' : 'Catálogo municipal'}</h1>
+      <p className="dash-sub">{user?.role === 'company_admin' ? 'Organize as conexões privadas da sua equipe.' : 'Gerencie as linhas disponíveis para consulta pública.'}</p>
       {error && (
         <p className="alert alert-error" role="alert">
           {error}

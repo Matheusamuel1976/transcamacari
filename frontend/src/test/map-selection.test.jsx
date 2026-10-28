@@ -3,8 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { Simulate } from 'react-dom/test-utils';
 import { expect, test, vi } from 'vitest';
 import { MapPage } from '../pages/dashboard/MapPage';
-const api = vi.hoisted(() => ({ lines: { listAll: vi.fn(async () => ({ data: [{ id: 1, codigo: 'A' }, { id: 2, codigo: 'B' }] })), pontos: vi.fn(), route: vi.fn(async () => ({ data: null })) } }));
+const api = vi.hoisted(() => ({ lines: { listPublicAdmin: vi.fn(async () => ({ data: [{ id: 1, codigo: 'A' }, { id: 2, codigo: 'B' }] })), listCompany: vi.fn(), pontos: vi.fn(), route: vi.fn(async () => ({ data: null })) } }));
 vi.mock('../services/api', () => ({ api }));
+vi.mock('../contexts/AuthContext', () => ({ useAuth: () => ({ user: { role: 'admin' } }) }));
 vi.mock('leaflet', () => {
   const chain = () => ({ addTo() { return this; }, bindTooltip() { return this; }, clearLayers() {}, openTooltip() { return this; } });
   return { default: { map: () => ({ on() {}, remove() {}, invalidateSize() {}, fitBounds() {} }), tileLayer: chain, layerGroup: chain, circleMarker: chain, polyline: chain, latLngBounds: () => ({}), control: { scale: chain } } };

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import { UserPlus, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { TransitionLink as Link } from '../../motion/TransitionLink';
 
 export function RegisterPage() {
+  const [searchParams] = useSearchParams();
   const { register, user, isAuthenticated } = useAuth();
   const [form, setForm] = useState({
     name: '',
@@ -13,7 +14,7 @@ export function RegisterPage() {
     company_name: '',
     company_code: '',
   });
-  const [kind, setKind] = useState('company');
+  const [kind, setKind] = useState(searchParams.get('tipo') === 'funcionario' ? 'employee' : 'company');
   const [error, setError] = useState('');
   const [ok, setOk] = useState('');
   const [loading, setLoading] = useState(false);

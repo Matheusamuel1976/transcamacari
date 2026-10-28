@@ -17,11 +17,11 @@ afterEach(async () => {
   vi.clearAllMocks();
 });
 
-async function mount() {
+async function mount(entry = '/register') {
   container = document.createElement('div');
   document.body.append(container);
   root = createRoot(container);
-  await act(async () => root.render(<MemoryRouter><RegisterPage /></MemoryRouter>));
+  await act(async () => root.render(<MemoryRouter initialEntries={[entry]}><RegisterPage /></MemoryRouter>));
 }
 
 async function change(input, value) {
@@ -41,6 +41,12 @@ test('cadastro oferece fluxos distintos para empresa e funcionário', async () =
   const employeeTab = Array.from(container.querySelectorAll('button')).find((button) => button.textContent === 'Funcionário');
   await act(async () => employeeTab.click());
   expect(container.querySelector('[name="company_code"]')).not.toBeNull();
+});
+
+test('link empresarial abre o cadastro no modo funcionário sem transportar o código', async () => {
+  await mount('/register?tipo=funcionario');
+  expect(container.querySelector('[name="company_code"]')).not.toBeNull();
+  expect(container.querySelector('[name="company_name"]')).toBeNull();
 });
 
 test('cadastro envia apenas o tipo e os dados de onboarding escolhidos', async () => {

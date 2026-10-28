@@ -3,10 +3,12 @@ import L from 'leaflet';
 import { Trash2, Plus, MousePointerClick } from 'lucide-react';
 import { api } from '../../services/api';
 import { leafletRoute, validPoint } from '../../services/transport';
+import { useAuth } from '../../contexts/AuthContext';
 
 const CENTER = [-12.6975, -38.3242];
 
 export function MapPage() {
+  const { user } = useAuth();
   const mapEl = useRef(null);
   const mapRef = useRef(null);
   const layerRef = useRef(null);
@@ -39,13 +41,12 @@ export function MapPage() {
   const requestId = useRef(0);
 
   useEffect(() => {
-    api.lines
-      .listAll()
+    api.lines[user?.role === 'company_admin' ? 'listCompany' : 'listPublicAdmin']()
       .then((d) => setLines(d.data || []))
       .catch(() =>
         setMsg('Não foi possível carregar as linhas.')
       );
-  }, []);
+  }, [user?.role]);
 
   useEffect(() => {
     let active = true;
@@ -200,9 +201,10 @@ export function MapPage() {
 
   return (
     <div>
-      <h1 className="dash-h1">Mapa — rotas e pontos</h1>
+      <h1 className="dash-h1">{user?.role === 'company_admin' ? 'Mapa da empresa' : 'Mapa do catálogo municipal'}</h1>
       <p className="dash-sub">
-        Visualize as trajetórias estimadas pelas ruas. As polilinhas roxas
+        {user?.role === 'company_admin' ? 'Gerencie apenas as rotas privadas da sua empresa. ' : 'Gerencie apenas as rotas públicas exibidas na consulta municipal. '}
+        As polilinhas roxas
         seguem a malha viária; os círculos marcam locais do itinerário.
       </p>
       <button className="btn btn-primary" disabled={!lineId || generating || String(loadedLineId) !== String(lineId)} onClick={generate}>{generating ? 'Calculando…' : 'Gerar e salvar trajeto estimado'}</button>

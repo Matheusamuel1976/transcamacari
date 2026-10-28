@@ -4,7 +4,7 @@ import { afterEach, expect, test, vi } from 'vitest';
 import { LinesManagement } from '../pages/dashboard/LinesManagement';
 
 const service = vi.hoisted(() => ({
-  listAll: vi.fn(async () => ({
+  listPublicAdmin: vi.fn(async () => ({
     data: [
       {
         id: 8,
@@ -19,6 +19,7 @@ const service = vi.hoisted(() => ({
       },
     ],
   })),
+  listCompany: vi.fn(async () => ({ data: [] })),
   update: vi.fn(async () => ({ data: { id: 8 } })),
   schedules: vi.fn(async () => ({
     data: [{ id: 91, categoria: 'uteis', horario: '05:00' }],
@@ -26,11 +27,13 @@ const service = vi.hoisted(() => ({
   removeSchedule: vi.fn(async () => ({ success: true })),
   createSchedule: vi.fn(async () => ({ data: { id: 92 } })),
 }));
+const auth = vi.hoisted(() => ({ user: { role: 'admin', company_id: null } }));
 
 vi.mock('../services/api', () => ({
   api: {
     lines: {
-      listAll: service.listAll,
+      listPublicAdmin: service.listPublicAdmin,
+      listCompany: service.listCompany,
       update: service.update,
       create: vi.fn(),
       remove: vi.fn(),
@@ -43,7 +46,7 @@ vi.mock('../services/api', () => ({
   },
 }));
 vi.mock('../contexts/AuthContext', () => ({
-  useAuth: () => ({ user: { role: 'admin', company_id: null } }),
+  useAuth: () => auth,
 }));
 
 let root;
@@ -53,6 +56,21 @@ afterEach(async () => {
   if (root) await act(async () => root.unmount());
   container?.remove();
   vi.clearAllMocks();
+  auth.user = { role: 'admin', company_id: null };
+});
+
+test('empresa consulta apenas suas linhas e não recebe controle de publicação municipal', async () => {
+  auth.user = { role: 'company_admin', company_id: 14 };
+  container = document.createElement('div');
+  document.body.append(container);
+  root = createRoot(container);
+  await act(async () => root.render(<LinesManagement />));
+  await act(async () => Promise.resolve());
+
+  expect(service.listCompany).toHaveBeenCalledTimes(1);
+  expect(service.listPublicAdmin).not.toHaveBeenCalled();
+  expect(container.textContent).not.toContain('Publicado no catálogo municipal');
+  expect(container.textContent).toContain('Disponível para a equipe');
 });
 
 test('editar linha remove horários existentes e grava usando o ID da linha', async () => {

@@ -7,6 +7,7 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 import { supabase } from '../services/supabase';
+import { saveCompanyInvite } from '../services/companyInvite';
 
 const AuthContext = createContext(null);
 
@@ -60,7 +61,7 @@ export function AuthProvider({ children }) {
         if (metadata.registration_kind === 'company' && metadata.company_name) {
           const onboarding = await supabase.rpc('complete_company_registration', { company_name: metadata.company_name });
           if (!onboarding.error) {
-            if (onboarding.data?.code) sessionStorage.setItem('transcamacari-company-code', onboarding.data.code);
+            saveCompanyInvite(onboarding.data);
             result = await supabase.from('profiles').select('id,name,role,status,company_id').eq('id', identity.id).maybeSingle();
           }
           else setProfileError(onboarding.error.message || 'Não foi possível concluir o cadastro da empresa.');
@@ -124,7 +125,7 @@ export function AuthProvider({ children }) {
 
   const updateUser = useCallback(async (userData) => {
     if (!identity) throw new Error('Entre novamente para atualizar seu perfil.');
-    const profile = await supabase.from('profiles').update({ name: userData.name }).eq('id', identity.id);
+    const profile = await supabase.rpc('update_own_profile_name', { p_name: userData.name });
     if (profile.error) throw profile.error;
     const { data, error } = await supabase.auth.updateUser({
       data: { name: userData.name },

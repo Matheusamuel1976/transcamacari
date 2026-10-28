@@ -16,7 +16,7 @@ const publicLines = Array.from({ length: 10 }, (_, index) => ({
 }));
 
 const apiMock = vi.hoisted(() => ({
-  lines: { get: vi.fn(), pontos: vi.fn() },
+  lines: { getPublic: vi.fn(), pontos: vi.fn() },
   horarios: { list: vi.fn() },
   routes: { forLine: vi.fn() },
 }));
@@ -70,7 +70,7 @@ test('alterar a busca recolhe novamente uma lista extensa', async () => {
 });
 
 test('detalhe mostra prévias de horários e itinerário e permite expandi-las', async () => {
-  apiMock.lines.get.mockResolvedValue({ data: {
+  apiMock.lines.getPublic.mockResolvedValue({ data: {
     id: 1, codigo: 'L01', nome: 'Linha compacta', categoria: 'sede',
     origem: 'Origem', destino: 'Destino', bairro: 'Centro', situacao_rede: 'vigente',
   } });

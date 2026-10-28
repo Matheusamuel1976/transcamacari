@@ -29,7 +29,7 @@ export function LinesManagement() {
 
   const load = useCallback(async () => {
     try {
-      const d = await api.lines.listAll();
+      const d = await api.lines[isCompany ? 'listCompany' : 'listPublicAdmin']();
       const all = d.data || [];
       const filtered = q
         ? all.filter(
@@ -44,7 +44,7 @@ export function LinesManagement() {
     } catch {
       setMsg('Falha ao carregar linhas. Exibindo vazio.');
     }
-  }, [q]);
+  }, [isCompany, q]);
   useEffect(() => {
     load();
   }, [load]);
@@ -81,8 +81,13 @@ export function LinesManagement() {
         destino: form.destino,
         categoria: form.categoria,
         visivel: form.visivel,
-        publicado: form.publicado,
-        ...(isCompany ? { company_id: user.company_id, escopo_acesso: 'empresa_privada' } : {}),
+        ...(isCompany
+          ? {}
+          : {
+              publicado: form.publicado,
+              company_id: null,
+              escopo_acesso: 'catalogo_publico',
+            }),
       };
 
       let lineId = editing;
@@ -243,14 +248,16 @@ export function LinesManagement() {
             />{' '}
             {isCompany ? 'Disponível para a equipe' : 'Visível no site'}
           </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={form.publicado}
-              onChange={(e) => setForm({ ...form, publicado: e.target.checked })}
-            />{' '}
-            {isCompany ? 'Ativa no painel privado' : 'Publicado no catálogo municipal'}
-          </label>
+          {!isCompany && (
+            <label>
+              <input
+                type="checkbox"
+                checked={form.publicado}
+                onChange={(e) => setForm({ ...form, publicado: e.target.checked })}
+              />{' '}
+              Publicado no catálogo municipal
+            </label>
+          )}
           {editing && (
             <button
               type="button"
@@ -300,8 +307,9 @@ export function LinesManagement() {
                 <td>{l.categoria}</td>
                 <td>{l.origem} → {l.destino}</td>
                 <td>
-                  {l.publicado ? 'Publicado' : 'Rascunho'}{' '}
-                  {l.visivel ? '· visível' : '· oculto'}
+                  {isCompany
+                    ? l.visivel ? 'Ativa para a equipe' : 'Inativa para a equipe'
+                    : `${l.publicado ? 'Publicado' : 'Rascunho'} ${l.visivel ? '· visível' : '· oculto'}`}
                 </td>
                 <td className="row-actions">
                   <button

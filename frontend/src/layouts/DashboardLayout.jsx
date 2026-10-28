@@ -32,12 +32,14 @@ export function DashboardLayout({ children }) {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
   const [pendingCount, setPendingCount] = useState(0);
-  const visibleLinks = user?.role === 'company_admin'
-    ? links.filter((link) => link.to !== '/dashboard/mensagens')
-    : links;
+  const visibleLinks = links.filter((link) => {
+    if (link.to === '/dashboard/funcionarios') return user?.role === 'company_admin';
+    if (link.to === '/dashboard/mensagens') return user?.role === 'admin';
+    return true;
+  });
 
   useEffect(() => {
-    if (!api.capabilities.teamManagement) return undefined;
+    if (user?.role !== 'company_admin' || !api.capabilities.teamManagement) return undefined;
     let alive = true;
     api.team
       .pending()
@@ -48,7 +50,7 @@ export function DashboardLayout({ children }) {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [user?.role]);
 
   const adminGo = (e, to) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)

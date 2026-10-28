@@ -1,5 +1,13 @@
 # Arquitetura — 22/10/2026
 
+## Separação operacional — 28/10/2026
+
+O catálogo municipal e a operação empresarial continuam na tabela `linhas`, separados por `escopo_acesso`, `company_id` e RLS. Visitantes leem somente `catalogo_publico` publicado e visível; `admin` administra esse catálogo; `company_admin` administra `empresa_privada` da própria empresa; `funcionario` ativo lê somente linhas privadas visíveis presentes em `profile_line_assignments`.
+
+O frontend representa esses limites com `listPublicAdmin`, `listCompany`, `getPublic` e `assigned`. Horários, itinerários e geometrias herdam o acesso da linha. A migração preparada em `20261028_isolate_public_company_operations.sql` também torna códigos empresariais rotacionáveis válidos por 30 dias e substitui UPDATE direto de perfil por `update_own_profile_name`.
+
+Auditoria somente leitura do projeto existente encontrou 56 linhas públicas, três privadas, 14 empresas e nenhum vínculo em `profile_line_assignments`. A migração desta etapa permanece local; esses totais não foram alterados.
+
 ## Atualização de rede 2026
 
 A transição preparada em 23/10/2026 adiciona rastreabilidade documental sem substituir o modelo existente. `transport_sources` centraliza a fonte; `linhas.situacao_rede` separa `vigente`, `historica`, `temporaria` e `nao_verificada`; horários passam a registrar local de partida e chave idempotente. Pontos podem representar evidência textual sem coordenada, enquanto o frontend continua exigindo coordenadas válidas para mapa e roteamento. Consulte [rede oficial](REDE_OFICIAL_2026.md) e [plano de publicação](PLANO_PUBLICACAO_REDE_2026.md).

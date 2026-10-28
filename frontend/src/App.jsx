@@ -39,9 +39,10 @@ function LoadingScreen() {
 function MembershipState({ status }) {
   const { logout } = useAuth();
   const pending = status === 'pending';
+  const rejected = status === 'rejected';
   return <section className="container" style={{ paddingBlock: '8rem' }} role="status">
-    <h1>{pending ? 'Cadastro aguardando aprovação' : 'Acesso suspenso'}</h1>
-    <p>{pending ? 'O responsável da empresa ainda precisa aprovar seu vínculo e atribuir suas linhas.' : 'Seu acesso ao painel privado foi suspenso pela empresa.'}</p>
+    <h1>{pending ? 'Cadastro aguardando aprovação' : rejected ? 'Cadastro recusado' : 'Acesso suspenso'}</h1>
+    <p>{pending ? 'O responsável da empresa ainda precisa aprovar seu vínculo e atribuir suas linhas.' : rejected ? 'A empresa recusou este pedido de vínculo. Solicite orientação ao responsável antes de tentar novamente.' : 'Seu acesso ao painel privado foi suspenso pela empresa.'}</p>
     <button className="btn btn-primary" onClick={() => logout().catch(() => window.location.reload())}>Sair</button>
   </section>;
 }
@@ -87,9 +88,19 @@ function RequirePlatformAdmin({ children }) {
   return <DashboardLayout><AnimatedPage mode="content">{children}</AnimatedPage></DashboardLayout>;
 }
 
+function RequireCompanyAdmin({ children }) {
+  const { user, isAuthenticated, loading } = useAuth();
+  if (loading) return <LoadingScreen />;
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (user?.role !== 'company_admin') return <Navigate to="/dashboard" replace />;
+  if (needsPasswordChange(user)) return <Navigate to="/trocar-senha" replace />;
+  return <DashboardLayout><AnimatedPage mode="content">{children}</AnimatedPage></DashboardLayout>;
+}
+
 RequireStaff.propTypes = { children: PropTypes.node.isRequired };
 RequireFuncionario.propTypes = { children: PropTypes.node.isRequired };
 RequirePlatformAdmin.propTypes = { children: PropTypes.node.isRequired };
+RequireCompanyAdmin.propTypes = { children: PropTypes.node.isRequired };
 
 function HomeRoute() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -175,9 +186,9 @@ function AppRoutes() {
       <Route
         path="/dashboard/funcionarios"
         element={
-          <RequireStaff>
+          <RequireCompanyAdmin>
             <EmployeesManagement />
-          </RequireStaff>
+          </RequireCompanyAdmin>
         }
       />
       <Route

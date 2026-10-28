@@ -43,7 +43,7 @@ const [itineraryExpanded, setItineraryExpanded] = useState(false);
       try {
         if (!/^\d+$/.test(id)) throw new Error('Identificador de linha inválido. Volte à consulta e escolha uma linha.');
         const [lineRes, horRes, routeRes, pointRes] = await Promise.all([
-          api.lines.get(id),
+          api.lines.getPublic(id),
           api.horarios.list(id),
           api.routes.forLine(id).catch(() => ({ data: [], failed: true })),
           api.lines.pontos(id).catch(() => ({ data: [], failed: true })),

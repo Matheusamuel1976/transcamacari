@@ -1,5 +1,15 @@
 # Auditoria e correções — TransCamaçari, 22/10/2026
 
+## Adendo — isolamento entre catálogo e operação empresarial, 28/10/2026
+
+A causa da mistura no painel era o uso de `api.lines.listAll()` em gestão e mapa. Como a política de leitura também expunha o catálogo publicado a usuários autenticados, a empresa recebia linhas municipais e a interface oferecia ações sobre registros que não pertenciam a ela. O detalhe público também usava uma consulta genérica.
+
+A correção troca consultas genéricas por contratos de contexto, restringe navegação e guards por papel, remove publicação municipal da interface empresarial e mantém funcionários em `assigned(profileId)`. O fluxo de equipe passou a destacar código temporário, validade e cadastro de funcionário sem segredo na URL.
+
+A migração `20261028_isolate_public_company_operations.sql` está preparada e não aplicada. Ela preserva 56 linhas públicas, três privadas, 14 empresas e perfis existentes; força escrita empresarial para escopo privado/não publicado, valida empresa e atribuição nas tabelas filhas, recusa códigos expirados e impede UPDATE direto de `role`, `status` e `company_id`.
+
+Evidência local: 55 testes aprovados, lint e build aprovados. O E2E público local ficou limitado pela ausência deliberada das variáveis públicas do Supabase neste checkout. Não houve escrita remota, push ou deploy.
+
 ## Atualização final de produção — 23/10/2026
 
 O estado descrito na auditoria abaixo é histórico. As correções foram integradas sem reescrita de histórico e publicadas em `master` e `main` na revisão `551d236`. O deployment de produção `dpl_CozUiCvCj7f1KFGjMpE4GLWCNUxv` ficou `READY` e `https://transcamacari.vercel.app` foi associado à mesma revisão.

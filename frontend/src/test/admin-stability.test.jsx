@@ -29,7 +29,7 @@ afterEach(async () => {
 
 test('gestão de equipe exibe convite e aprovações sem exceção', async () => {
   await mount(<AccessManagement />);
-  expect(container.textContent).toContain('Código da empresa');
+  expect(container.textContent).toContain('Adicionar funcionário');
   expect(container.textContent).toContain('Aguardando aprovação');
 });
 
